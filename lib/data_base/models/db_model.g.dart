@@ -17,27 +17,29 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return UserModel(
-      name: fields[0] as String,
-      phoneNumber: fields[1] as String,
-      email: fields[2] as String,
-      password: fields[3] as String,
-      profile: fields[4] as String?,
-    );
+      name: fields[1] as String,
+      phoneNumber: fields[2] as String,
+      email: fields[3] as String,
+      password: fields[4] as String,
+      profile: fields[5] as String?,
+    )..id = fields[0] as int?;
   }
 
   @override
   void write(BinaryWriter writer, UserModel obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
-      ..write(obj.name)
+      ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.phoneNumber)
+      ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.email)
+      ..write(obj.phoneNumber)
       ..writeByte(3)
-      ..write(obj.password)
+      ..write(obj.email)
       ..writeByte(4)
+      ..write(obj.password)
+      ..writeByte(5)
       ..write(obj.profile);
   }
 
@@ -71,6 +73,7 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
       image4: fields[6] as String,
       price: fields[7] as String,
       isFavourite: fields[8] as bool,
+      category: fields[9] as String,
       id: fields[0] as int?,
     );
   }
@@ -78,7 +81,7 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
   @override
   void write(BinaryWriter writer, ProductModel obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -96,7 +99,9 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
       ..writeByte(7)
       ..write(obj.price)
       ..writeByte(8)
-      ..write(obj.isFavourite);
+      ..write(obj.isFavourite)
+      ..writeByte(9)
+      ..write(obj.category);
   }
 
   @override

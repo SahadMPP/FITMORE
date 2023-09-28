@@ -22,9 +22,16 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final _productNameController = TextEditingController();
   final _priceController = TextEditingController();
   final _discriptionController = TextEditingController();
+  String? _productCategory;
 
   @override
   Widget build(BuildContext context) {
+    List<String> categories = [
+      'Nikon',
+      'Sony',
+      'Canon',
+      'Fujifilim',
+    ];
     String dropDownValue = 'Nike';
     return Scaffold(
       backgroundColor: Colors.white,
@@ -160,41 +167,35 @@ class _AddProductScreenState extends State<AddProductScreen> {
           ),
           const SizedBox(height: 15),
           Padding(
-            padding: const EdgeInsets.only(left: 40, right: 40),
-            child: DropdownButtonFormField(
-              decoration: InputDecoration(
-                labelText: 'Catogery',
-                contentPadding: const EdgeInsets.all(20),
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+            padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
+            child: DropdownButtonFormField<String>(
+              value: _productCategory,
+              decoration: const InputDecoration(
+                fillColor: Color(0xABFFFEFE),
+                labelText: 'product category',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
               ),
-              items: [
-                DropdownMenuItem(
-                  value: dropDownValue,
-                  child: const Text('Nike'),
-                ),
-                const DropdownMenuItem<String>(
-                  value: 'Adidas',
-                  child: Text('Adidas'),
-                ),
-                const DropdownMenuItem<String>(
-                  value: 'Puma',
-                  child: Text('Puma'),
-                ),
-                const DropdownMenuItem<String>(
-                  value: 'DC',
-                  child: Text('DC'),
-                ),
-              ],
-              onChanged: (String? newValue) {
+              items: categories.map((String category) {
+                return DropdownMenuItem<String>(
+                  value: category,
+                  child: Text(category),
+                );
+              }).toList(),
+              onChanged: (String? value) {
                 setState(() {
-                  dropDownValue = newValue ?? "Nike";
+                  _productCategory = value!;
                 });
               },
-              value: dropDownValue,
-              style: const TextStyle(
-                color: Colors.black,
-              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please select a category';
+                }
+                return null;
+              },
             ),
           ),
           const SizedBox(height: 15),
@@ -245,7 +246,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   ),
                 ),
                 onPressed: () {
-                  addProductOnbuttenClick();
+                  addProductOnbuttenClick(dropDownValue);
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => const AdminList()));
                 },
@@ -264,7 +265,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     );
   }
 
-  Future<void> addProductOnbuttenClick() async {
+  Future<void> addProductOnbuttenClick(dropDownValue) async {
     final bytes1 = await selectedImage1!.readAsBytes();
     final String base64Image1 = base64Encode(bytes1);
 
@@ -280,6 +281,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     final name = _productNameController.text.trim();
     final price = _priceController.text.trim();
     final discription = _discriptionController.text.trim();
+    final category = _productCategory;
 
     if (name.isEmpty ||
         price.isEmpty ||
@@ -290,7 +292,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         base64Image4.isEmpty) {
       return;
     }
-    // print('$name $price $discription');
+    print('$name $price $discription $category');
 
     final product = ProductModel(
         title: name,
@@ -300,7 +302,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
         image3: base64Image3,
         image4: base64Image4,
         price: price,
-        isFavourite: false);
+        isFavourite: false,
+        category: category!);
 
     addProduct(product);
   }

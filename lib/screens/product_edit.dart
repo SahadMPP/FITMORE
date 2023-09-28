@@ -25,9 +25,14 @@ class _ProductEditState extends State<ProductEdit> {
   late TextEditingController _productNameController;
   late TextEditingController _priceController;
   late TextEditingController _discriptionController;
-
+  String? _productCategory;
   late ProductModel _productModel;
-
+  List<String> categories = [
+    'Nikon',
+    'Sony',
+    'Canon',
+    'Fujifilim',
+  ];
   @override
   void initState() {
     _productNameController = TextEditingController();
@@ -38,7 +43,7 @@ class _ProductEditState extends State<ProductEdit> {
     _productNameController.text = _productModel.title;
     _priceController.text = _productModel.price;
     _discriptionController.text = _productModel.discription;
-
+    _productCategory = _productModel.category;
     super.initState();
   }
 
@@ -53,7 +58,6 @@ class _ProductEditState extends State<ProductEdit> {
 
   @override
   Widget build(BuildContext context) {
-    String dropDownValue = 'Nike';
     final base64Image1 = _productModel.image1;
     final base64Image2 = _productModel.image2;
     final base64Image3 = _productModel.image3;
@@ -198,41 +202,29 @@ class _ProductEditState extends State<ProductEdit> {
             ),
             const SizedBox(height: 15),
             Padding(
-              padding: const EdgeInsets.only(left: 40, right: 40),
-              child: DropdownButtonFormField(
-                decoration: InputDecoration(
-                  labelText: 'Catogery',
-                  contentPadding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
+              child: DropdownButtonFormField<String>(
+                value: _productCategory,
+                decoration: const InputDecoration(
+                  fillColor: Color(0xABFFFEFE),
+                  labelText: 'product category',
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20)),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                  ),
                 ),
-                items: [
-                  DropdownMenuItem(
-                    value: dropDownValue,
-                    child: const Text('Nike'),
-                  ),
-                  const DropdownMenuItem<String>(
-                    value: 'Adidas',
-                    child: Text('Adidas'),
-                  ),
-                  const DropdownMenuItem<String>(
-                    value: 'Puma',
-                    child: Text('Puma'),
-                  ),
-                  const DropdownMenuItem<String>(
-                    value: 'DC',
-                    child: Text('DC'),
-                  ),
-                ],
-                onChanged: (String? newValue) {
+                items: categories.map((String category) {
+                  return DropdownMenuItem<String>(
+                    value: category,
+                    child: Text(category),
+                  );
+                }).toList(),
+                onChanged: (String? value) {
                   setState(() {
-                    dropDownValue = newValue ?? "Nike";
+                    _productCategory = value!;
                   });
                 },
-                value: dropDownValue,
-                style: const TextStyle(
-                  color: Colors.black,
-                ),
               ),
             ),
             const SizedBox(height: 15),
@@ -286,6 +278,7 @@ class _ProductEditState extends State<ProductEdit> {
                     final updateStudent = ProductModel(
                         title: _productNameController.text,
                         discription: _discriptionController.text,
+                        category: _productCategory!,
                         image1: selectedImage1 != null
                             ? base64Encode(selectedImage1!.readAsBytesSync())
                             : _productModel.image1,
