@@ -56,7 +56,7 @@ class Home extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
-                height: 90,
+                height: 100,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   image: const DecorationImage(
