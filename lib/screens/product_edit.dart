@@ -91,7 +91,7 @@ class _ProductEditState extends State<ProductEdit> {
                   pickImageFromGallery1();
                 },
                 child: Container(
-                  height: 150,
+                  height: 140,
                   decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 202, 200, 200),
                       borderRadius: BorderRadius.circular(5)),
