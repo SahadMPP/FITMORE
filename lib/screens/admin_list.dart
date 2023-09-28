@@ -135,6 +135,7 @@ class _AdminListState extends State<AdminList> {
                                                 'asset/download(add image).png')
                                             as ImageProvider<Object>
                                         : MemoryImage(imageBytes),
+                                    fit: BoxFit.fill,
                                   ),
                                 ),
                               ),
@@ -176,7 +177,7 @@ class _AdminListState extends State<AdminList> {
                                             Navigator.of(context)
                                                 .push(MaterialPageRoute(
                                               builder: (context) =>
-                                                  const ProductEdit(),
+                                                  ProductEdit(index),
                                             ));
                                           },
                                           icon: const Icon(

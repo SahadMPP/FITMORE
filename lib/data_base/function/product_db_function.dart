@@ -22,6 +22,21 @@ Future<void> getAllProduct() async {
 Future<void> deleteProduct(id) async {
   final productDB = await Hive.openBox<ProductModel>('product_db');
   productDB.delete(id);
-  print('delete Function');
   getAllProduct();
+}
+
+Future<void> updateProduct(int id, ProductModel value) async {
+  final productDB = await Hive.openBox<ProductModel>('product_db');
+
+  if (productDB.containsKey(id)) {
+    await productDB.put(id, value);
+    int index =
+        productListNotifier.value.indexWhere((product) => product.id == id);
+    if (index != -1) {
+      productListNotifier.value[index] = value;
+      productListNotifier.notifyListeners();
+    }
+  }
+  value.id = id;
+  await productDB.put(id, value);
 }
