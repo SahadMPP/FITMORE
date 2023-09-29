@@ -28,10 +28,10 @@ class _ProductEditState extends State<ProductEdit> {
   String? _productCategory;
   late ProductModel _productModel;
   List<String> categories = [
-    'Nikon',
-    'Sony',
-    'Canon',
-    'Fujifilim',
+    'Nike',
+    'Adiddas',
+    'Puma',
+    'DS',
   ];
   @override
   void initState() {

@@ -27,10 +27,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
   @override
   Widget build(BuildContext context) {
     List<String> categories = [
-      'Nikon',
-      'Sony',
-      'Canon',
-      'Fujifilim',
+      'Nike',
+      'Adiddas',
+      'Puma',
+      'DS',
     ];
     String dropDownValue = 'Nike';
     return Scaffold(
