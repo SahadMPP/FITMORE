@@ -1,3 +1,4 @@
+import 'package:e_commerce/screens/user/address_screen.dart';
 import 'package:flutter/material.dart';
 
 List<String> demoImage = [
@@ -181,7 +182,11 @@ class _ProductDetilesState extends State<ProductDetiles> {
                     ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const AddressScreen(),
+                  ));
+                },
                 child: const Text(
                   'Buy now',
                   style: TextStyle(

@@ -1,4 +1,4 @@
-import 'package:e_commerce/screens/favorite_screen.dart';
+import 'package:e_commerce/screens/user/favorite_screen.dart';
 import 'package:flutter/material.dart';
 
 class CartScreen extends StatefulWidget {
