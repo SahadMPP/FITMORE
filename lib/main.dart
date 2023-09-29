@@ -1,5 +1,5 @@
 import 'package:e_commerce/data_base/models/db_model.dart';
-import 'package:e_commerce/screens/splash_scree.dart';
+import 'package:e_commerce/screens/user/splash_scree.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 

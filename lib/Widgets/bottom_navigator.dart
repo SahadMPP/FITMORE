@@ -1,7 +1,7 @@
 import 'package:e_commerce/screens/cart_screen.dart';
-import 'package:e_commerce/screens/favorite_screen.dart';
-import 'package:e_commerce/screens/home.dart';
-import 'package:e_commerce/screens/profile_screen.dart';
+import 'package:e_commerce/screens/user/favorite_screen.dart';
+import 'package:e_commerce/screens/user/home.dart';
+import 'package:e_commerce/screens/user/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigator extends StatefulWidget {

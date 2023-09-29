@@ -1,5 +1,5 @@
 import 'package:e_commerce/Widgets/splash_content.dart';
-import 'package:e_commerce/screens/login_screen.dart';
+import 'package:e_commerce/screens/user/login_screen.dart';
 // import 'package:e_commerce/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 // import 'package:shared_preferences/shared_preferences.dart';

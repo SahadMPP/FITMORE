@@ -1,4 +1,4 @@
-import 'package:e_commerce/screens/admin_list.dart';
+import 'package:e_commerce/screens/admin/admin_list.dart';
 import 'package:flutter/material.dart';
 
 class AdminLogin extends StatefulWidget {

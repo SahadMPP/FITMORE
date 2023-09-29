@@ -2,7 +2,7 @@ import 'package:e_commerce/Widgets/bottom_navigator.dart';
 import 'package:e_commerce/data_base/function/db_functions.dart';
 import 'package:e_commerce/data_base/models/db_model.dart';
 import 'package:e_commerce/main.dart';
-import 'package:e_commerce/screens/registrationscreen.dart';
+import 'package:e_commerce/screens/user/registrationscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,8 +1,7 @@
 import 'dart:io';
-
-import 'package:e_commerce/screens/admin_login.dart';
-import 'package:e_commerce/screens/edit_profile.dart';
-import 'package:e_commerce/screens/login_screen.dart';
+import 'package:e_commerce/screens/admin/admin_login.dart';
+import 'package:e_commerce/screens/user/edit_profile.dart';
+import 'package:e_commerce/screens/user/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';

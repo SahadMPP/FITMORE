@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/db_model.dart';
-import 'package:e_commerce/screens/product_detiles.dart';
-import 'package:e_commerce/screens/profile_screen.dart';
+import 'package:e_commerce/screens/user/product_detiles.dart';
+import 'package:e_commerce/screens/user/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {

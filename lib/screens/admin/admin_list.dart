@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/db_model.dart';
-import 'package:e_commerce/screens/add_product.dart';
-import 'package:e_commerce/screens/admin_user_list.dart';
-import 'package:e_commerce/screens/product_edit.dart';
+import 'package:e_commerce/screens/admin/add_product.dart';
+import 'package:e_commerce/screens/admin/admin_user_list.dart';
+import 'package:e_commerce/screens/admin/product_edit.dart';
 import 'package:flutter/material.dart';
 
 class AdminList extends StatefulWidget {
