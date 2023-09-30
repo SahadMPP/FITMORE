@@ -276,23 +276,23 @@ class _ProductEditState extends State<ProductEdit> {
                   ),
                   onPressed: () {
                     final updateStudent = ProductModel(
-                        title: _productNameController.text,
-                        discription: _discriptionController.text,
-                        category: _productCategory!,
-                        image1: selectedImage1 != null
-                            ? base64Encode(selectedImage1!.readAsBytesSync())
-                            : _productModel.image1,
-                        image2: selectedImage1 != null
-                            ? base64Encode(selectedImage2!.readAsBytesSync())
-                            : _productModel.image2,
-                        image3: selectedImage1 != null
-                            ? base64Encode(selectedImage3!.readAsBytesSync())
-                            : _productModel.image3,
-                        image4: selectedImage1 != null
-                            ? base64Encode(selectedImage4!.readAsBytesSync())
-                            : _productModel.image4,
-                        price: _priceController.text,
-                        isFavourite: false);
+                      title: _productNameController.text,
+                      discription: _discriptionController.text,
+                      category: _productCategory!,
+                      image1: selectedImage1 != null
+                          ? base64Encode(selectedImage1!.readAsBytesSync())
+                          : _productModel.image1,
+                      image2: selectedImage1 != null
+                          ? base64Encode(selectedImage2!.readAsBytesSync())
+                          : _productModel.image2,
+                      image3: selectedImage1 != null
+                          ? base64Encode(selectedImage3!.readAsBytesSync())
+                          : _productModel.image3,
+                      image4: selectedImage1 != null
+                          ? base64Encode(selectedImage4!.readAsBytesSync())
+                          : _productModel.image4,
+                      price: _priceController.text,
+                    );
                     updateProduct(_productModel.id!, updateStudent);
 
                     Navigator.of(context).pushReplacement(MaterialPageRoute(

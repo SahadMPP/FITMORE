@@ -1,4 +1,5 @@
 import 'package:e_commerce/screens/user/address_screen.dart';
+import 'package:e_commerce/screens/user/cart_screen.dart';
 import 'package:flutter/material.dart';
 
 List<String> demoImage = [
@@ -154,7 +155,11 @@ class _ProductDetilesState extends State<ProductDetiles> {
                     ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const CartScreen(),
+                  ));
+                },
                 child: const Text(
                   'Add to Cart',
                   style: TextStyle(

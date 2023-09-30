@@ -21,12 +21,33 @@ class UserModel {
   @HiveField(5)
   final String? profile;
 
+  @HiveField(6)
+  final String? adressname;
+
+  @HiveField(7)
+  final String? addressphnumber;
+
+  @HiveField(8)
+  final String? city;
+
+  @HiveField(9)
+  final String? state;
+
+  @HiveField(10)
+  final String? pin;
+
   UserModel(
       {required this.name,
       required this.phoneNumber,
       required this.email,
       required this.password,
-      this.profile});
+      this.city,
+      this.state,
+      this.pin,
+      this.profile,
+      this.adressname,
+      this.addressphnumber,
+      this.id});
 }
 
 @HiveType(typeId: 2)
@@ -48,8 +69,6 @@ class ProductModel {
   @HiveField(7)
   final String price;
   @HiveField(8)
-  final bool isFavourite;
-  @HiveField(9)
   final String category;
 
   ProductModel(
@@ -60,7 +79,6 @@ class ProductModel {
       required this.image3,
       required this.image4,
       required this.price,
-      required this.isFavourite,
       required this.category,
       this.id});
 }

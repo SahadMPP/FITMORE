@@ -302,7 +302,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
         image3: base64Image3,
         image4: base64Image4,
         price: price,
-        isFavourite: false,
         category: category!);
 
     addProduct(product);

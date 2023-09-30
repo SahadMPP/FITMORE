@@ -1,6 +1,7 @@
 import 'package:e_commerce/Widgets/product_card.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/db_model.dart';
+import 'package:e_commerce/screens/user/myorder_screen.dart';
 import 'package:e_commerce/screens/user/profile_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +47,11 @@ class _HomeState extends State<Home> {
                       backgroundColor: const Color.fromARGB(255, 220, 220, 220),
                       child: IconButton(
                         icon: const Icon(Icons.shopping_cart),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const MyOrderScreen(),
+                          ));
+                        },
                         color: const Color.fromARGB(255, 137, 136, 136),
                       ),
                     ),

@@ -21,14 +21,20 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       phoneNumber: fields[2] as String,
       email: fields[3] as String,
       password: fields[4] as String,
+      city: fields[8] as String?,
+      state: fields[9] as String?,
+      pin: fields[10] as String?,
       profile: fields[5] as String?,
-    )..id = fields[0] as int?;
+      adressname: fields[6] as String?,
+      addressphnumber: fields[7] as String?,
+      id: fields[0] as int?,
+    );
   }
 
   @override
   void write(BinaryWriter writer, UserModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -40,7 +46,17 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(4)
       ..write(obj.password)
       ..writeByte(5)
-      ..write(obj.profile);
+      ..write(obj.profile)
+      ..writeByte(6)
+      ..write(obj.adressname)
+      ..writeByte(7)
+      ..write(obj.addressphnumber)
+      ..writeByte(8)
+      ..write(obj.city)
+      ..writeByte(9)
+      ..write(obj.state)
+      ..writeByte(10)
+      ..write(obj.pin);
   }
 
   @override
@@ -72,8 +88,7 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
       image3: fields[5] as String,
       image4: fields[6] as String,
       price: fields[7] as String,
-      isFavourite: fields[8] as bool,
-      category: fields[9] as String,
+      category: fields[8] as String,
       id: fields[0] as int?,
     );
   }
@@ -81,7 +96,7 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
   @override
   void write(BinaryWriter writer, ProductModel obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -99,8 +114,6 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
       ..writeByte(7)
       ..write(obj.price)
       ..writeByte(8)
-      ..write(obj.isFavourite)
-      ..writeByte(9)
       ..write(obj.category);
   }
 
