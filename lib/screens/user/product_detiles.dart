@@ -1,16 +1,26 @@
+// ignore_for_file: unused_local_variable
+
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:e_commerce/data_base/function/product_db_function.dart';
+import 'package:e_commerce/data_base/models/db_model.dart';
 import 'package:e_commerce/screens/user/address_screen.dart';
 import 'package:e_commerce/screens/user/cart_screen.dart';
 import 'package:flutter/material.dart';
 
-List<String> demoImage = [
-  'asset/balmain-brand-shoe(product1).jpg',
-  'asset/images (p1-2).jpg',
-  'asset/images (p1-3).jpg',
-  'asset/images (p1-4).jpg',
-];
-
+// ignore: must_be_immutable
 class ProductDetiles extends StatefulWidget {
-  const ProductDetiles({super.key});
+  String title;
+  String price;
+  String discription;
+  int index;
+  ProductDetiles(
+      {super.key,
+      required this.index,
+      required this.title,
+      required this.price,
+      required this.discription});
 
   @override
   State<ProductDetiles> createState() => _ProductDetilesState();
@@ -20,6 +30,10 @@ class _ProductDetilesState extends State<ProductDetiles> {
   int selectedImage = 0;
   @override
   Widget build(BuildContext context) {
+    final title = widget.title;
+    final price = widget.price;
+    final description = widget.discription;
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 240, 240, 240),
       appBar: AppBar(
@@ -54,33 +68,56 @@ class _ProductDetilesState extends State<ProductDetiles> {
           const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.only(left: 90, right: 90),
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Container(
-                decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 202, 200, 200),
-                    borderRadius: BorderRadius.circular(5)),
-                child: Image.asset(
-                  demoImage[selectedImage],
-                  fit: BoxFit.fill,
-                ),
-              ),
+            child: ValueListenableBuilder(
+              valueListenable: productListNotifier,
+              builder: (BuildContext context, List<ProductModel> productList,
+                  Widget? child) {
+                final data = productList[widget.index];
+                final base64Image1 = data.image1;
+                final base64Image2 = data.image2;
+                final base64Image3 = data.image3;
+                final base64Image4 = data.image4;
+
+                Uint8List imageBytes;
+
+                List<Uint8List> demoImage = [
+                  imageBytes = base64.decode(base64Image1),
+                  imageBytes = base64.decode(base64Image2),
+                  imageBytes = base64.decode(base64Image3),
+                  imageBytes = base64.decode(base64Image4),
+                ];
+                return Column(
+                  children: [
+                    AspectRatio(
+                      aspectRatio: 1,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 202, 200, 200),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Image(
+                          image: MemoryImage(demoImage[selectedImage]),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Row(
+                        children: [
+                          ...List.generate(
+                            4,
+                            (index1) => imageSmallBox(index1, demoImage),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
           ),
           const SizedBox(height: 30),
-          Padding(
-            padding: const EdgeInsets.only(right: 20, left: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ...List.generate(
-                  4,
-                  (index) => imageSmallBox(index),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 15),
           Container(
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(20)),
@@ -91,15 +128,15 @@ class _ProductDetilesState extends State<ProductDetiles> {
                 children: [
                   const SizedBox(height: 15),
                   Text(
-                    'Black Balmain Unicorn sneaker',
+                    title,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        '\$35.99',
-                        style: TextStyle(
+                      Text(
+                        price,
+                        style: const TextStyle(
                           color: Color(0xFFFF4848),
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -128,7 +165,7 @@ class _ProductDetilesState extends State<ProductDetiles> {
                       height: 90,
                       width: 200,
                       child: Text(
-                        'Elevate your game and your hops. Charged with Max Air cushioning in the heel, this lightweight, secure shoe helps you get off the ground confidently and land ',
+                        description,
                         maxLines: 4,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
@@ -170,7 +207,7 @@ class _ProductDetilesState extends State<ProductDetiles> {
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.only(left: 40.0, right: 40.0),
             child: SizedBox(
@@ -207,26 +244,31 @@ class _ProductDetilesState extends State<ProductDetiles> {
     );
   }
 
-  GestureDetector imageSmallBox(index) {
+  GestureDetector imageSmallBox(index, List<Uint8List> demoImage) {
     return GestureDetector(
       onTap: () {
         setState(() {
           selectedImage = index;
         });
       },
-      child: Container(
-        padding: const EdgeInsets.all(1),
-        width: 50,
-        height: 50,
-        decoration: BoxDecoration(
-            border: Border.all(
-                color:
-                    selectedImage == index ? Colors.red : Colors.transparent),
-            color: const Color.fromARGB(255, 202, 200, 200),
-            borderRadius: BorderRadius.circular(5)),
-        child: Image.asset(
-          demoImage[index],
-          fit: BoxFit.fill,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10),
+        child: Container(
+          padding: const EdgeInsets.all(1),
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+              border: Border.all(
+                  color:
+                      selectedImage == index ? Colors.red : Colors.transparent),
+              color: const Color.fromARGB(255, 202, 200, 200),
+              borderRadius: BorderRadius.circular(5)),
+          child: Image(
+            fit: BoxFit.fill,
+            image: MemoryImage(
+              demoImage[index],
+            ),
+          ),
         ),
       ),
     );

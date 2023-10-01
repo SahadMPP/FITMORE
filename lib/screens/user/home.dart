@@ -1,8 +1,9 @@
 import 'package:e_commerce/Widgets/product_card.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/db_model.dart';
+import 'package:e_commerce/screens/user/address_screen.dart';
 import 'package:e_commerce/screens/user/myorder_screen.dart';
-import 'package:e_commerce/screens/user/profile_screen.dart';
+import 'package:e_commerce/screens/user/product_detiles.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -60,7 +61,7 @@ class _HomeState extends State<Home> {
                       child: IconButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const ProfileScreen()));
+                              builder: (context) => const AddressScreen()));
                         },
                         icon: const Icon(Icons.local_shipping),
                         color: const Color.fromARGB(255, 137, 136, 136),
@@ -160,10 +161,21 @@ class _HomeState extends State<Home> {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         final data = productList[index];
-                        return ProductCard(
-                            title: data.title,
-                            price: data.price,
-                            base64Image: data.image1);
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ProductDetiles(
+                                      title: data.title,
+                                      price: data.price,
+                                      discription: data.discription,
+                                      index: index,
+                                    )));
+                          },
+                          child: ProductCard(
+                              title: data.title,
+                              price: data.price,
+                              base64Image: data.image1),
+                        );
                       },
                       itemCount: productList.length,
                     ),
