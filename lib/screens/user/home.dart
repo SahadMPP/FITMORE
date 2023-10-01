@@ -161,9 +161,12 @@ class _HomeState extends State<Home> {
                       itemBuilder: (context, index) {
                         final data = productList[index];
                         return ProductCard(
-                            title: data.title,
-                            price: data.price,
-                            base64Image: data.image1);
+                          title: data.title,
+                          price: data.price,
+                          base64Image: data.image1,
+                          discription: data.discription,
+                          index: index,
+                        );
                       },
                       itemCount: productList.length,
                     ),
@@ -184,9 +187,12 @@ class _HomeState extends State<Home> {
                       itemBuilder: (context, index) {
                         dynamic data = productList[index];
                         return ProductCard(
-                            title: data.title,
-                            price: data.price,
-                            base64Image: data.image1);
+                          title: data.title,
+                          price: data.price,
+                          discription: data.discription,
+                          base64Image: data.image1,
+                          index: index,
+                        );
                       },
                       itemCount: productList.length,
                     ),
