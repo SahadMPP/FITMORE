@@ -217,6 +217,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
             child: TextFormField(
+              maxLines: 4,
               controller: _discriptionController,
               decoration: const InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.always,
