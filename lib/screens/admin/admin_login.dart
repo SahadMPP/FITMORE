@@ -122,7 +122,7 @@ class _AdminLoginState extends State<AdminLogin> {
   adminCheckLogin(BuildContext ctx) {
     final email = _adminEmailEditingCon.text;
     final password = _adminPasswordEditingCon.text;
-    if (email == "1" || password == "1") {
+    if (email == "sahad@gmail.com" || password == "12345") {
       Navigator.of(ctx).pushReplacement(
           MaterialPageRoute(builder: (ctx) => const AdminList()));
     } else {

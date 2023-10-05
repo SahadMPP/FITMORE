@@ -295,8 +295,7 @@ class _ProductEditState extends State<ProductEdit> {
                       price: _priceController.text,
                     );
                     updateProduct(_productModel.id!, updateStudent);
-
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const AdminList()));
                   },
                   child: const Text(

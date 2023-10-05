@@ -16,7 +16,7 @@ class _CartScreenState extends State<CartScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         title: const Padding(
-          padding: EdgeInsets.only(left: 80),
+          padding: EdgeInsets.only(left: 130),
           child: Column(
             children: [
               Text(

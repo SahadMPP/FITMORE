@@ -23,7 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         elevation: 0,
         backgroundColor: Colors.white,
         title: const Padding(
-          padding: EdgeInsets.only(left: 90),
+          padding: EdgeInsets.only(left: 150),
           child: Text(
             'Profile',
             style: TextStyle(

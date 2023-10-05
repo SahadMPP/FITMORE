@@ -252,7 +252,7 @@ class _ProductDetilesState extends State<ProductDetiles> {
         });
       },
       child: Padding(
-        padding: const EdgeInsets.only(left: 10),
+        padding: const EdgeInsets.only(left: 3),
         child: Container(
           padding: const EdgeInsets.all(1),
           width: 50,
