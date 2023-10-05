@@ -1,4 +1,6 @@
-import 'package:e_commerce/data_base/models/db_model.dart';
+import 'package:e_commerce/data_base/models/address/db_address_model.dart';
+import 'package:e_commerce/data_base/models/product/db_product_model.dart';
+import 'package:e_commerce/data_base/models/user/db_model.dart';
 import 'package:e_commerce/screens/user/splash_scree.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -14,6 +16,9 @@ Future<void> main() async {
   }
   if (!Hive.isAdapterRegistered(ProductModelAdapter().typeId)) {
     Hive.registerAdapter(ProductModelAdapter());
+  }
+  if (!Hive.isAdapterRegistered(AddressModelAdapter().typeId)) {
+    Hive.registerAdapter(AddressModelAdapter());
   }
 
   runApp(const MyApp());

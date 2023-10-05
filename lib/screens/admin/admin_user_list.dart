@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:e_commerce/data_base/function/db_functions.dart';
-import 'package:e_commerce/data_base/models/db_model.dart';
+import 'package:e_commerce/data_base/function/user_functions.dart';
+import 'package:e_commerce/data_base/models/user/db_model.dart';
 import 'package:flutter/material.dart';
 
 class AdminUserListScreen extends StatelessWidget {
