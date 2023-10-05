@@ -76,6 +76,7 @@ class _ProductDetilesState extends State<ProductDetiles> {
                 final base64Image3 = data.image3;
                 final base64Image4 = data.image4;
 
+                // ignore: unused_local_variable
                 Uint8List imageBytes;
 
                 List<Uint8List> demoImage = [
