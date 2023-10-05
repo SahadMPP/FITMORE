@@ -3,11 +3,19 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class ProductCard extends StatelessWidget {
+  int? index;
   String? title;
   String? price;
   String? base64Image;
+  String? discription;
 
-  ProductCard({super.key, this.title, this.price, this.base64Image});
+  ProductCard(
+      {super.key,
+      required this.title,
+      required this.price,
+      required this.base64Image,
+      required this.discription,
+      required this.index});
 
   @override
   Widget build(BuildContext context) {
