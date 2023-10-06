@@ -3,24 +3,52 @@ import 'package:e_commerce/data_base/models/address/db_address_model.dart';
 import 'package:e_commerce/screens/user/address_screen.dart';
 import 'package:flutter/material.dart';
 
-class AddAdress extends StatefulWidget {
-  const AddAdress({super.key});
+class EditAddressScreen extends StatefulWidget {
+  final int index;
+  const EditAddressScreen(this.index, {super.key});
 
   @override
-  State<AddAdress> createState() => _AddAdressState();
+  State<EditAddressScreen> createState() => _EditAddressScreenState();
 }
 
-class _AddAdressState extends State<AddAdress> {
-  final _formKey = GlobalKey<FormState>();
+class _EditAddressScreenState extends State<EditAddressScreen> {
+  late TextEditingController _nameEditcontroller;
+  late TextEditingController _phonenumberEditcontroller;
+  late TextEditingController _cityEditcontroller;
+  late TextEditingController _pincodeEditcontroller;
+  late TextEditingController _stateEditcontroller;
+  late AddressModel _addresModel;
 
-  final _nameEditcontroller = TextEditingController();
-  final _phonenumberEditcontroller = TextEditingController();
-  final _cityEditcontroller = TextEditingController();
-  final _pincodeEditcontroller = TextEditingController();
-  final _stateEditcontroller = TextEditingController();
+  @override
+  void initState() {
+    _nameEditcontroller = TextEditingController();
+    _phonenumberEditcontroller = TextEditingController();
+    _cityEditcontroller = TextEditingController();
+    _pincodeEditcontroller = TextEditingController();
+    _stateEditcontroller = TextEditingController();
+    final addressList = addressListNotifyer.value;
+    _addresModel = addressList[widget.index];
+    _nameEditcontroller.text = _addresModel.name;
+    _phonenumberEditcontroller.text = _addresModel.phonenumber;
+    _cityEditcontroller.text = _addresModel.city;
+    _pincodeEditcontroller.text = _addresModel.pincode;
+    _stateEditcontroller.text = _addresModel.state;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _nameEditcontroller.dispose();
+    _phonenumberEditcontroller.dispose();
+    _cityEditcontroller.dispose();
+    _pincodeEditcontroller.dispose();
+    _stateEditcontroller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<FormState> formkey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -30,7 +58,7 @@ class _AddAdressState extends State<AddAdress> {
           child: Padding(
             padding: EdgeInsets.only(right: 50),
             child: Text(
-              'Address',
+              'Edit Address',
               style: TextStyle(
                 color: Color.fromARGB(255, 123, 123, 123),
                 fontSize: 22,
@@ -41,7 +69,7 @@ class _AddAdressState extends State<AddAdress> {
         ),
       ),
       body: Form(
-        key: _formKey,
+        key: formkey,
         child: ListView(
           children: [
             const SizedBox(height: 20),
@@ -189,12 +217,15 @@ class _AddAdressState extends State<AddAdress> {
                     ),
                   ),
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      addAddressOnButtonClick();
+                    if (formkey.currentState!.validate()) {
+                      updateAddressOnButtonClick();
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const AddressScreen(),
+                      ));
                     }
                   },
                   child: const Text(
-                    'Add Address',
+                    'Update Address',
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.white,
@@ -209,22 +240,21 @@ class _AddAdressState extends State<AddAdress> {
     );
   }
 
-  Future<void> addAddressOnButtonClick() async {
+  Future<void> updateAddressOnButtonClick() async {
     final name = _nameEditcontroller.text;
     final phoneNumber = _phonenumberEditcontroller.text;
     final city = _cityEditcontroller.text;
     final pincode = _pincodeEditcontroller.text;
     final state = _stateEditcontroller.text;
 
-    if (name.isEmpty ||
-        phoneNumber.isEmpty ||
-        city.isEmpty ||
-        pincode.isEmpty ||
-        state.isEmpty) {
-      return;
-    }
+    print(name);
+    print(phoneNumber);
+    print(city);
+    print(pincode);
+    print(state);
 
-    final addressMo = AddressModel(
+    final address = AddressModel(
+      id: _addresModel.id,
       name: name,
       city: city,
       state: state,
@@ -232,18 +262,6 @@ class _AddAdressState extends State<AddAdress> {
       phonenumber: phoneNumber,
     );
 
-    addAddress(addressMo);
-
-    if (name.isNotEmpty ||
-        phoneNumber.isNotEmpty ||
-        city.isNotEmpty ||
-        pincode.isNotEmpty ||
-        state.isNotEmpty) {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const AddressScreen(),
-          ));
-    }
+    updateAddress(_addresModel.id!, address);
   }
 }

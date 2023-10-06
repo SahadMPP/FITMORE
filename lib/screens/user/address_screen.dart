@@ -1,11 +1,20 @@
+import 'package:e_commerce/data_base/function/address_function.dart';
+import 'package:e_commerce/data_base/models/address/db_address_model.dart';
 import 'package:e_commerce/screens/user/add_address.dart';
+import 'package:e_commerce/screens/user/edit_addres.dart';
 import 'package:flutter/material.dart';
 
-class AddressScreen extends StatelessWidget {
+class AddressScreen extends StatefulWidget {
   const AddressScreen({super.key});
 
   @override
+  State<AddressScreen> createState() => _AddressScreenState();
+}
+
+class _AddressScreenState extends State<AddressScreen> {
+  @override
   Widget build(BuildContext context) {
+    getAllAddress();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -26,12 +35,31 @@ class AddressScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: ListView(
-              children: const [
-                AddressCard(),
-              ],
+            child: Material(
+              child: ValueListenableBuilder(
+                valueListenable: addressListNotifyer,
+                builder: (BuildContext context, List<AddressModel> addressModel,
+                    Widget? child) {
+                  return ListView.builder(
+                    itemCount: addressModel.length,
+                    itemBuilder: (context, index) {
+                      final data = addressModel[index];
+                      return AddressCard(
+                        index: index,
+                        id: data.id,
+                        name: data.name,
+                        phoneNumber: data.phonenumber,
+                        city: data.city,
+                        pincode: data.pincode,
+                        state: data.state,
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           ),
+          const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.only(left: 40.0, right: 40.0),
             child: SizedBox(
@@ -70,10 +98,25 @@ class AddressScreen extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class AddressCard extends StatelessWidget {
-  const AddressCard({
-    super.key,
-  });
+  int? id;
+  int index;
+  String? name;
+  String? phoneNumber;
+  String? city;
+  String? pincode;
+  String? state;
+
+  AddressCard(
+      {super.key,
+      required this.index,
+      required this.id,
+      required this.name,
+      required this.phoneNumber,
+      required this.city,
+      required this.pincode,
+      required this.state});
 
   @override
   Widget build(BuildContext context) {
@@ -93,14 +136,14 @@ class AddressCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Sahad Mp',
-                style: TextStyle(fontSize: 22, color: Colors.black),
+              Text(
+                name!,
+                style: const TextStyle(fontSize: 22, color: Colors.black),
               ),
               const SizedBox(height: 5),
-              const Text(
-                'Attadappa,Kerala',
-                style: TextStyle(fontSize: 17, color: Colors.black),
+              Text(
+                '$city,$state',
+                style: const TextStyle(fontSize: 17, color: Colors.black),
               ),
               SizedBox(
                 width: double.infinity,
@@ -108,12 +151,14 @@ class AddressCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      '-670006',
-                      style: TextStyle(fontSize: 17, color: Colors.black),
+                    Text(
+                      pincode!,
+                      style: const TextStyle(fontSize: 17, color: Colors.black),
                     ),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          deleteAddress(id!);
+                        },
                         icon: const Icon(
                           Icons.delete,
                           color: Color.fromARGB(255, 212, 58, 47),
@@ -128,9 +173,9 @@ class AddressCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      '7306713024',
-                      style: TextStyle(fontSize: 17, color: Colors.black),
+                    Text(
+                      phoneNumber!,
+                      style: const TextStyle(fontSize: 17, color: Colors.black),
                     ),
                     SizedBox(
                       height: 30,
@@ -140,7 +185,11 @@ class AddressCard extends StatelessWidget {
                           backgroundColor:
                               MaterialStatePropertyAll(Colors.grey),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (ctx) => EditAddressScreen(index),
+                          ));
+                        },
                         child: const Text('Edit'),
                       ),
                     )

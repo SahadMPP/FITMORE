@@ -275,7 +275,7 @@ class _ProductEditState extends State<ProductEdit> {
                     ),
                   ),
                   onPressed: () {
-                    updatingOnBUttonclick();
+                    updatingProductOnBUttonclick();
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => const AdminList()));
                   },
@@ -295,7 +295,7 @@ class _ProductEditState extends State<ProductEdit> {
     );
   }
 
-  Future<void> updatingOnBUttonclick() async {
+  Future<void> updatingProductOnBUttonclick() async {
     String? base64Image1 = _productModel.image1;
     String? base64Image2 = _productModel.image2;
     String? base64Image3 = _productModel.image3;
@@ -324,7 +324,6 @@ class _ProductEditState extends State<ProductEdit> {
     final price = _priceController.text.trim();
     final discription = _discriptionController.text.trim();
     final category = _productCategory;
-
     if (name.isEmpty ||
         price.isEmpty ||
         discription.isEmpty ||

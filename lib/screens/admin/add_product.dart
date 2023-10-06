@@ -293,7 +293,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
         base64Image4.isEmpty) {
       return;
     }
-    print('$name $price $discription $category');
 
     final product = ProductModel(
         title: name,
