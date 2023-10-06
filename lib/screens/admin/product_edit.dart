@@ -203,7 +203,7 @@ class _ProductEditState extends State<ProductEdit> {
             Padding(
               padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
               child: DropdownButtonFormField<String>(
-                value: _productCategory,
+                value: _productCategory ?? categories[0],
                 decoration: const InputDecoration(
                   fillColor: Color(0xABFFFEFE),
                   labelText: 'product category',
@@ -275,26 +275,8 @@ class _ProductEditState extends State<ProductEdit> {
                     ),
                   ),
                   onPressed: () {
-                    final updateStudent = ProductModel(
-                      title: _productNameController.text,
-                      discription: _discriptionController.text,
-                      category: _productCategory!,
-                      image1: selectedImage1 != null
-                          ? base64Encode(selectedImage1!.readAsBytesSync())
-                          : _productModel.image1,
-                      image2: selectedImage1 != null
-                          ? base64Encode(selectedImage2!.readAsBytesSync())
-                          : _productModel.image2,
-                      image3: selectedImage1 != null
-                          ? base64Encode(selectedImage3!.readAsBytesSync())
-                          : _productModel.image3,
-                      image4: selectedImage1 != null
-                          ? base64Encode(selectedImage4!.readAsBytesSync())
-                          : _productModel.image4,
-                      price: _priceController.text,
-                    );
-                    updateProduct(_productModel.id!, updateStudent);
-                    Navigator.of(context).push(MaterialPageRoute(
+                    updatingOnBUttonclick();
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => const AdminList()));
                   },
                   child: const Text(
@@ -313,15 +295,73 @@ class _ProductEditState extends State<ProductEdit> {
     );
   }
 
+  Future<void> updatingOnBUttonclick() async {
+    String? base64Image1 = _productModel.image1;
+    String? base64Image2 = _productModel.image2;
+    String? base64Image3 = _productModel.image3;
+    String? base64Image4 = _productModel.image4;
+
+    if (selectedImage1 != null) {
+      final bytes1 = await selectedImage1!.readAsBytes();
+      base64Image1 = base64Encode(bytes1);
+    }
+    if (selectedImage2 != null) {
+      final bytes2 = await selectedImage2!.readAsBytes();
+      base64Image2 = base64Encode(bytes2);
+    }
+
+    if (selectedImage3 != null) {
+      final bytes3 = await selectedImage3!.readAsBytes();
+      base64Image3 = base64Encode(bytes3);
+    }
+
+    if (selectedImage4 != null) {
+      final bytes4 = await selectedImage4!.readAsBytes();
+      base64Image4 = base64Encode(bytes4);
+    }
+
+    final name = _productNameController.text.trim();
+    final price = _priceController.text.trim();
+    final discription = _discriptionController.text.trim();
+    final category = _productCategory;
+
+    if (name.isEmpty ||
+        price.isEmpty ||
+        discription.isEmpty ||
+        base64Image1.isEmpty ||
+        base64Image2.isEmpty ||
+        base64Image3.isEmpty ||
+        base64Image4.isEmpty) {
+      return;
+    }
+
+    final updateStudent = ProductModel(
+      id: _productModel.id,
+      title: _productNameController.text,
+      discription: _discriptionController.text,
+      category: category!,
+      price: _priceController.text,
+      image1: base64Image1,
+      image2: base64Image2,
+      image3: base64Image3,
+      image4: base64Image4,
+    );
+
+    updateProduct(_productModel.id!, updateStudent);
+  }
+
   Future pickImageFromGallery1() async {
     final returnedImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (returnedImage == null) {
       return;
     }
-    setState(() {
-      selectedImage1 = File(returnedImage.path);
-    });
+    final imageFile = File(returnedImage.path);
+    if (mounted) {
+      setState(() {
+        selectedImage1 = imageFile;
+      });
+    }
   }
 
   Future pickImageFromGallery2() async {
@@ -330,9 +370,12 @@ class _ProductEditState extends State<ProductEdit> {
     if (returnedImage == null) {
       return;
     }
-    setState(() {
-      selectedImage2 = File(returnedImage.path);
-    });
+    final imageFile = File(returnedImage.path);
+    if (mounted) {
+      setState(() {
+        selectedImage2 = imageFile;
+      });
+    }
   }
 
   Future pickImageFromGallery3() async {
@@ -341,9 +384,12 @@ class _ProductEditState extends State<ProductEdit> {
     if (returnedImage == null) {
       return;
     }
-    setState(() {
-      selectedImage3 = File(returnedImage.path);
-    });
+    final imageFile = File(returnedImage.path);
+    if (mounted) {
+      setState(() {
+        selectedImage3 = imageFile;
+      });
+    }
   }
 
   Future pickImageFromGallery4() async {
@@ -352,8 +398,11 @@ class _ProductEditState extends State<ProductEdit> {
     if (returnedImage == null) {
       return;
     }
-    setState(() {
-      selectedImage4 = File(returnedImage.path);
-    });
+    final imageFile = File(returnedImage.path);
+    if (mounted) {
+      setState(() {
+        selectedImage4 = imageFile;
+      });
+    }
   }
 }

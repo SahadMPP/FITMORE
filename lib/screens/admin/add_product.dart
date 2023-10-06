@@ -32,7 +32,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       'Puma',
       'DS',
     ];
-    String dropDownValue = 'Nike';
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -247,7 +247,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   ),
                 ),
                 onPressed: () {
-                  addProductOnbuttenClick(dropDownValue);
+                  addProductOnbuttenClick();
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => const AdminList()));
                 },
@@ -266,7 +266,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     );
   }
 
-  Future<void> addProductOnbuttenClick(dropDownValue) async {
+  Future<void> addProductOnbuttenClick() async {
     final bytes1 = await selectedImage1!.readAsBytes();
     final String base64Image1 = base64Encode(bytes1);
 
@@ -293,7 +293,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         base64Image4.isEmpty) {
       return;
     }
-    // print('$name $price $discription $category');
+    print('$name $price $discription $category');
 
     final product = ProductModel(
         title: name,
