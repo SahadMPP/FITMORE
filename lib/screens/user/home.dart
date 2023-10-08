@@ -163,8 +163,11 @@ class _HomeState extends State<Home> {
                         final data = productList[index];
                         return GestureDetector(
                           onTap: () {
+                            final base64Image = data.image1;
+
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => ProductDetiles(
+                                      image: base64Image,
                                       title: data.title,
                                       price: data.price,
                                       discription: data.discription,
@@ -175,7 +178,6 @@ class _HomeState extends State<Home> {
                               index: index,
                               title: data.title,
                               price: data.price,
-                              discription: data.discription,
                               base64Image: data.image1),
                         );
                       },
@@ -200,7 +202,6 @@ class _HomeState extends State<Home> {
                         return ProductCard(
                           title: data.title,
                           price: data.price,
-                          discription: data.discription,
                           base64Image: data.image1,
                           index: index,
                         );

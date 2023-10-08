@@ -276,8 +276,11 @@ class _ProductEditState extends State<ProductEdit> {
                   ),
                   onPressed: () {
                     updatingProductOnBUttonclick();
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const AdminList()));
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => const AdminList(),
+                        ),
+                        (route) => false);
                   },
                   child: const Text(
                     'Update',

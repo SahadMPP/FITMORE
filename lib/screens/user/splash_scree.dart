@@ -1,6 +1,6 @@
-import 'package:e_commerce/Widgets/bottom_navigator.dart';
 import 'package:e_commerce/main.dart';
 import 'package:e_commerce/screens/user/login_screen.dart';
+import 'package:e_commerce/screens/user/second_sp.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -56,6 +56,6 @@ Future<void> checkUserLogin(BuildContext ctx) async {
   } else {
     // ignore: use_build_context_synchronously
     Navigator.of(ctx).pushReplacement(
-        MaterialPageRoute(builder: ((ctx) => const BottomNavigator())));
+        MaterialPageRoute(builder: ((ctx) => const SecondSp())));
   }
 }

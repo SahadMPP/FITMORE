@@ -7,14 +7,12 @@ class ProductCard extends StatelessWidget {
   String? title;
   String? price;
   String? base64Image;
-  String? discription;
 
   ProductCard(
       {super.key,
       required this.title,
       required this.price,
       required this.base64Image,
-      required this.discription,
       required this.index});
 
   @override

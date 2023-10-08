@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:e_commerce/data_base/function/cart_function.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
+import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
 import 'package:e_commerce/screens/user/address_screen.dart';
 import 'package:e_commerce/screens/user/cart_screen.dart';
@@ -11,13 +13,16 @@ class ProductDetiles extends StatefulWidget {
   String title;
   String price;
   String discription;
+  String image;
   int index;
-  ProductDetiles(
-      {super.key,
-      required this.index,
-      required this.title,
-      required this.price,
-      required this.discription});
+  ProductDetiles({
+    super.key,
+    required this.index,
+    required this.title,
+    required this.price,
+    required this.discription,
+    required this.image,
+  });
 
   @override
   State<ProductDetiles> createState() => _ProductDetilesState();
@@ -191,6 +196,11 @@ class _ProductDetilesState extends State<ProductDetiles> {
                   ),
                 ),
                 onPressed: () {
+                  final cartmodel = CartModel(
+                      title: widget.title,
+                      price: widget.price,
+                      image: widget.image);
+                  addTocart(cartmodel);
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const CartScreen(),
                   ));

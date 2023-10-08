@@ -118,15 +118,17 @@ class _AdminListState extends State<AdminList> {
                           children: [
                             SizedBox(
                               width: 88,
-                              child: AspectRatio(
-                                aspectRatio: 0.88,
-                                child: Container(
-                                  width: 88,
-                                  padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey,
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
+                              child: Container(
+                                width: 88,
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: SizedBox(
+                                  height: 90,
+                                  width: 60,
                                   child: Image(
                                     // ignore: unnecessary_null_comparison
                                     image: data.image1 == null
@@ -153,9 +155,9 @@ class _AdminListState extends State<AdminList> {
                                   maxLines: 2,
                                 ),
                                 const SizedBox(height: 5),
-                                const Text(
-                                  'Size 12',
-                                  style: TextStyle(
+                                Text(
+                                  'Size ${index + 1}0',
+                                  style: const TextStyle(
                                     color: Color.fromARGB(255, 65, 65, 65),
                                     fontSize: 16,
                                   ),
@@ -164,7 +166,7 @@ class _AdminListState extends State<AdminList> {
                                 Row(
                                   children: [
                                     Text(
-                                      data.price,
+                                      '\$${data.price}',
                                       style: const TextStyle(
                                           fontWeight: FontWeight.w500,
                                           color: Colors.red),
