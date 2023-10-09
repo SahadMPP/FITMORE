@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class ProductCard extends StatelessWidget {
   int? index;
   String? title;
-  String? price;
+  int? price;
   String? base64Image;
 
   ProductCard(
@@ -50,14 +50,13 @@ class ProductCard extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 5),
           Padding(
             padding: const EdgeInsets.only(right: 10, left: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  price!,
+                  '\$${price!}',
                   style: const TextStyle(
                     color: Color.fromARGB(255, 210, 56, 45),
                     fontSize: 18,

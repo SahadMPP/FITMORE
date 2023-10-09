@@ -202,6 +202,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
             child: TextFormField(
+              keyboardType: TextInputType.number,
               controller: _priceController,
               decoration: const InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -280,12 +281,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
     final String base64Image4 = base64Encode(bytes4);
 
     final name = _productNameController.text.trim();
-    final price = _priceController.text.trim();
+    final int price = int.parse(_priceController.text);
     final discription = _discriptionController.text.trim();
     final category = _productCategory;
 
     if (name.isEmpty ||
-        price.isEmpty ||
         discription.isEmpty ||
         base64Image1.isEmpty ||
         base64Image2.isEmpty ||

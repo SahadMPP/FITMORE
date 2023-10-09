@@ -8,7 +8,6 @@ Future<void> addTocart(CartModel value) async {
   final cartDB = await Hive.openBox<CartModel>('cart_db');
   final id = await cartDB.add(value);
   value.id = id;
-  print('addind in cart');
   cartvaluelisener.value.clear();
   cartvaluelisener.notifyListeners();
 }
@@ -24,4 +23,22 @@ Future<void> deleteCartItem(int id) async {
   final cartDB = await Hive.openBox<CartModel>('cart_db');
   cartDB.delete(id);
   getAllCart();
+}
+
+Future<void> upgradeCart(int id, CartModel value) async {
+  print('working upgrade');
+  final cartDB = await Hive.openBox<CartModel>('cart_db');
+
+  if (cartDB.containsKey(id)) {
+    await cartDB.put(id, value);
+    int index =
+        cartvaluelisener.value.indexWhere((product) => product.id == id);
+    if (index != -1) {
+      cartvaluelisener.value[index] = value;
+      cartvaluelisener.notifyListeners();
+    }
+    print('updatingcart');
+  }
+  value.id = id;
+  await cartDB.put(id, value);
 }

@@ -36,14 +36,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-// Future<void> gotoSecondScreen(BuildContext context) async {
-//   await Future.delayed(const Duration(seconds: 3));
-
-//   // ignore: use_build_context_synchronously
-//   Navigator.of(context)
-//       .pushReplacement(MaterialPageRoute(builder: ((ctx) => const Home())));
-// }
-
 Future<void> checkUserLogin(BuildContext ctx) async {
   final sharedpreference = await SharedPreferences.getInstance();
   final userLogiddIn = sharedpreference.getBool(SAVE_KEY_NAME);

@@ -116,80 +116,79 @@ class _AdminListState extends State<AdminList> {
                         ),
                         child: Row(
                           children: [
-                            SizedBox(
-                              width: 88,
-                              child: Container(
-                                width: 88,
-                                padding: const EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 255, 255, 255),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: SizedBox(
-                                  height: 90,
-                                  width: 60,
-                                  child: Image(
-                                    // ignore: unnecessary_null_comparison
-                                    image: data.image1 == null
-                                        ? const AssetImage(
-                                                'asset/download(add image).png')
-                                            as ImageProvider<Object>
-                                        : MemoryImage(imageBytes),
-                                    fit: BoxFit.fill,
-                                  ),
+                            Container(
+                              width: 78,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 255, 255, 255),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: SizedBox(
+                                height: 85,
+                                width: 60,
+                                child: Image(
+                                  // ignore: unnecessary_null_comparison
+                                  image: data.image1 == null
+                                      ? const AssetImage(
+                                              'asset/download(add image).png')
+                                          as ImageProvider<Object>
+                                      : MemoryImage(imageBytes),
+                                  fit: BoxFit.fill,
                                 ),
                               ),
                             ),
                             const SizedBox(width: 20),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 15),
-                                Text(
-                                  data.title,
-                                  style: const TextStyle(
-                                    color: Color.fromARGB(255, 65, 65, 65),
-                                    fontSize: 16,
-                                  ),
-                                  maxLines: 2,
-                                ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  'Size ${index + 1}0',
-                                  style: const TextStyle(
-                                    color: Color.fromARGB(255, 65, 65, 65),
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
-                                  children: [
-                                    Text(
-                                      '\$${data.price}',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.red),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 15),
+                                  Text(
+                                    data.title,
+                                    style: const TextStyle(
+                                      color: Color.fromARGB(255, 65, 65, 65),
+                                      fontSize: 16,
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 140),
-                                      child: IconButton(
-                                          onPressed: () {
-                                            Navigator.of(context)
-                                                .push(MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ProductEdit(index),
-                                            ));
-                                          },
-                                          icon: const Icon(
-                                            Icons.mode_edit_outline_outlined,
-                                            color: Colors.grey,
-                                            size: 30,
-                                          )),
-                                    )
-                                  ],
-                                )
-                              ],
+                                    maxLines: 2,
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    'Size ${index + 1}0',
+                                    style: const TextStyle(
+                                      color: Color.fromARGB(255, 65, 65, 65),
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '\$${data.price}',
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.red),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 190),
+                                        child: IconButton(
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .push(MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ProductEdit(index),
+                                              ));
+                                            },
+                                            icon: const Icon(
+                                              Icons.mode_edit_outline_outlined,
+                                              color: Colors.grey,
+                                              size: 30,
+                                            )),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
                             )
                           ],
                         ),

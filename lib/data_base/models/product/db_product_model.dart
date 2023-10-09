@@ -18,7 +18,7 @@ class ProductModel {
   @HiveField(6)
   final String image4;
   @HiveField(7)
-  final String price;
+  final int price;
   @HiveField(8)
   final String category;
 

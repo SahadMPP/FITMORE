@@ -10,13 +10,15 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class ProductDetiles extends StatefulWidget {
+  int? id;
   String title;
-  String price;
+  int price;
   String discription;
   String image;
   int index;
   ProductDetiles({
     super.key,
+    this.id,
     required this.index,
     required this.title,
     required this.price,
@@ -138,7 +140,7 @@ class _ProductDetilesState extends State<ProductDetiles> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        price,
+                        price.toString(),
                         style: const TextStyle(
                           color: Color(0xFFFF4848),
                           fontWeight: FontWeight.bold,
@@ -197,6 +199,9 @@ class _ProductDetilesState extends State<ProductDetiles> {
                 ),
                 onPressed: () {
                   final cartmodel = CartModel(
+                      id: widget.id,
+                      quantity: 1,
+                      newPrice: widget.price,
                       title: widget.title,
                       price: widget.price,
                       image: widget.image);

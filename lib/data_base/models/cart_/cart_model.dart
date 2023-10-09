@@ -8,14 +8,20 @@ class CartModel {
   @HiveField(1)
   String title;
   @HiveField(2)
-  String price;
+  int price;
   @HiveField(3)
   String image;
+  @HiveField(4)
+  int quantity;
+  @HiveField(5)
+  int newPrice;
 
   CartModel({
     this.id,
     required this.title,
     required this.price,
     required this.image,
+    required this.quantity,
+    required this.newPrice,
   });
 }

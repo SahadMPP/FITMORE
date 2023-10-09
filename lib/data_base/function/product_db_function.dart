@@ -7,6 +7,7 @@ ValueNotifier<List<ProductModel>> productListNotifier = ValueNotifier([]);
 void addProduct(ProductModel value) async {
   final productDB = await Hive.openBox<ProductModel>('product_db');
   final id = await productDB.add(value);
+  print('add database is working');
   value.id = id;
   productListNotifier.value.add(value);
   productListNotifier.notifyListeners();

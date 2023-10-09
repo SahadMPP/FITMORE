@@ -165,14 +165,18 @@ class _HomeState extends State<Home> {
                           onTap: () {
                             final base64Image = data.image1;
 
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => ProductDetiles(
-                                      image: base64Image,
-                                      title: data.title,
-                                      price: data.price,
-                                      discription: data.discription,
-                                      index: index,
-                                    )));
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) {
+                                return ProductDetiles(
+                                  id: data.id,
+                                  image: base64Image,
+                                  title: data.title,
+                                  price: data.price,
+                                  discription: data.discription,
+                                  index: index,
+                                );
+                              }),
+                            );
                           },
                           child: ProductCard(
                               index: index,

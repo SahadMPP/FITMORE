@@ -40,7 +40,7 @@ class _ProductEditState extends State<ProductEdit> {
     final productlist = productListNotifier.value;
     _productModel = productlist[widget.index];
     _productNameController.text = _productModel.title;
-    _priceController.text = _productModel.price;
+    _priceController.text = _productModel.price.toString();
     _discriptionController.text = _productModel.discription;
     _productCategory = _productModel.category;
     super.initState();
@@ -276,11 +276,9 @@ class _ProductEditState extends State<ProductEdit> {
                   ),
                   onPressed: () {
                     updatingProductOnBUttonclick();
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                          builder: (context) => const AdminList(),
-                        ),
-                        (route) => false);
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const AdminList(),
+                    ));
                   },
                   child: const Text(
                     'Update',
@@ -324,11 +322,10 @@ class _ProductEditState extends State<ProductEdit> {
     }
 
     final name = _productNameController.text.trim();
-    final price = _priceController.text.trim();
+    final int price = int.parse(_priceController.text);
     final discription = _discriptionController.text.trim();
     final category = _productCategory;
     if (name.isEmpty ||
-        price.isEmpty ||
         discription.isEmpty ||
         base64Image1.isEmpty ||
         base64Image2.isEmpty ||
@@ -342,7 +339,7 @@ class _ProductEditState extends State<ProductEdit> {
       title: _productNameController.text,
       discription: _discriptionController.text,
       category: category!,
-      price: _priceController.text,
+      price: price,
       image1: base64Image1,
       image2: base64Image2,
       image3: base64Image3,
