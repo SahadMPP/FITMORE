@@ -15,14 +15,13 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   @override
   void initState() {
-    getAllCart();
-
     super.initState();
+    getAllCart();
+    getTotelPrice();
   }
 
   @override
   Widget build(BuildContext context) {
-    getAllCart();
     GlobalKey<FormState> formkey2 = GlobalKey<FormState>();
 
     return Scaffold(
@@ -62,6 +61,17 @@ class _CartScreenState extends State<CartScreen> {
                 valueListenable: cartvaluelisener,
                 builder: (BuildContext context, List<CartModel> cartList,
                     Widget? child) {
+                  if (cartList.isEmpty) {
+                    return const Center(
+                      child: Text(
+                        'Your cart is Empty',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 139, 139, 139),
+                          fontSize: 18,
+                        ),
+                      ),
+                    );
+                  }
                   return ListView.builder(
                     itemCount: cartList.length,
                     itemBuilder: (context, index) {
@@ -180,7 +190,7 @@ class _CartScreenState extends State<CartScreen> {
                                                         data.id!,
                                                       );
                                                     } else {
-                                                      print('data.id is null.');
+                                                      // print('data.id is null.');
                                                     }
                                                   },
                                                   child: const Icon(
@@ -201,7 +211,7 @@ class _CartScreenState extends State<CartScreen> {
                                                         data.id!,
                                                       );
                                                     } else {
-                                                      print('data.id is null.');
+                                                      // print('data.id is null.');
                                                     }
                                                   },
                                                   child: const Icon(Icons.add,
@@ -254,7 +264,7 @@ class _CartScreenState extends State<CartScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              FutureBuilder<String>(
+                              FutureBuilder(
                                 future: getTotelPrice(),
                                 builder: (context, snapshot) {
                                   return Text(
@@ -265,22 +275,21 @@ class _CartScreenState extends State<CartScreen> {
                                     ),
                                   );
                                 },
-                              ),
+                              )
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Text(
-                                'Sub Totel',
+                                'Discount',
                                 style: TextStyle(
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              FutureBuilder<String>(
-                                future:
-                                    discoundCalculator(() => getTotelPrice()),
+                              FutureBuilder(
+                                future: discoundCalculator(),
                                 builder: (context, snapshot) {
                                   return Text(
                                     snapshot.data!,
@@ -290,26 +299,31 @@ class _CartScreenState extends State<CartScreen> {
                                     ),
                                   );
                                 },
-                              ),
+                              )
                             ],
                           ),
-                          const Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
+                              const Text(
                                 'Totel',
                                 style: TextStyle(
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Text(
-                                '\$80.00',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              FutureBuilder(
+                                future: afterDiscounting(),
+                                builder: (context, snapshot) {
+                                  return Text(
+                                    snapshot.data!,
+                                    style: const TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  );
+                                },
+                              )
                             ],
                           ),
                         ],
@@ -324,7 +338,7 @@ class _CartScreenState extends State<CartScreen> {
             valueListenable: cartvaluelisener,
             builder: (context, List<CartModel> cartList, Widget? child) {
               return Visibility(
-                visible: cartList.length > 0 ? false : false,
+                visible: cartList.length > 0 ? true : false,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 40.0, right: 40.0),
                   child: SizedBox(
@@ -385,7 +399,6 @@ class _CartScreenState extends State<CartScreen> {
         newPrice: newPrice);
     upgradeCart(id, cart);
     getTotelPrice();
-    discoundCalculator(() => getTotelPrice());
   }
 
   updateCartLessOnAButtonClick(
@@ -412,26 +425,47 @@ class _CartScreenState extends State<CartScreen> {
           newPrice: newPrice);
       upgradeCart(id, cart);
       getTotelPrice();
-      discoundCalculator(() => getTotelPrice());
     }
 
     // print('quantity $quantity $price $newPrice ');
   }
 
   Future<String> getTotelPrice() async {
-    final cartDB = await Hive.openBox<CartModel>('cart_db');
     int totelPrice = 0;
+    final cartDB = await Hive.openBox<CartModel>('cart_db');
     for (var i = 0; i < cartDB.length; i++) {
       final currentProduct = cartDB.get(i);
-      totelPrice = totelPrice + currentProduct!.newPrice;
+      if (currentProduct != null) {
+        totelPrice = totelPrice + currentProduct.newPrice!;
+      }
     }
     return '\$$totelPrice.00';
   }
 
-  Future<String> discoundCalculator(Function() getTotelPrice) async {
-    final totelAmount = await getTotelPrice();
-    final discountedAmount = (5 / 100) * totelAmount;
-    print(discountedAmount);
-    return '\$$discountedAmount.00';
+  Future<String> discoundCalculator() async {
+    final cartDB = await Hive.openBox<CartModel>('cart_db');
+    num totelPrice = 0;
+    for (var i = 0; i < cartDB.length; i++) {
+      final currentProduct = cartDB.get(i);
+      if (currentProduct != null) {
+        totelPrice += currentProduct.newPrice!;
+      }
+    }
+    num discountedAmount = (5 / 100) * totelPrice;
+    return '\$$discountedAmount';
+  }
+
+  Future<String> afterDiscounting() async {
+    final cartDB = await Hive.openBox<CartModel>('cart_db');
+    num totelPrice = 0;
+    for (var i = 0; i < cartDB.length; i++) {
+      final currentProduct = cartDB.get(i);
+      if (currentProduct != null) {
+        totelPrice += currentProduct.newPrice!;
+      }
+    }
+    num discountedAmount = (5 / 100) * totelPrice;
+    num afterDisAmount = totelPrice - discountedAmount;
+    return '\$$afterDisAmount';
   }
 }

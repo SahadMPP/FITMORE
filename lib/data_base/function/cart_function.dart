@@ -26,7 +26,6 @@ Future<void> deleteCartItem(int id) async {
 }
 
 Future<void> upgradeCart(int id, CartModel value) async {
-  print('working upgrade');
   final cartDB = await Hive.openBox<CartModel>('cart_db');
 
   if (cartDB.containsKey(id)) {
@@ -37,7 +36,6 @@ Future<void> upgradeCart(int id, CartModel value) async {
       cartvaluelisener.value[index] = value;
       cartvaluelisener.notifyListeners();
     }
-    print('updatingcart');
   }
   value.id = id;
   await cartDB.put(id, value);

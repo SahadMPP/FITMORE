@@ -206,9 +206,9 @@ class _ProductDetilesState extends State<ProductDetiles> {
                       price: widget.price,
                       image: widget.image);
                   addTocart(cartmodel);
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const CartScreen(),
-                  ));
+                  // Navigator.of(context).push(MaterialPageRoute(
+                  //   builder: (context) => const CartScreen(),
+                  // ));
                 },
                 child: const Text(
                   'Add to Cart',

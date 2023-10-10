@@ -14,7 +14,7 @@ class CartModel {
   @HiveField(4)
   int quantity;
   @HiveField(5)
-  int newPrice;
+  int? newPrice;
 
   CartModel({
     this.id,
@@ -22,6 +22,6 @@ class CartModel {
     required this.price,
     required this.image,
     required this.quantity,
-    required this.newPrice,
+    this.newPrice,
   });
 }
