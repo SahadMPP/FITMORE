@@ -14,7 +14,7 @@ class AddressScreen extends StatefulWidget {
 class _AddressScreenState extends State<AddressScreen> {
   @override
   Widget build(BuildContext context) {
-    getAllAddress();
+    addres.getAllAddress();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -157,7 +157,7 @@ class AddressCard extends StatelessWidget {
                     ),
                     IconButton(
                         onPressed: () {
-                          deleteAddress(id!);
+                          addres.deleteAddress(id!);
                         },
                         icon: const Icon(
                           Icons.delete,

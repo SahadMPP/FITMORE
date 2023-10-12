@@ -1,5 +1,6 @@
 import 'package:e_commerce/data_base/models/address/db_address_model.dart';
 import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
+import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
 import 'package:e_commerce/data_base/models/user/db_model.dart';
 import 'package:e_commerce/screens/user/splash_scree.dart';
@@ -11,7 +12,7 @@ const SAVE_KEY_NAME = 'UserLoggidIn';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Hive.initFlutter();
+  await Hive.initFlutter();
   if (!Hive.isAdapterRegistered(UserModelAdapter().typeId)) {
     Hive.registerAdapter(UserModelAdapter());
   }
@@ -24,7 +25,10 @@ Future<void> main() async {
   if (!Hive.isAdapterRegistered(CartModelAdapter().typeId)) {
     Hive.registerAdapter(CartModelAdapter());
   }
-
+  if (!Hive.isAdapterRegistered(FavoriteModelAdapter().typeId)) {
+    Hive.registerAdapter(FavoriteModelAdapter());
+  }
+  await Hive.openBox<FavoriteModel>('favorite_db');
   runApp(const MyApp());
 }
 

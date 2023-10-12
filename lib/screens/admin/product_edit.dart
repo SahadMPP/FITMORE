@@ -346,7 +346,7 @@ class _ProductEditState extends State<ProductEdit> {
       image4: base64Image4,
     );
 
-    updateProduct(_productModel.id!, updateStudent);
+    productt.updateProduct(_productModel.id!, updateStudent);
   }
 
   Future pickImageFromGallery1() async {

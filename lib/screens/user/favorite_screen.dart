@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'package:e_commerce/data_base/function/favorite_function.dart';
+import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
@@ -7,12 +11,15 @@ class FavoriteScreen extends StatefulWidget {
   State<FavoriteScreen> createState() => _FavoriteScreenState();
 }
 
-List<int> hello = [1];
-
 class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> formkey = GlobalKey<FormState>();
+    favoritee.getAllFavorite();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -42,90 +49,107 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           ),
         ),
       ),
-      body: ListView.builder(
-        itemCount: hello.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: SizedBox(
-              height: 130,
-              child: Dismissible(
-                key: formkey,
-                onDismissed: (direction) {
-                  setState(() {
-                    hello.removeAt(index);
-                  });
-                },
-                direction: DismissDirection.endToStart,
-                background: Container(
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFE6E6),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.only(left: 280),
-                    child: Icon(
-                      Icons.delete,
-                      color: Color.fromARGB(255, 248, 55, 41),
-                    ),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 88,
-                      child: AspectRatio(
-                        aspectRatio: 0.88,
-                        child: Container(
-                          width: 88,
-                          padding: const EdgeInsets.all(5),
+      body: ValueListenableBuilder(
+        valueListenable: favoriteNotifier,
+        builder: (BuildContext context, List<FavoriteModel> favoriteList,
+            Widget? child) {
+          return ListView.builder(
+            itemCount: favoriteList.length,
+            itemBuilder: (context, index) {
+              final data = favoriteList[index];
+              final base64Image = data.image;
+              final imagebytes = base64.decode(base64Image);
+              GlobalKey<FormState> formkey = GlobalKey<FormState>();
+              return Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: SizedBox(
+                  height: 130,
+                  child: ValueListenableBuilder(
+                    valueListenable:
+                        Hive.box<FavoriteModel>('favorite_db').listenable(),
+                    builder: (context, box, child) {
+                      return Dismissible(
+                        key: formkey,
+                        onDismissed: (direction) async {
+                          setState(() {
+                            favoriteList.removeAt(index);
+                          });
+                          await box.delete(index);
+                          // favoritee.deleteFavorite(data.id!);
+                        },
+                        direction: DismissDirection.endToStart,
+                        background: Container(
                           decoration: BoxDecoration(
-                            color: Colors.grey,
+                            color: const Color(0xFFFFE6E6),
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: const Image(
-                              fit: BoxFit.fill,
-                              image: AssetImage(
-                                  'asset/balmain-brand-shoe(product1).jpg')),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 15),
-                        Text(
-                          'Black Balmain Unicorn sneaker Shoe',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 65, 65, 65),
-                            fontSize: 16,
-                          ),
-                          maxLines: 2,
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          'Size 12',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 65, 65, 65),
-                            fontSize: 16,
+                          child: const Padding(
+                            padding: EdgeInsets.only(left: 280),
+                            child: Icon(
+                              Icons.delete,
+                              color: Color.fromARGB(255, 248, 55, 41),
+                            ),
                           ),
                         ),
-                        SizedBox(height: 20),
-                        Text(
-                          '\$22.99',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Colors.red,
-                            fontSize: 20,
-                          ),
-                        )
-                      ],
-                    )
-                  ],
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 88,
+                              child: AspectRatio(
+                                aspectRatio: 0.88,
+                                child: Container(
+                                  width: 88,
+                                  padding: const EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Image(
+                                    fit: BoxFit.fill,
+                                    image: MemoryImage(imagebytes),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 20),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: 15),
+                                Text(
+                                  data.title,
+                                  style: const TextStyle(
+                                    color: Color.fromARGB(255, 65, 65, 65),
+                                    fontSize: 16,
+                                  ),
+                                  maxLines: 2,
+                                ),
+                                const SizedBox(height: 5),
+                                Text(
+                                  'Size 1$index',
+                                  style: const TextStyle(
+                                    color: Color.fromARGB(255, 65, 65, 65),
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                const SizedBox(height: 20),
+                                Text(
+                                  '\$${data.price}',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.red,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           );
         },
       ),

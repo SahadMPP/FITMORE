@@ -9,7 +9,7 @@ class AdminUserListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getAlluser();
+    userr.getAlluser();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

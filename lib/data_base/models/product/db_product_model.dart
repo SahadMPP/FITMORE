@@ -21,15 +21,19 @@ class ProductModel {
   final int price;
   @HiveField(8)
   final String category;
+  @HiveField(9)
+  bool? active;
 
-  ProductModel(
-      {required this.title,
-      required this.discription,
-      required this.image1,
-      required this.image2,
-      required this.image3,
-      required this.image4,
-      required this.price,
-      required this.category,
-      this.id});
+  ProductModel({
+    required this.title,
+    required this.discription,
+    required this.image1,
+    required this.image2,
+    required this.image3,
+    required this.image4,
+    required this.price,
+    required this.category,
+    this.id,
+    this.active = true,
+  });
 }

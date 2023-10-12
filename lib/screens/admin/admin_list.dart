@@ -16,7 +16,7 @@ class AdminList extends StatefulWidget {
 class _AdminListState extends State<AdminList> {
   @override
   Widget build(BuildContext context) {
-    getAllProduct();
+    productt.getAllProduct();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -98,7 +98,7 @@ class _AdminListState extends State<AdminList> {
                           setState(() {
                             productList.removeAt(index);
                           });
-                          deleteProduct(data.id);
+                          productt.deleteProduct(data.id);
                         },
                         direction: DismissDirection.endToStart,
                         background: Container(

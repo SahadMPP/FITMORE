@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:e_commerce/data_base/function/favorite_function.dart';
+import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -72,14 +74,35 @@ class ProductCard extends StatelessWidget {
                   ),
                   child: IconButton(
                     padding: const EdgeInsets.all(3),
-                    onPressed: () {},
-                    icon: const Icon(Icons.favorite, color: Colors.red),
+                    onPressed: () {
+                      addFavoriteInButtonClick(
+                          title, price, base64Image, context);
+                    },
+                    icon: const Icon(
+                      Icons.favorite_border,
+                      color: Colors.red,
+                    ),
                   ),
                 )
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  addFavoriteInButtonClick(titlee, pricee, imagee, context) {
+    final title = titlee;
+    final price = pricee;
+    final image = imagee;
+
+    final favorite = FavoriteModel(title: title, price: price, image: image);
+    favoritee.addInfavorite(favorite);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Product added to your cart'),
+        backgroundColor: Colors.green,
       ),
     );
   }

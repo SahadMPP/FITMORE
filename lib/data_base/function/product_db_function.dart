@@ -4,40 +4,44 @@ import 'package:hive_flutter/adapters.dart';
 
 ValueNotifier<List<ProductModel>> productListNotifier = ValueNotifier([]);
 
-void addProduct(ProductModel value) async {
-  final productDB = await Hive.openBox<ProductModel>('product_db');
-  final id = await productDB.add(value);
-  print('add database is working');
-  value.id = id;
-  productListNotifier.value.add(value);
-  productListNotifier.notifyListeners();
-}
+Product productt = Product();
 
-Future<void> getAllProduct() async {
-  final productDB = await Hive.openBox<ProductModel>('product_db');
-  productListNotifier.value.clear();
-  productListNotifier.value.addAll(productDB.values);
-  productListNotifier.notifyListeners();
-}
-
-Future<void> deleteProduct(id) async {
-  final productDB = await Hive.openBox<ProductModel>('product_db');
-  productDB.delete(id);
-  getAllProduct();
-}
-
-Future<void> updateProduct(int id, ProductModel value) async {
-  final productDB = await Hive.openBox<ProductModel>('product_db');
-
-  if (productDB.containsKey(id)) {
-    await productDB.put(id, value);
-    int index =
-        productListNotifier.value.indexWhere((product) => product.id == id);
-    if (index != -1) {
-      productListNotifier.value[index] = value;
-      productListNotifier.notifyListeners();
-    }
+class Product extends ChangeNotifier {
+  void addProduct(ProductModel value) async {
+    print('Adding Product');
+    final productDB = await Hive.openBox<ProductModel>('product_db');
+    final id = await productDB.add(value);
+    value.id = id;
+    productListNotifier.value.add(value);
+    productListNotifier.notifyListeners();
   }
-  value.id = id;
-  await productDB.put(id, value);
+
+  Future<void> getAllProduct() async {
+    final productDB = await Hive.openBox<ProductModel>('product_db');
+    productListNotifier.value.clear();
+    productListNotifier.value.addAll(productDB.values);
+    productListNotifier.notifyListeners();
+  }
+
+  Future<void> deleteProduct(id) async {
+    final productDB = await Hive.openBox<ProductModel>('product_db');
+    productDB.delete(id);
+    getAllProduct();
+  }
+
+  Future<void> updateProduct(int id, ProductModel value) async {
+    final productDB = await Hive.openBox<ProductModel>('product_db');
+
+    if (productDB.containsKey(id)) {
+      await productDB.put(id, value);
+      int index =
+          productListNotifier.value.indexWhere((product) => product.id == id);
+      if (index != -1) {
+        productListNotifier.value[index] = value;
+        productListNotifier.notifyListeners();
+      }
+    }
+    value.id = id;
+    await productDB.put(id, value);
+  }
 }

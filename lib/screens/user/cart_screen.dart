@@ -16,7 +16,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   void initState() {
     super.initState();
-    getAllCart();
+    cartt.getAllCart();
     getTotelPrice();
   }
 
@@ -88,7 +88,7 @@ class _CartScreenState extends State<CartScreen> {
                             setState(() {
                               cartList.removeAt(index);
                             });
-                            deleteCartItem(data.id!);
+                            cartt.deleteCartItem(data.id!);
                           },
                           direction: DismissDirection.endToStart,
                           background: Container(
@@ -242,6 +242,7 @@ class _CartScreenState extends State<CartScreen> {
             builder: (BuildContext context, List<CartModel> cartList,
                 Widget? child) {
               return Visibility(
+                // ignore: prefer_is_empty
                 visible: cartList.length > 0 ? true : false,
                 child: Container(
                   height: 100,
@@ -338,6 +339,7 @@ class _CartScreenState extends State<CartScreen> {
             valueListenable: cartvaluelisener,
             builder: (context, List<CartModel> cartList, Widget? child) {
               return Visibility(
+                // ignore: prefer_is_empty
                 visible: cartList.length > 0 ? true : false,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 40.0, right: 40.0),
@@ -397,7 +399,7 @@ class _CartScreenState extends State<CartScreen> {
         image: image,
         quantity: quantity,
         newPrice: newPrice);
-    upgradeCart(id, cart);
+    cartt.upgradeCart(id, cart);
     getTotelPrice();
   }
 
@@ -423,7 +425,7 @@ class _CartScreenState extends State<CartScreen> {
           image: image,
           quantity: quantity,
           newPrice: newPrice);
-      upgradeCart(id, cart);
+      cartt.upgradeCart(id, cart);
       getTotelPrice();
     }
 

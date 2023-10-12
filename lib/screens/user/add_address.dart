@@ -232,7 +232,7 @@ class _AddAdressState extends State<AddAdress> {
       phonenumber: phoneNumber,
     );
 
-    addAddress(addressMo);
+    addres.addAddress(addressMo);
 
     if (name.isNotEmpty ||
         phoneNumber.isNotEmpty ||

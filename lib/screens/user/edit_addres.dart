@@ -247,12 +247,6 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
     final pincode = _pincodeEditcontroller.text;
     final state = _stateEditcontroller.text;
 
-    print(name);
-    print(phoneNumber);
-    print(city);
-    print(pincode);
-    print(state);
-
     final address = AddressModel(
       id: _addresModel.id,
       name: name,
@@ -262,6 +256,6 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
       phonenumber: phoneNumber,
     );
 
-    updateAddress(_addresModel.id!, address);
+    addres.updateAddress(_addresModel.id!, address);
   }
 }

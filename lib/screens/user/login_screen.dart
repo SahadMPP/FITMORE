@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    getAlluser();
+    userr.getAlluser();
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.white,

@@ -304,7 +304,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         price: price,
         category: category!);
 
-    addProduct(product);
+    productt.addProduct(product);
   }
 
   Future pickImageFromGallery1() async {

@@ -273,7 +273,7 @@ class _RegScreenState extends State<RegScreen> {
     // print('$name $phonenumber $email $password');
     final usermodel = UserModel(
         name: name, phoneNumber: phonenumber, email: email, password: password);
-    addUser(usermodel);
+    userr.addUser(usermodel);
 
     if (name.isNotEmpty ||
         phonenumber.isNotEmpty ||

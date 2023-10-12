@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:e_commerce/data_base/function/cart_function.dart';
+import 'package:e_commerce/data_base/function/favorite_function.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
+import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
 import 'package:e_commerce/screens/user/address_screen.dart';
-import 'package:e_commerce/screens/user/cart_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 
 // ignore: must_be_immutable
 class ProductDetiles extends StatefulWidget {
@@ -16,6 +18,7 @@ class ProductDetiles extends StatefulWidget {
   String discription;
   String image;
   int index;
+
   ProductDetiles({
     super.key,
     this.id,
@@ -140,7 +143,7 @@ class _ProductDetilesState extends State<ProductDetiles> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        price.toString(),
+                        '\$$price',
                         style: const TextStyle(
                           color: Color(0xFFFF4848),
                           fontWeight: FontWeight.bold,
@@ -149,17 +152,49 @@ class _ProductDetilesState extends State<ProductDetiles> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(12.0),
-                        child: Container(
-                          width: 70,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 233, 232, 232),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: const Icon(
-                            Icons.favorite,
-                            color: Color(0xFFFF4848),
-                          ),
+                        child: ValueListenableBuilder(
+                          valueListenable:
+                              Hive.box<FavoriteModel>('favorite_db')
+                                  .listenable(),
+                          builder: (context, box, child) {
+                            final isFavorite = box.get(widget.index) != null;
+                            return Container(
+                              width: 70,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 233, 232, 232),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: IconButton(
+                                  onPressed: () async {
+                                    ScaffoldMessenger.of(context)
+                                        .clearSnackBars();
+                                    if (isFavorite) {
+                                      box.delete(widget.index);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                        content: Text('Remove from Favorite'),
+                                        backgroundColor: Colors.green,
+                                      ));
+                                    } else {
+                                      final favorite = FavoriteModel(
+                                          title: widget.title,
+                                          price: widget.price,
+                                          image: widget.image);
+                                      await box.put(widget.index, favorite);
+                                    }
+
+                                    // addFavoriteInButtonClick();
+                                  },
+                                  icon: Icon(
+                                    isFavorite
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    color: const Color(0xFFFF4848),
+                                    size: 30,
+                                  )),
+                            );
+                          },
                         ),
                       )
                     ],
@@ -205,10 +240,14 @@ class _ProductDetilesState extends State<ProductDetiles> {
                       title: widget.title,
                       price: widget.price,
                       image: widget.image);
-                  addTocart(cartmodel);
-                  // Navigator.of(context).push(MaterialPageRoute(
-                  //   builder: (context) => const CartScreen(),
-                  // ));
+                  cartt.addTocart(cartmodel);
+                  ScaffoldMessenger.of(context).clearSnackBars();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Product added to your cart'),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
                 },
                 child: const Text(
                   'Add to Cart',
@@ -285,5 +324,11 @@ class _ProductDetilesState extends State<ProductDetiles> {
         ),
       ),
     );
+  }
+
+  addFavoriteInButtonClick() {
+    final favorite = FavoriteModel(
+        title: widget.title, price: widget.price, image: widget.image);
+    favoritee.addInfavorite(favorite);
   }
 }
