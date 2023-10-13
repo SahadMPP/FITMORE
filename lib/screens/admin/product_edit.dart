@@ -325,6 +325,7 @@ class _ProductEditState extends State<ProductEdit> {
     final int price = int.parse(_priceController.text);
     final discription = _discriptionController.text.trim();
     final category = _productCategory;
+    final id = _productModel.id;
     if (name.isEmpty ||
         discription.isEmpty ||
         base64Image1.isEmpty ||
@@ -335,7 +336,7 @@ class _ProductEditState extends State<ProductEdit> {
     }
 
     final updateStudent = ProductModel(
-      id: _productModel.id,
+      id: _productModel.id!,
       title: _productNameController.text,
       discription: _discriptionController.text,
       category: category!,
@@ -346,7 +347,7 @@ class _ProductEditState extends State<ProductEdit> {
       image4: base64Image4,
     );
 
-    productt.updateProduct(_productModel.id!, updateStudent);
+    productt.updateProduct(id!, updateStudent);
   }
 
   Future pickImageFromGallery1() async {

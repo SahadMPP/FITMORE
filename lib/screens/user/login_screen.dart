@@ -143,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 140),
+            const SizedBox(height: 90),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -186,8 +186,29 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       }
     }
+    if (user == null) {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.red,
+        margin: EdgeInsets.all(15),
+        content: Text('User not registed'),
+      ));
+      return;
+    }
 
-    if (user != null) {
+    if (user.active == false) {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.red,
+        margin: EdgeInsets.all(15),
+        content: Text('User is Blocked'),
+      ));
+      return;
+    }
+
+    if (user.active == true) {
       final shareprefe = await SharedPreferences.getInstance();
       await shareprefe.setBool(SAVE_KEY_NAME, true);
       // ignore: use_build_context_synchronously

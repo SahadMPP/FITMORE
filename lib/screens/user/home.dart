@@ -164,7 +164,7 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Populor Product',
+                      'Recommended Items',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     Text(

@@ -34,26 +34,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
       ),
-      body: Column(
+      body: ListView(
         children: [
           const SizedBox(height: 35),
           Stack(
             children: [
-              CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: 65,
-                child: selectedImage == null
-                    ? Image.asset(
-                        'asset/images (profile).jpg',
-                        fit: BoxFit.fill,
-                      )
-                    : Image.file(
-                        File(selectedImage!.path),
-                        fit: BoxFit.fill,
-                      ),
+              Padding(
+                padding: const EdgeInsets.only(left: 135),
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 65,
+                  child: selectedImage == null
+                      ? Image.asset(
+                          'asset/images (profile).jpg',
+                          fit: BoxFit.fill,
+                        )
+                      : Image.file(
+                          File(selectedImage!.path),
+                          fit: BoxFit.fill,
+                        ),
+                ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 90, top: 90),
+                padding: const EdgeInsets.only(left: 240, top: 100),
                 child: CircleAvatar(
                   radius: 25,
                   backgroundColor: Colors.white,

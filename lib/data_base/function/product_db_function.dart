@@ -8,7 +8,6 @@ Product productt = Product();
 
 class Product extends ChangeNotifier {
   void addProduct(ProductModel value) async {
-    print('Adding Product');
     final productDB = await Hive.openBox<ProductModel>('product_db');
     final id = await productDB.add(value);
     value.id = id;
@@ -24,6 +23,7 @@ class Product extends ChangeNotifier {
   }
 
   Future<void> deleteProduct(id) async {
+    print('deleting product');
     final productDB = await Hive.openBox<ProductModel>('product_db');
     productDB.delete(id);
     getAllProduct();
@@ -31,7 +31,7 @@ class Product extends ChangeNotifier {
 
   Future<void> updateProduct(int id, ProductModel value) async {
     final productDB = await Hive.openBox<ProductModel>('product_db');
-
+    print('Updating Product');
     if (productDB.containsKey(id)) {
       await productDB.put(id, value);
       int index =

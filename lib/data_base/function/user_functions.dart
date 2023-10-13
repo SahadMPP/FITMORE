@@ -9,7 +9,8 @@ class UserFunction extends ChangeNotifier {
   void addUser(UserModel value) async {
     print('Adding User');
     final userDB = await Hive.openBox<UserModel>('user_db');
-    await userDB.add(value);
+    final id = await userDB.add(value);
+    value.id = id;
     userListNotifier.value.add(value);
 
     userListNotifier.notifyListeners();
@@ -18,8 +19,21 @@ class UserFunction extends ChangeNotifier {
   Future<void> getAlluser() async {
     final userDB = await Hive.openBox<UserModel>('user_db');
     userListNotifier.value.clear();
-
     userListNotifier.value.addAll(userDB.values);
     userListNotifier.notifyListeners();
+  }
+
+  Future<void> updateUser(int id, UserModel value) async {
+    final userDB = await Hive.openBox<UserModel>('user_db');
+    if (userDB.containsKey(id)) {
+      await userDB.put(id, value);
+      int index = userListNotifier.value.indexWhere((user) => user.id == id);
+      if (index != -1) {
+        userListNotifier.value[index] = value;
+        userListNotifier.notifyListeners();
+      }
+    }
+    value.id = id;
+    await userDB.put(id, value);
   }
 }

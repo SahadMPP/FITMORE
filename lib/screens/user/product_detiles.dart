@@ -174,7 +174,7 @@ class _ProductDetilesState extends State<ProductDetiles> {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(const SnackBar(
                                         content: Text('Remove from Favorite'),
-                                        backgroundColor: Colors.green,
+                                        backgroundColor: Colors.red,
                                       ));
                                     } else {
                                       final favorite = FavoriteModel(
@@ -183,8 +183,6 @@ class _ProductDetilesState extends State<ProductDetiles> {
                                           image: widget.image);
                                       await box.put(widget.index, favorite);
                                     }
-
-                                    // addFavoriteInButtonClick();
                                   },
                                   icon: Icon(
                                     isFavorite

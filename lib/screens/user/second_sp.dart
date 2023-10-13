@@ -36,7 +36,7 @@ class _SecondSpState extends State<SecondSp> {
             children: [
               const SizedBox(height: 100),
               Expanded(
-                flex: 3,
+                flex: 6,
                 child: PageView.builder(
                   onPageChanged: (value) {
                     setState(() {
@@ -51,7 +51,6 @@ class _SecondSpState extends State<SecondSp> {
               ),
               const SizedBox(height: 40),
               Expanded(
-                flex: 1,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Column(
@@ -67,6 +66,7 @@ class _SecondSpState extends State<SecondSp> {
                   ),
                 ),
               ),
+
               // botton............
               Padding(
                 padding: const EdgeInsets.only(left: 40.0, right: 40.0),

@@ -22,30 +22,14 @@ class UserModel {
   final String? profile;
 
   @HiveField(6)
-  final String? adressname;
-
-  @HiveField(7)
-  final String? addressphnumber;
-
-  @HiveField(8)
-  final String? city;
-
-  @HiveField(9)
-  final String? state;
-
-  @HiveField(10)
-  final String? pin;
+  bool active;
 
   UserModel(
       {required this.name,
       required this.phoneNumber,
       required this.email,
       required this.password,
-      this.city,
-      this.state,
-      this.pin,
       this.profile,
-      this.adressname,
-      this.addressphnumber,
+      this.active = true,
       this.id});
 }
