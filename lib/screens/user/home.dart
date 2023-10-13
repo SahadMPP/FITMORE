@@ -18,6 +18,15 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late Box<FavoriteModel> favoriteBox;
+  int currentPage = 0;
+
+  List<Map<String, String>> imageList = [
+    {'image': 'asset/images-b1.jpg'},
+    {'image': 'asset/images-6.jpg'},
+    {'image': 'asset/images-b3.jpg'},
+    {'image': 'asset/images-b4.jpg'},
+    {'image': 'asset/images-b5.jpg'}
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -78,46 +87,36 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Container(
-                      height: 100,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'asset/download (home_background).jpg'),
-                          fit: BoxFit.cover,
-                        ),
-                        color: const Color.fromARGB(255, 134, 0, 212),
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.only(left: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              'A Summer Surprise',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 20.0, bottom: 10, right: 5, left: 5),
+                        child: Container(
+                          height: 150,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 134, 0, 212),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: PageView.builder(
+                            onPageChanged: (value) {
+                              setState(() {
+                                currentPage = value;
+                              });
+                            },
+                            itemCount: imageList.length,
+                            itemBuilder: (context, index) => ScrollingImageHome(
+                              image: imageList[index]['image'],
                             ),
-                            Text(
-                              'Cashback 20%',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(imageList.length,
+                              (index) => buildDots(index: index))),
+                    ],
                   ),
                   const SizedBox(height: 5),
                   Padding(
@@ -199,6 +198,39 @@ class _HomeState extends State<Home> {
     final favorite = FavoriteModel(title: title, price: price, image: image);
 
     favoritee.addInfavorite(favorite);
+  }
+
+  AnimatedContainer buildDots({int? index}) {
+    return AnimatedContainer(
+      duration: kThemeAnimationDuration,
+      margin: const EdgeInsets.only(right: 5),
+      height: 6,
+      width: currentPage == index ? 10 : 6,
+      decoration: BoxDecoration(
+        color: currentPage == index
+            ? const Color.fromARGB(255, 232, 138, 16)
+            : const Color(0xFFD8D8D8),
+        borderRadius: BorderRadius.circular(3),
+      ),
+    );
+  }
+}
+
+class ScrollingImageHome extends StatelessWidget {
+  final String? image;
+  const ScrollingImageHome({
+    super.key,
+    this.image,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Image(
+      fit: BoxFit.fill,
+      image: AssetImage(image!),
+      height: 265,
+      width: 235,
+    );
   }
 }
 
