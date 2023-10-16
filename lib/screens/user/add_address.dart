@@ -1,6 +1,5 @@
 import 'package:e_commerce/data_base/function/address_function.dart';
 import 'package:e_commerce/data_base/models/address/db_address_model.dart';
-import 'package:e_commerce/screens/user/address_screen.dart';
 import 'package:flutter/material.dart';
 
 class AddAdress extends StatefulWidget {
@@ -239,11 +238,7 @@ class _AddAdressState extends State<AddAdress> {
         city.isNotEmpty ||
         pincode.isNotEmpty ||
         state.isNotEmpty) {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const AddressScreen(),
-          ));
+      Navigator.pop(context);
     }
   }
 }

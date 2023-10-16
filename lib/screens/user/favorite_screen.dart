@@ -13,11 +13,6 @@ class FavoriteScreen extends StatefulWidget {
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     favoritee.getAllFavorite();
     return Scaffold(
@@ -53,6 +48,17 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         valueListenable: favoriteNotifier,
         builder: (BuildContext context, List<FavoriteModel> favoriteList,
             Widget? child) {
+          if (favoriteList.isEmpty) {
+            return const Center(
+              child: Text(
+                'Your favorite is Empty',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 139, 139, 139),
+                  fontSize: 18,
+                ),
+              ),
+            );
+          }
           return ListView.builder(
             itemCount: favoriteList.length,
             itemBuilder: (context, index) {

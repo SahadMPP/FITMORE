@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
-import 'package:e_commerce/screens/admin/admin_list.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -249,8 +248,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ),
                 onPressed: () {
                   addProductOnbuttenClick();
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const AdminList()));
+                  Navigator.of(context).pop();
                 },
                 child: const Text(
                   'Add Product',

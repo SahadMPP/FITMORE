@@ -68,12 +68,15 @@ class _AdminUserListScreenState extends State<AdminUserListScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            data.name,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
+                          SizedBox(
+                            width: 150,
+                            child: Text(
+                              data.name,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           Text(
@@ -91,8 +94,7 @@ class _AdminUserListScreenState extends State<AdminUserListScreen> {
                           onPressed: () {
                             ScaffoldMessenger.of(context).clearSnackBars();
                             final id = data.id;
-                            print(isActive);
-                            print(id);
+
                             if (id != null) {
                               if (isActive) {
                                 // true

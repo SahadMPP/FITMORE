@@ -29,6 +29,7 @@ Future<void> main() async {
     Hive.registerAdapter(FavoriteModelAdapter());
   }
   await Hive.openBox<FavoriteModel>('favorite_db');
+  await Hive.openBox<CartModel>('cart_db');
   runApp(const MyApp());
 }
 

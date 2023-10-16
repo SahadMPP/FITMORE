@@ -14,14 +14,17 @@ class CartModel {
   @HiveField(4)
   int quantity;
   @HiveField(5)
-  int? newPrice;
+  int newPrice;
+  @HiveField(6)
+  int dindex;
 
   CartModel({
+    required this.newPrice,
+    required this.quantity,
     this.id,
     required this.title,
     required this.price,
     required this.image,
-    required this.quantity,
-    this.newPrice,
+    required this.dindex,
   });
 }

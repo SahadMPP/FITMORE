@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'dart:typed_data';
+
 import 'package:e_commerce/data_base/function/cart_function.dart';
-import 'package:e_commerce/data_base/function/favorite_function.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
+
 import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
 import 'package:e_commerce/screens/user/address_screen.dart';
@@ -12,20 +13,17 @@ import 'package:hive_flutter/adapters.dart';
 
 // ignore: must_be_immutable
 class ProductDetiles extends StatefulWidget {
-  int? id;
+  int index;
   String title;
   int price;
-  String discription;
   String image;
-  int index;
+  late Box<CartModel> cartBox;
 
   ProductDetiles({
     super.key,
-    this.id,
     required this.index,
     required this.title,
     required this.price,
-    required this.discription,
     required this.image,
   });
 
@@ -37,10 +35,6 @@ class _ProductDetilesState extends State<ProductDetiles> {
   int selectedImage = 0;
   @override
   Widget build(BuildContext context) {
-    final title = widget.title;
-    final price = widget.price;
-    final description = widget.discription;
-
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 240, 240, 240),
       appBar: AppBar(
@@ -84,10 +78,8 @@ class _ProductDetilesState extends State<ProductDetiles> {
                 final base64Image2 = data.image2;
                 final base64Image3 = data.image3;
                 final base64Image4 = data.image4;
-
                 // ignore: unused_local_variable
                 Uint8List imageBytes;
-
                 List<Uint8List> demoImage = [
                   imageBytes = base64.decode(base64Image1),
                   imageBytes = base64.decode(base64Image2),
@@ -131,85 +123,96 @@ class _ProductDetilesState extends State<ProductDetiles> {
                 color: Colors.white, borderRadius: BorderRadius.circular(20)),
             child: Padding(
               padding: const EdgeInsets.only(left: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 15),
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: ValueListenableBuilder(
+                valueListenable: productListNotifier,
+                builder: (BuildContext context, List<ProductModel> productList,
+                    Widget? child) {
+                  final data = productList[widget.index];
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const SizedBox(height: 15),
                       Text(
-                        '\$$price',
-                        style: const TextStyle(
-                          color: Color(0xFFFF4848),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
+                        data.title,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '\$${data.price}',
+                            style: const TextStyle(
+                              color: Color(0xFFFF4848),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: ValueListenableBuilder(
+                              valueListenable:
+                                  Hive.box<FavoriteModel>('favorite_db')
+                                      .listenable(),
+                              builder: (context, box, child) {
+                                final isFavorite =
+                                    box.get(widget.index) != null;
+                                return Container(
+                                  width: 70,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: const Color.fromARGB(
+                                        255, 233, 232, 232),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: IconButton(
+                                      onPressed: () async {
+                                        ScaffoldMessenger.of(context)
+                                            .clearSnackBars();
+                                        if (isFavorite) {
+                                          box.delete(widget.index);
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                            content:
+                                                Text('Remove from Favorite'),
+                                            backgroundColor: Colors.red,
+                                          ));
+                                        } else {
+                                          final base64Image1 = data.image1;
+                                          final favorite = FavoriteModel(
+                                              title: data.title,
+                                              price: data.price,
+                                              image: base64Image1);
+                                          await box.put(widget.index, favorite);
+                                        }
+                                      },
+                                      icon: Icon(
+                                        isFavorite
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
+                                        color: const Color(0xFFFF4848),
+                                        size: 30,
+                                      )),
+                                );
+                              },
+                            ),
+                          )
+                        ],
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: ValueListenableBuilder(
-                          valueListenable:
-                              Hive.box<FavoriteModel>('favorite_db')
-                                  .listenable(),
-                          builder: (context, box, child) {
-                            final isFavorite = box.get(widget.index) != null;
-                            return Container(
-                              width: 70,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 233, 232, 232),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: IconButton(
-                                  onPressed: () async {
-                                    ScaffoldMessenger.of(context)
-                                        .clearSnackBars();
-                                    if (isFavorite) {
-                                      box.delete(widget.index);
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                        content: Text('Remove from Favorite'),
-                                        backgroundColor: Colors.red,
-                                      ));
-                                    } else {
-                                      final favorite = FavoriteModel(
-                                          title: widget.title,
-                                          price: widget.price,
-                                          image: widget.image);
-                                      await box.put(widget.index, favorite);
-                                    }
-                                  },
-                                  icon: Icon(
-                                    isFavorite
-                                        ? Icons.favorite
-                                        : Icons.favorite_border,
-                                    color: const Color(0xFFFF4848),
-                                    size: 30,
-                                  )),
-                            );
-                          },
+                        padding: const EdgeInsets.only(right: 150),
+                        child: SizedBox(
+                          height: 90,
+                          width: 200,
+                          child: Text(
+                            data.discription,
+                            maxLines: 4,
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
                         ),
                       )
                     ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 150),
-                    child: SizedBox(
-                      height: 90,
-                      width: 200,
-                      child: Text(
-                        description,
-                        maxLines: 4,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ),
-                  )
-                ],
+                  );
+                },
               ),
             ),
           ),
@@ -219,41 +222,64 @@ class _ProductDetilesState extends State<ProductDetiles> {
             child: SizedBox(
               width: double.infinity,
               height: 56,
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: const MaterialStatePropertyAll(
-                    Color.fromARGB(255, 255, 145, 0),
-                  ),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
+              child: ValueListenableBuilder(
+                valueListenable: Hive.box<CartModel>('cart_db').listenable(),
+                builder: (context, box, child) {
+                  //  some logical error
+                  final isInCart = box.get(widget.index) != null;
+                  return ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: const MaterialStatePropertyAll(
+                        Color.fromARGB(255, 255, 145, 0),
+                      ),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                onPressed: () {
-                  final cartmodel = CartModel(
-                      id: widget.id,
-                      quantity: 1,
-                      newPrice: widget.price,
-                      title: widget.title,
-                      price: widget.price,
-                      image: widget.image);
-                  cartt.addTocart(cartmodel);
-                  ScaffoldMessenger.of(context).clearSnackBars();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Product added to your cart'),
-                      backgroundColor: Colors.green,
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).clearSnackBars();
+                      // addToCart();
+                      if (isInCart) {
+                        // incresss cart item count
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Incresing cart product count'),
+                            backgroundColor: Color.fromARGB(255, 99, 98, 98),
+                          ),
+                        );
+                      } else {
+                        final title = widget.title;
+                        final price = widget.price;
+                        final image = widget.image;
+                        final cart = CartModel(
+                          title: title,
+                          price: price,
+                          image: image,
+                          quantity: 1,
+                          newPrice: price,
+                          dindex: widget.index,
+                        );
+
+                        box.put(widget.index, cart);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Added to Cart'),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      }
+                    },
+                    child: const Text(
+                      'Add to Cart',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
                     ),
                   );
                 },
-                child: const Text(
-                  'Add to Cart',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
-                ),
               ),
             ),
           ),
@@ -288,7 +314,8 @@ class _ProductDetilesState extends State<ProductDetiles> {
                 ),
               ),
             ),
-          )
+          ),
+          const SizedBox(height: 20),
         ],
       ),
     );
@@ -324,9 +351,55 @@ class _ProductDetilesState extends State<ProductDetiles> {
     );
   }
 
-  addFavoriteInButtonClick() {
-    final favorite = FavoriteModel(
-        title: widget.title, price: widget.price, image: widget.image);
-    favoritee.addInfavorite(favorite);
-  }
+  // addCartInButtonClick(titlee, pricee, imagee) {
+  //   final title = titlee;
+  //   final price = pricee;
+  //   final image = imagee;
+
+  //   final cart = CartModel(title: title, price: price, image: image);
+
+  //   cartt.addTocart(cart);
+  // }
+
+  // addFavoriteInButtonClick() {
+  //   final favorite = FavoriteModel(
+  //       title: widget.title, price: widget.price, image: widget.image);
+  //   favoritee.addInfavorite(favorite);
+  // }
+
+  // Future<void> addToCart(int id,) async {
+  //   final cartmodel = CartModel(
+  //     id: idd,
+  //     quantity: 1,
+  //     newPrice: .price,
+  //     title: widget.title,
+  //     price: widget.price,
+  //     image: widget.image,
+  //   );
+  //   final cartDB = await Hive.openBox<CartModel>('cart_db');
+  //   for (var i = 0; i < cartDB.length; i++) {
+  //     final currentProduct = cartDB.getAt(i);
+  //     if (currentProduct!.id == idd) {
+  //       currentProduct.quantity++;
+  //       // ignore: use_build_context_synchronously
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         const SnackBar(
+  //           content: Text('Product count added'),
+  //           backgroundColor: Colors.grey,
+  //         ),
+  //       );
+  //       break;
+  //     }
+  //   }
+
+  // if (!cartDB.containsKey(idd)) {
+  //   cartt.addTocart(cartmodel);
+  //   // ignore: use_build_context_synchronously
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //     const SnackBar(
+  //       content: Text('Product added to your cart'),
+  //       backgroundColor: Colors.green,
+  //     ),
+  //   );
+  // }
 }

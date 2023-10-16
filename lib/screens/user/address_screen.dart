@@ -38,12 +38,34 @@ class _AddressScreenState extends State<AddressScreen> {
             child: Material(
               child: ValueListenableBuilder(
                 valueListenable: addressListNotifyer,
-                builder: (BuildContext context, List<AddressModel> addressModel,
+                builder: (BuildContext context, List<AddressModel> addresslist,
                     Widget? child) {
+                  if (addresslist.isEmpty) {
+                    return const Center(
+                      child: Text(
+                        'plaese add your location',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 139, 139, 139),
+                          fontSize: 18,
+                        ),
+                      ),
+                    );
+                  }
                   return ListView.builder(
-                    itemCount: addressModel.length,
+                    itemCount: addresslist.length,
                     itemBuilder: (context, index) {
-                      final data = addressModel[index];
+                      final data = addresslist[index];
+                      if (addresslist.isEmpty) {
+                        return const Center(
+                          child: Text(
+                            'Your addres list is Empty',
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 139, 139, 139),
+                              fontSize: 18,
+                            ),
+                          ),
+                        );
+                      }
                       return AddressCard(
                         index: index,
                         id: data.id,

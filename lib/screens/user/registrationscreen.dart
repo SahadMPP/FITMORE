@@ -202,9 +202,7 @@ class _RegScreenState extends State<RegScreen> {
                     isValid = EmailValidator.validate(_emailController.text);
                     if (isValid) {
                       if (formKey.currentState!.validate()) {
-                        checkingUserAlreadyExiste(_emailController.text,
-                            _passwordControlle.text, context);
-                        onAddUserButtenClick(context);
+                        checkingUserAlreadyExiste(context);
                       }
                     } else if (_emailController.text.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -254,40 +252,9 @@ class _RegScreenState extends State<RegScreen> {
     );
   }
 
-  Future onAddUserButtenClick(BuildContext context) async {
-    final name = _nameController.text;
-    final phonenumber = _phonenumberController.text;
-    final email = _emailController.text;
-    final password = _passwordControlle.text;
-    if (name.isEmpty ||
-        phonenumber.isEmpty ||
-        email.isEmpty ||
-        password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.red,
-        margin: EdgeInsets.all(15),
-        content: Text('Invalid User name and password'),
-      ));
-    }
-    // print('$name $phonenumber $email $password');
-    final usermodel = UserModel(
-        name: name, phoneNumber: phonenumber, email: email, password: password);
-    userr.addUser(usermodel);
-
-    if (name.isNotEmpty ||
-        phonenumber.isNotEmpty ||
-        email.isNotEmpty ||
-        password.isNotEmpty) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const LoginScreen()));
-    }
-  }
-
-  Future<void> checkingUserAlreadyExiste(
-      String email, String password, BuildContext context) async {
+  Future<void> checkingUserAlreadyExiste(BuildContext context) async {
     final userDB = await Hive.openBox<UserModel>('user_db');
-    // UserModel? user;
+    final email = _emailController.text;
 
     // ignore: unnecessary_null_comparison
     if (userDB != null) {
@@ -299,10 +266,40 @@ class _RegScreenState extends State<RegScreen> {
             behavior: SnackBarBehavior.floating,
             backgroundColor: Colors.red,
             margin: EdgeInsets.all(15),
-            content: Text('Email Already redisted'),
+            content: Text('Email Already registered'),
           ));
+          return;
         }
       }
+    }
+
+    final name = _nameController.text;
+    final phonenumber = _phonenumberController.text;
+    final password = _passwordControlle.text;
+
+    if (name.isEmpty ||
+        phonenumber.isEmpty ||
+        email.isEmpty ||
+        password.isEmpty) {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.red,
+        margin: EdgeInsets.all(15),
+        content: Text('Invalid User name and password'),
+      ));
+    } else {
+      final usermodel = UserModel(
+        name: name,
+        phoneNumber: phonenumber,
+        email: email,
+        password: password,
+      );
+      userr.addUser(usermodel);
+
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const LoginScreen()));
     }
   }
 }

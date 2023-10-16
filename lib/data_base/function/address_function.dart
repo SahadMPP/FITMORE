@@ -7,7 +7,6 @@ Address addres = Address();
 
 class Address extends ChangeNotifier {
   Future<void> addAddress(AddressModel value) async {
-    print('Adding Address');
     final addressdb = await Hive.openBox<AddressModel>('db_address');
     final id = await addressdb.add(value);
     value.id = id;

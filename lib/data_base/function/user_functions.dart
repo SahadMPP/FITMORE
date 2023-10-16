@@ -7,7 +7,6 @@ UserFunction userr = UserFunction();
 
 class UserFunction extends ChangeNotifier {
   void addUser(UserModel value) async {
-    print('Adding User');
     final userDB = await Hive.openBox<UserModel>('user_db');
     final id = await userDB.add(value);
     value.id = id;

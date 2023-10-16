@@ -7,7 +7,6 @@ Cart cartt = Cart();
 
 class Cart extends ChangeNotifier {
   Future<void> addTocart(CartModel value) async {
-    print('Adding to cart');
     final cartDB = await Hive.openBox<CartModel>('cart_db');
     final id = await cartDB.add(value);
     value.id = id;

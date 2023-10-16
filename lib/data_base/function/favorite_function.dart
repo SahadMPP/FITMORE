@@ -9,7 +9,6 @@ Favorite favoritee = Favorite();
 class Favorite extends ChangeNotifier {
   Future<void> addInfavorite(FavoriteModel value) async {
     final favoriteDB = await Hive.openBox<FavoriteModel>('favorite_db');
-    print('Adding to favoritelist');
     final id = await favoriteDB.add(value);
     value.id = id;
     favoriteNotifier.value.clear();

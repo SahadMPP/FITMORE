@@ -13,17 +13,18 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  @override
-  void initState() {
-    super.initState();
-    cartt.getAllCart();
-    getTotelPrice();
-  }
+  // @override
+  // void initState() {
+  //   getTotelPrice();
+  //   discoundCalculator();
+  //   afterDiscounting();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> formkey2 = GlobalKey<FormState>();
-
+    cartt.getAllCart();
+    // GlobalKey<FormState> formkey2 = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -55,185 +56,199 @@ class _CartScreenState extends State<CartScreen> {
       body: Column(
         children: [
           Expanded(
-            child: Material(
-              child: ValueListenableBuilder(
-                key: formkey2,
-                valueListenable: cartvaluelisener,
-                builder: (BuildContext context, List<CartModel> cartList,
-                    Widget? child) {
-                  if (cartList.isEmpty) {
-                    return const Center(
-                      child: Text(
-                        'Your cart is Empty',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 139, 139, 139),
-                          fontSize: 18,
-                        ),
+            child: ValueListenableBuilder(
+              valueListenable: cartvaluelisener,
+              builder: (BuildContext context, List<CartModel> cartList,
+                  Widget? child) {
+                if (cartList.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      'Your cart is Empty',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 139, 139, 139),
+                        fontSize: 18,
                       ),
-                    );
-                  }
-                  return ListView.builder(
-                    itemCount: cartList.length,
-                    itemBuilder: (context, index) {
-                      final data = cartList[index];
-                      final image64 = data.image;
-
-                      final imagebyts = base64.decode(image64);
-                      GlobalKey<FormState> formkey = GlobalKey<FormState>();
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Dismissible(
-                          key: formkey,
-                          onDismissed: (direction) {
-                            setState(() {
-                              cartList.removeAt(index);
-                            });
-                            cartt.deleteCartItem(data.id!);
-                          },
-                          direction: DismissDirection.endToStart,
-                          background: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: const Color.fromARGB(255, 255, 243, 242),
-                            ),
-                            child: const Padding(
-                              padding: EdgeInsets.only(left: 280),
-                              child: Icon(
-                                Icons.delete,
-                                color: Color.fromARGB(255, 240, 43, 43),
+                    ),
+                  );
+                }
+                return ListView.builder(
+                  itemCount: cartList.length,
+                  itemBuilder: (context, index) {
+                    final data = cartList[index];
+                    final base64Image = data.image;
+                    final imagebytes = base64.decode(base64Image);
+                    GlobalKey<FormState> formkey = GlobalKey<FormState>();
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: ValueListenableBuilder(
+                        valueListenable:
+                            Hive.box<CartModel>('cart_db').listenable(),
+                        builder: (context, box, child) {
+                          return Dismissible(
+                            key: formkey,
+                            onDismissed: (direction) {
+                              print(index);
+                              setState(() {
+                                cartList.removeAt(index);
+                              });
+                              box.delete(index);
+                            },
+                            direction: DismissDirection.endToStart,
+                            background: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: const Color.fromARGB(255, 255, 243, 242),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.only(left: 280),
+                                child: Icon(
+                                  Icons.delete,
+                                  color: Color.fromARGB(255, 240, 43, 43),
+                                ),
                               ),
                             ),
-                          ),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 88,
-                                child: AspectRatio(
-                                  aspectRatio: 0.88,
-                                  child: Container(
-                                    width: 88,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, top: 10),
-                                      child: Image(
-                                        fit: BoxFit.fill,
-                                        image: MemoryImage(imagebyts),
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 88,
+                                  child: AspectRatio(
+                                    aspectRatio: 0.88,
+                                    child: Container(
+                                      width: 88,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 10, top: 10),
+                                        child: Image(
+                                          fit: BoxFit.fill,
+                                          image: MemoryImage(imagebytes),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(width: 20),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 8, bottom: 1),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(height: 15),
-                                    Text(
-                                      data.title,
-                                      style: const TextStyle(
-                                        color: Color.fromARGB(255, 65, 65, 65),
-                                        fontSize: 16,
-                                      ),
-                                      maxLines: 2,
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Text(
-                                      'Size 1$index',
-                                      style: const TextStyle(
-                                        color: Color.fromARGB(255, 65, 65, 65),
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 20),
-                                    Row(
-                                      children: [
-                                        SizedBox(
-                                          width: 60,
-                                          child: Text(
-                                            '\$${data.newPrice}',
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.red,
-                                              fontSize: 20,
-                                            ),
-                                          ),
+                                const SizedBox(width: 20),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 8, bottom: 1),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(height: 15),
+                                      Text(
+                                        data.title,
+                                        style: const TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 65, 65, 65),
+                                          fontSize: 16,
                                         ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 90),
-                                          child: Container(
-                                            height: 35,
-                                            width: 100,
-                                            decoration: BoxDecoration(
-                                              color: Colors.green,
-                                              borderRadius:
-                                                  BorderRadius.circular(5),
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                InkWell(
-                                                  onTap: () {
-                                                    if (data.id != null) {
-                                                      updateCartLessOnAButtonClick(
-                                                        data.quantity,
-                                                        data.price,
-                                                        data.title,
-                                                        data.image,
-                                                        data.id!,
-                                                      );
-                                                    } else {
-                                                      // print('data.id is null.');
-                                                    }
-                                                  },
-                                                  child: const Icon(
-                                                      Icons.remove,
-                                                      color: Colors.white),
-                                                ),
-                                                Text('${data.quantity}',
-                                                    style: const TextStyle(
-                                                        color: Colors.white)),
-                                                InkWell(
-                                                  onTap: () {
-                                                    if (data.id != null) {
-                                                      updateCartAddOnAButtonClick(
-                                                        data.quantity,
-                                                        data.price,
-                                                        data.title,
-                                                        data.image,
-                                                        data.id!,
-                                                      );
-                                                    } else {
-                                                      // print('data.id is null.');
-                                                    }
-                                                  },
-                                                  child: const Icon(Icons.add,
-                                                      color: Colors.white),
-                                                ),
-                                              ],
+                                        maxLines: 2,
+                                      ),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        'Size 1$index',
+                                        style: const TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 65, 65, 65),
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 20),
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 60,
+                                            child: Text(
+                                              '\$${data.newPrice}',
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.red,
+                                                fontSize: 20,
+                                              ),
                                             ),
                                           ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 90),
+                                            child: Container(
+                                              height: 35,
+                                              width: 100,
+                                              decoration: BoxDecoration(
+                                                color: Colors.green,
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  InkWell(
+                                                    onTap: () {
+                                                      // countLessing(
+                                                      //     quantityy:
+                                                      //         data.quantity,
+                                                      //     titlee: data.title,
+                                                      //     idd: data.id,
+                                                      //     imagee: data.image,
+                                                      //     pricee: data.price);
+                                                    },
+                                                    child: const Icon(
+                                                        Icons.remove,
+                                                        color: Colors.white),
+                                                  ),
+                                                  Text('${data.quantity}',
+                                                      style: const TextStyle(
+                                                          color: Colors.white)),
+                                                  InkWell(
+                                                    onTap: () async {
+                                                      setState(
+                                                        () {
+                                                          countAdding(
+                                                              quantityy:
+                                                                  data.quantity,
+                                                              pricee:
+                                                                  data.price);
+                                                        },
+                                                      );
+                                                      final cart = CartModel(
+                                                        dindex: data.dindex,
+                                                        id: data.id,
+                                                        quantity:
+                                                            data.quantity + 1,
+                                                        title: data.title,
+                                                        price: data.price,
+                                                        image: data.image,
+                                                        newPrice: data.newPrice,
+                                                      );
+
+                                                      await box.putAt(
+                                                          index, cart);
+                                                    },
+                                                    child: const Icon(Icons.add,
+                                                        color: Colors.white),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ),
           const SizedBox(height: 10),
@@ -248,88 +263,100 @@ class _CartScreenState extends State<CartScreen> {
                   height: 100,
                   padding: const EdgeInsets.all(15),
                   width: double.infinity,
-                  child: ValueListenableBuilder(
-                    valueListenable: cartvaluelisener,
-                    builder: (BuildContext context, List<CartModel> cartList,
-                        Widget? child) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Sub Totel',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              FutureBuilder(
-                                future: getTotelPrice(),
-                                builder: (context, snapshot) {
-                                  return Text(
-                                    snapshot.data!,
-                                    style: const TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  );
-                                },
-                              )
-                            ],
+                          Text(
+                            'Sub Totel',
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Discount',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              FutureBuilder(
-                                future: discoundCalculator(),
-                                builder: (context, snapshot) {
-                                  return Text(
-                                    snapshot.data!,
-                                    style: const TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  );
-                                },
-                              )
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Totel',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              FutureBuilder(
-                                future: afterDiscounting(),
-                                builder: (context, snapshot) {
-                                  return Text(
-                                    snapshot.data!,
-                                    style: const TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  );
-                                },
-                              )
-                            ],
-                          ),
+                          // FutureBuilder(
+                          //   future: countAdding(),
+                          //   builder: (context, snapshot) {
+                          //     if (snapshot.connectionState ==
+                          //         ConnectionState.waiting) {
+                          //       return const Text(
+                          //         'Loading...',
+                          //         style: TextStyle(
+                          //           fontSize: 17,
+                          //           fontWeight: FontWeight.bold,
+                          //         ),
+                          //       );
+                          //     } else if (snapshot.hasError) {
+                          //       return Text(
+                          //         'Error: ${snapshot.error}',
+                          //         style: const TextStyle(
+                          //           fontSize: 17,
+                          //           fontWeight: FontWeight.bold,
+                          //         ),
+                          //       );
+                          //     } else if (snapshot.data != null) {
+                          //       return Text(
+                          //         snapshot.data!,
+                          //         style: const TextStyle(
+                          //           fontSize: 17,
+                          //           fontWeight: FontWeight.bold,
+                          //         ),
+                          //       );
+                          //     } else {
+                          //       // Handle other states or null data if needed
+                          //       return const Text(
+                          //         'No data available',
+                          //         style: TextStyle(
+                          //           fontSize: 17,
+                          //           fontWeight: FontWeight.bold,
+                          //         ),
+                          //       );
+                          //     }
+                          //   },
+                          // )
                         ],
-                      );
-                    },
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Discount',
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            '0.00',
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Totel',
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            '0.00',
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               );
@@ -337,7 +364,8 @@ class _CartScreenState extends State<CartScreen> {
           ),
           ValueListenableBuilder(
             valueListenable: cartvaluelisener,
-            builder: (context, List<CartModel> cartList, Widget? child) {
+            builder: (BuildContext context, List<CartModel> cartList,
+                Widget? child) {
               return Visibility(
                 // ignore: prefer_is_empty
                 visible: cartList.length > 0 ? true : false,
@@ -377,97 +405,103 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  updateCartAddOnAButtonClick(
-    int quantityy,
-    int pricee,
-    String titlee,
-    String imagee,
-    int idd,
-  ) {
+  int countAdding({quantityy, pricee}) {
     int quantity = quantityy;
     int price = pricee;
-    String title = titlee;
-    String image = imagee;
-    int id = idd;
+    // String title = titlee;
+    // String image = imagee;
 
     quantity = quantity + 1;
     int newPrice = quantity * price;
-    // print('quantity $quantity $price $newPrice ');
-    final cart = CartModel(
-        title: title,
-        price: price,
-        image: image,
-        quantity: quantity,
-        newPrice: newPrice);
-    cartt.upgradeCart(id, cart);
-    getTotelPrice();
+    return newPrice;
   }
 
-  updateCartLessOnAButtonClick(
-    int quantityy,
-    int pricee,
-    String titlee,
-    String imagee,
-    int idd,
-  ) {
-    int quantity = quantityy;
-    int price = pricee;
-    String title = titlee;
-    String image = imagee;
-    int id = idd;
+  // Future<void> countLessing({quantityy, pricee, titlee, imagee, idd}) async {
+  //   int id = idd ?? 0;
+  //   int quantity = quantityy ?? 0;
+  //   int price = pricee ?? 0;
+  //   String title = titlee ?? "";
+  //   String image = imagee;
+  //   if (quantity > 1) {
+  //     quantity = quantity - 1;
+  //     int newPrice = quantity * price;
 
-    if (quantity > 1) {
-      quantity = quantity - 1;
-      int newPrice = quantity * price;
-      final cart = CartModel(
-          title: title,
-          price: price,
-          image: image,
-          quantity: quantity,
-          newPrice: newPrice);
-      cartt.upgradeCart(id, cart);
-      getTotelPrice();
-    }
+  //     final cart = CartModel(
+  //       quantity: quantity,
+  //       title: title,
+  //       price: price,
+  //       image: image,
+  //     );
+  //     await cartt.upgradeCart(id, cart);
+  //   }
+  // }
 
-    // print('quantity $quantity $price $newPrice ');
-  }
+  // updateCartLessOnAButtonClick(
+  //   int quantityy,
+  //   int pricee,
+  //   String titlee,
+  //   String imagee,
+  //   int idd,
+  // ) {
+  //   int quantity = quantityy;
+  //   int price = pricee;
+  //   String title = titlee;
+  //   String image = imagee;
+  //   int id = idd;
 
-  Future<String> getTotelPrice() async {
-    int totelPrice = 0;
-    final cartDB = await Hive.openBox<CartModel>('cart_db');
-    for (var i = 0; i < cartDB.length; i++) {
-      final currentProduct = cartDB.get(i);
-      if (currentProduct != null) {
-        totelPrice = totelPrice + currentProduct.newPrice!;
-      }
-    }
-    return '\$$totelPrice.00';
-  }
+  //   if (quantity > 1) {
+  //     quantity = quantity - 1;
+  //     int newPrice = quantity * price;
+  //     final cart = CartModel(
+  //       id: id,
+  //       title: title,
+  //       price: price,
+  //       image: image,
+  //       quantity: quantity,
+  //     );
+  //     cartt.upgradeCart(id, cart);
+  //     // getTotelPrice();
+  //   }
 
-  Future<String> discoundCalculator() async {
-    final cartDB = await Hive.openBox<CartModel>('cart_db');
-    num totelPrice = 0;
-    for (var i = 0; i < cartDB.length; i++) {
-      final currentProduct = cartDB.get(i);
-      if (currentProduct != null) {
-        totelPrice += currentProduct.newPrice!;
-      }
-    }
-    num discountedAmount = (5 / 100) * totelPrice;
-    return '\$$discountedAmount';
-  }
-
-  Future<String> afterDiscounting() async {
-    final cartDB = await Hive.openBox<CartModel>('cart_db');
-    num totelPrice = 0;
-    for (var i = 0; i < cartDB.length; i++) {
-      final currentProduct = cartDB.get(i);
-      if (currentProduct != null) {
-        totelPrice += currentProduct.newPrice!;
-      }
-    }
-    num discountedAmount = (5 / 100) * totelPrice;
-    num afterDisAmount = totelPrice - discountedAmount;
-    return '\$$afterDisAmount';
-  }
+  //   // print('quantity $quantity $price $newPrice ');
+  // }
 }
+
+// Future<String> getTotelPrice() async {
+//   int totelPrice = 0;
+//   final cartDB = await Hive.openBox<CartModel>('cart_db');
+//   for (var i = 0; i < cartDB.length; i++) {
+//     final currentProduct = cartDB.get(i);
+//     // if (currentProduct != null) {
+//     //   totelPrice = totelPrice + currentProduct.newPrice!;
+//     // }
+//   }
+//   return '\$$totelPrice.00';
+// }
+
+// Future<String> discoundCalculator() async {
+//   final cartDB = await Hive.openBox<CartModel>('cart_db');
+//   num totelPrice = 0;
+//   for (var i = 0; i < cartDB.length; i++) {
+//     final currentProduct = cartDB.get(i);
+//     if (currentProduct != null) {
+//       // totelPrice += currentProduct.newPrice!;
+//     }
+//   }
+//   num discountedAmount = (5 / 100) * totelPrice;
+//   return '\$$discountedAmount';
+// }
+
+// Future<String> afterDiscounting() async {
+//   final cartDB = await Hive.openBox<CartModel>('cart_db');
+//   num totelPrice = 0;
+//   for (var i = 0; i < cartDB.length; i++) {
+//     final currentProduct = cartDB.get(i);
+//     // if (currentProduct != null) {
+//     //   totelPrice += currentProduct.newPrice!;
+//     // }
+//   }
+//   num discountedAmount = (5 / 100) * totelPrice;
+//   num afterDisAmount = totelPrice - discountedAmount;
+//   return '\$$afterDisAmount';
+// }
