@@ -4,7 +4,7 @@ part 'cart_model.g.dart';
 @HiveType(typeId: 4)
 class CartModel {
   @HiveField(0)
-  int? id;
+  int id;
   @HiveField(1)
   String title;
   @HiveField(2)
@@ -15,16 +15,13 @@ class CartModel {
   int quantity;
   @HiveField(5)
   int newPrice;
-  @HiveField(6)
-  int dindex;
 
   CartModel({
     required this.newPrice,
     required this.quantity,
-    this.id,
+    required this.id,
     required this.title,
     required this.price,
     required this.image,
-    required this.dindex,
   });
 }

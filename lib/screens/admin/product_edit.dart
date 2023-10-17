@@ -337,8 +337,9 @@ class _ProductEditState extends State<ProductEdit> {
         base64Image4.isEmpty) {
       return;
     }
+    print('current id of product $id');
 
-    final updateStudent = ProductModel(
+    final product = ProductModel(
       id: _productModel.id!,
       title: _productNameController.text,
       discription: _discriptionController.text,
@@ -350,7 +351,7 @@ class _ProductEditState extends State<ProductEdit> {
       image4: base64Image4,
     );
 
-    productt.updateProduct(id!, updateStudent);
+    productt.updateProduct(id!, product);
   }
 
   Future pickImageFromGallery1() async {

@@ -1,6 +1,5 @@
 import 'package:e_commerce/Widgets/product_card.dart';
 import 'package:e_commerce/Widgets/scrolling_image.dart';
-import 'package:e_commerce/data_base/function/favorite_function.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
 import 'package:e_commerce/screens/user/address_screen.dart';
@@ -184,16 +183,6 @@ class _HomeState extends State<Home> {
         image: AssetImage(image),
       ),
     );
-  }
-
-  addFavoriteInButtonClick(titlee, pricee, imagee) {
-    final title = titlee;
-    final price = pricee;
-    final image = imagee;
-
-    final favorite = FavoriteModel(title: title, price: price, image: image);
-
-    favoritee.addInfavorite(favorite);
   }
 
   AnimatedContainer buildDots({int? index}) {

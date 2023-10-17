@@ -4,7 +4,7 @@ part 'favorite_model.g.dart';
 @HiveType(typeId: 5)
 class FavoriteModel {
   @HiveField(0)
-  int? id;
+  int id;
   @HiveField(1)
   String title;
   @HiveField(2)
@@ -13,7 +13,7 @@ class FavoriteModel {
   String image;
 
   FavoriteModel({
-    this.id,
+    required this.id,
     required this.title,
     required this.price,
     required this.image,

@@ -87,11 +87,10 @@ class _CartScreenState extends State<CartScreen> {
                           return Dismissible(
                             key: formkey,
                             onDismissed: (direction) {
-                              print(index);
                               setState(() {
                                 cartList.removeAt(index);
                               });
-                              box.delete(index);
+                              box.delete(data.id);
                             },
                             direction: DismissDirection.endToStart,
                             background: Container(
@@ -188,13 +187,14 @@ class _CartScreenState extends State<CartScreen> {
                                                 children: [
                                                   InkWell(
                                                     onTap: () {
-                                                      // countLessing(
-                                                      //     quantityy:
-                                                      //         data.quantity,
-                                                      //     titlee: data.title,
-                                                      //     idd: data.id,
-                                                      //     imagee: data.image,
-                                                      //     pricee: data.price);
+                                                      countLessing(
+                                                        idd: data.id,
+                                                        imagee: data.image,
+                                                        pricee: data.price,
+                                                        quantityy:
+                                                            data.quantity,
+                                                        titlee: data.title,
+                                                      );
                                                     },
                                                     child: const Icon(
                                                         Icons.remove,
@@ -204,29 +204,17 @@ class _CartScreenState extends State<CartScreen> {
                                                       style: const TextStyle(
                                                           color: Colors.white)),
                                                   InkWell(
-                                                    onTap: () async {
-                                                      setState(
-                                                        () {
-                                                          countAdding(
-                                                              quantityy:
-                                                                  data.quantity,
-                                                              pricee:
-                                                                  data.price);
-                                                        },
-                                                      );
-                                                      final cart = CartModel(
-                                                        dindex: data.dindex,
-                                                        id: data.id,
-                                                        quantity:
-                                                            data.quantity + 1,
-                                                        title: data.title,
-                                                        price: data.price,
-                                                        image: data.image,
-                                                        newPrice: data.newPrice,
-                                                      );
-
-                                                      await box.putAt(
-                                                          index, cart);
+                                                    onTap: () {
+                                                      setState(() {
+                                                        countAdding(
+                                                          idd: data.id,
+                                                          imagee: data.image,
+                                                          pricee: data.price,
+                                                          quantityy:
+                                                              data.quantity,
+                                                          titlee: data.title,
+                                                        );
+                                                      });
                                                     },
                                                     child: const Icon(Icons.add,
                                                         color: Colors.white),
@@ -263,99 +251,100 @@ class _CartScreenState extends State<CartScreen> {
                   height: 100,
                   padding: const EdgeInsets.all(15),
                   width: double.infinity,
-                  child: const Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             'Sub Totel',
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          // FutureBuilder(
-                          //   future: countAdding(),
-                          //   builder: (context, snapshot) {
-                          //     if (snapshot.connectionState ==
-                          //         ConnectionState.waiting) {
-                          //       return const Text(
-                          //         'Loading...',
-                          //         style: TextStyle(
-                          //           fontSize: 17,
-                          //           fontWeight: FontWeight.bold,
-                          //         ),
-                          //       );
-                          //     } else if (snapshot.hasError) {
-                          //       return Text(
-                          //         'Error: ${snapshot.error}',
-                          //         style: const TextStyle(
-                          //           fontSize: 17,
-                          //           fontWeight: FontWeight.bold,
-                          //         ),
-                          //       );
-                          //     } else if (snapshot.data != null) {
-                          //       return Text(
-                          //         snapshot.data!,
-                          //         style: const TextStyle(
-                          //           fontSize: 17,
-                          //           fontWeight: FontWeight.bold,
-                          //         ),
-                          //       );
-                          //     } else {
-                          //       // Handle other states or null data if needed
-                          //       return const Text(
-                          //         'No data available',
-                          //         style: TextStyle(
-                          //           fontSize: 17,
-                          //           fontWeight: FontWeight.bold,
-                          //         ),
-                          //       );
-                          //     }
-                          //   },
-                          // )
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Discount',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            '0.00',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          FutureBuilder<String>(
+                            future: getTotelPrice(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Text(
+                                  snapshot
+                                      .data!, // Use the null-aware operator here.
+                                  style: const TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                );
+                              } else {
+                                return const Text(
+                                    'No data'); // Handle the case when there's no data.
+                              }
+                            },
                           )
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
+                            'Coupon discount',
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          FutureBuilder<String>(
+                            future: discoundCalculator(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Text(
+                                  snapshot
+                                      .data!, // Use the null-aware operator here.
+                                  style: const TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                );
+                              } else {
+                                return const Text(
+                                    'No data'); // Handle the case when there's no data.
+                              }
+                            },
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
                             'Totel',
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Text(
-                            '0.00',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          FutureBuilder<String>(
+                            future: afterDiscounting(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return Text(
+                                  snapshot
+                                      .data!, // Use the null-aware operator here.
+                                  style: const TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                );
+                              } else {
+                                return const Text(
+                                    'No data'); // Handle the case when there's no data.
+                              }
+                            },
                           )
                         ],
                       ),
+                      const SizedBox(height: 10)
                     ],
                   ),
                 ),
@@ -405,103 +394,84 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  int countAdding({quantityy, pricee}) {
-    int quantity = quantityy;
-    int price = pricee;
-    // String title = titlee;
-    // String image = imagee;
+  Future<void> countLessing({quantityy, pricee, titlee, imagee, idd}) async {
+    int id = idd ?? 0;
+    int quantity = quantityy ?? 0;
+    int price = pricee ?? 0;
+    String title = titlee ?? "";
+    String image = imagee;
+    if (quantity > 1) {
+      quantity = quantity - 1;
+      int newPrice = quantity * price;
+
+      final cart = CartModel(
+        id: id,
+        quantity: quantity,
+        title: title,
+        price: price,
+        image: image,
+        newPrice: newPrice,
+      );
+      await cartt.upgradeCart(id, cart);
+    }
+  }
+
+  Future<void> countAdding({quantityy, pricee, titlee, imagee, idd}) async {
+    int id = idd ?? 0;
+    int quantity = quantityy ?? 0;
+    int price = pricee ?? 0;
+    String title = titlee ?? "";
+    String image = imagee;
 
     quantity = quantity + 1;
     int newPrice = quantity * price;
-    return newPrice;
+    final cart = CartModel(
+      id: id,
+      quantity: quantity,
+      title: title,
+      price: price,
+      image: image,
+      newPrice: newPrice,
+    );
+    await cartt.upgradeCart(id, cart);
   }
-
-  // Future<void> countLessing({quantityy, pricee, titlee, imagee, idd}) async {
-  //   int id = idd ?? 0;
-  //   int quantity = quantityy ?? 0;
-  //   int price = pricee ?? 0;
-  //   String title = titlee ?? "";
-  //   String image = imagee;
-  //   if (quantity > 1) {
-  //     quantity = quantity - 1;
-  //     int newPrice = quantity * price;
-
-  //     final cart = CartModel(
-  //       quantity: quantity,
-  //       title: title,
-  //       price: price,
-  //       image: image,
-  //     );
-  //     await cartt.upgradeCart(id, cart);
-  //   }
-  // }
-
-  // updateCartLessOnAButtonClick(
-  //   int quantityy,
-  //   int pricee,
-  //   String titlee,
-  //   String imagee,
-  //   int idd,
-  // ) {
-  //   int quantity = quantityy;
-  //   int price = pricee;
-  //   String title = titlee;
-  //   String image = imagee;
-  //   int id = idd;
-
-  //   if (quantity > 1) {
-  //     quantity = quantity - 1;
-  //     int newPrice = quantity * price;
-  //     final cart = CartModel(
-  //       id: id,
-  //       title: title,
-  //       price: price,
-  //       image: image,
-  //       quantity: quantity,
-  //     );
-  //     cartt.upgradeCart(id, cart);
-  //     // getTotelPrice();
-  //   }
-
-  //   // print('quantity $quantity $price $newPrice ');
-  // }
 }
 
-// Future<String> getTotelPrice() async {
-//   int totelPrice = 0;
-//   final cartDB = await Hive.openBox<CartModel>('cart_db');
-//   for (var i = 0; i < cartDB.length; i++) {
-//     final currentProduct = cartDB.get(i);
-//     // if (currentProduct != null) {
-//     //   totelPrice = totelPrice + currentProduct.newPrice!;
-//     // }
-//   }
-//   return '\$$totelPrice.00';
-// }
+Future<String> getTotelPrice() async {
+  int totelPrice = 0;
+  final cartDB = await Hive.openBox<CartModel>('cart_db');
+  for (var i = 0; i <= cartDB.length; i++) {
+    final currentProduct = cartDB.get(i);
+    if (currentProduct != null) {
+      totelPrice = totelPrice + currentProduct.newPrice;
+    }
+  }
+  return '\$$totelPrice.00';
+}
 
-// Future<String> discoundCalculator() async {
-//   final cartDB = await Hive.openBox<CartModel>('cart_db');
-//   num totelPrice = 0;
-//   for (var i = 0; i < cartDB.length; i++) {
-//     final currentProduct = cartDB.get(i);
-//     if (currentProduct != null) {
-//       // totelPrice += currentProduct.newPrice!;
-//     }
-//   }
-//   num discountedAmount = (5 / 100) * totelPrice;
-//   return '\$$discountedAmount';
-// }
+Future<String> discoundCalculator() async {
+  final cartDB = await Hive.openBox<CartModel>('cart_db');
+  num totelPrice = 0;
+  for (var i = 0; i <= cartDB.length; i++) {
+    final currentProduct = cartDB.get(i);
+    if (currentProduct != null) {
+      totelPrice += currentProduct.newPrice;
+    }
+  }
+  num discountedAmount = (5 / 100) * totelPrice;
+  return '\$$discountedAmount';
+}
 
-// Future<String> afterDiscounting() async {
-//   final cartDB = await Hive.openBox<CartModel>('cart_db');
-//   num totelPrice = 0;
-//   for (var i = 0; i < cartDB.length; i++) {
-//     final currentProduct = cartDB.get(i);
-//     // if (currentProduct != null) {
-//     //   totelPrice += currentProduct.newPrice!;
-//     // }
-//   }
-//   num discountedAmount = (5 / 100) * totelPrice;
-//   num afterDisAmount = totelPrice - discountedAmount;
-//   return '\$$afterDisAmount';
-// }
+Future<String> afterDiscounting() async {
+  final cartDB = await Hive.openBox<CartModel>('cart_db');
+  num totelPrice = 0;
+  for (var i = 0; i <= cartDB.length; i++) {
+    final currentProduct = cartDB.get(i);
+    if (currentProduct != null) {
+      totelPrice += currentProduct.newPrice;
+    }
+  }
+  num discountedAmount = (5 / 100) * totelPrice;
+  num afterDisAmount = totelPrice - discountedAmount;
+  return '\$$afterDisAmount';
+}

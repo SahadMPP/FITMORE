@@ -120,6 +120,7 @@ class ProductList extends StatelessWidget {
                                           );
                                         } else {
                                           final favorite = FavoriteModel(
+                                              id: index,
                                               title: data.title,
                                               price: data.price,
                                               image: data.image1);
@@ -143,8 +144,7 @@ class ProductList extends StatelessWidget {
                                         isFavorite
                                             ? Icons.favorite
                                             : Icons.favorite_border,
-                                        color:
-                                            const Color.fromARGB(255, 0, 0, 0),
+                                        color: Colors.red,
                                       ),
                                     );
                                   },

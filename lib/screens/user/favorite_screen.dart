@@ -80,7 +80,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           setState(() {
                             favoriteList.removeAt(index);
                           });
-                          await box.delete(index);
+                          await box.delete(data.id);
                           // favoritee.deleteFavorite(data.id!);
                         },
                         direction: DismissDirection.endToStart,

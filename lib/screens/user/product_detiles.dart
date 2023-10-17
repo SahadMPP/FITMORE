@@ -179,6 +179,7 @@ class _ProductDetilesState extends State<ProductDetiles> {
                                         } else {
                                           final base64Image1 = data.image1;
                                           final favorite = FavoriteModel(
+                                              id: widget.index,
                                               title: data.title,
                                               price: data.price,
                                               image: base64Image1);
@@ -254,12 +255,12 @@ class _ProductDetilesState extends State<ProductDetiles> {
                         final price = widget.price;
                         final image = widget.image;
                         final cart = CartModel(
+                          id: widget.index,
                           title: title,
                           price: price,
                           image: image,
                           quantity: 1,
                           newPrice: price,
-                          dindex: widget.index,
                         );
 
                         box.put(widget.index, cart);
