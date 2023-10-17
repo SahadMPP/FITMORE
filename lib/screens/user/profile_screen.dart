@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:e_commerce/screens/admin/admin_login.dart';
+import 'package:e_commerce/screens/user/address_screen.dart';
 import 'package:e_commerce/screens/user/edit_profile.dart';
 import 'package:e_commerce/screens/user/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -90,9 +91,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     const Icon(Icons.person, size: 30, color: Colors.orange),
                     const Padding(
-                      padding: EdgeInsets.only(right: 80),
+                      padding: EdgeInsets.only(right: 110),
                       child: Text(
-                        'My Account',
+                        'Address',
                         style: TextStyle(
                           color: Color.fromARGB(255, 134, 134, 134),
                           fontSize: 18,
@@ -100,7 +101,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const AddressScreen(),
+                          ));
+                        },
                         child: const Icon(Icons.chevron_right, size: 35))
                   ],
                 ),
@@ -162,9 +167,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     const Icon(Icons.edit, size: 25, color: Colors.orange),
                     const Padding(
-                      padding: EdgeInsets.only(right: 130),
+                      padding: EdgeInsets.only(right: 85),
                       child: Text(
-                        'Edit',
+                        'Edit Profile',
                         style: TextStyle(
                           color: Color.fromARGB(255, 134, 134, 134),
                           fontSize: 18,

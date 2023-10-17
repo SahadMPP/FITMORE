@@ -25,7 +25,8 @@ class _BottomNavigator extends State<BottomNavigator> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        fixedColor: Colors.blue,
+        unselectedItemColor: const Color.fromARGB(255, 25, 25, 25),
+        fixedColor: const Color.fromARGB(255, 255, 170, 0),
         showSelectedLabels: true,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,

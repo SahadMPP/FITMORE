@@ -2,9 +2,8 @@ import 'package:e_commerce/Widgets/product_card.dart';
 import 'package:e_commerce/Widgets/scrolling_image.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
-import 'package:e_commerce/screens/user/address_screen.dart';
-import 'package:e_commerce/screens/user/myorder_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:hive_flutter/adapters.dart';
 
 class Home extends StatefulWidget {
@@ -32,107 +31,102 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
         backgroundColor: Colors.white,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: const Color.fromARGB(255, 250, 250, 250),
+          toolbarHeight: 65,
+          title: Container(
+            height: 45,
+            width: 140,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage(
+                      'asset/Screenshot 2023-10-17 131021(icon-home).png')),
+            ),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(top: 10, right: 8),
+              child: SizedBox(
+                width: 270,
+                child: TextField(
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color.fromARGB(255, 255, 255, 255),
+                    prefixIcon: const Icon(Icons.search),
+                    hintText: 'Search product',
+                    hintStyle: const TextStyle(color: Colors.grey),
+                    contentPadding: const EdgeInsets.all(5),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
         body: SafeArea(
           child: ListView(
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        width: 250,
-                        child: TextField(
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: const Color.fromARGB(255, 220, 220, 220),
-                            prefixIcon: const Icon(Icons.search),
-                            hintText: 'Search product',
-                            hintStyle: const TextStyle(color: Colors.grey),
-                            contentPadding: const EdgeInsets.all(5),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                          ),
-                        ),
-                      ),
-                      CircleAvatar(
-                        backgroundColor:
-                            const Color.fromARGB(255, 220, 220, 220),
-                        child: IconButton(
-                          icon: const Icon(Icons.shopping_cart),
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const MyOrderScreen(),
-                            ));
-                          },
-                          color: const Color.fromARGB(255, 137, 136, 136),
-                        ),
-                      ),
-                      CircleAvatar(
-                        backgroundColor:
-                            const Color.fromARGB(255, 220, 220, 220),
-                        child: IconButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const AddressScreen()));
-                          },
-                          icon: const Icon(Icons.local_shipping),
-                          color: const Color.fromARGB(255, 137, 136, 136),
-                        ),
-                      ),
-                    ],
-                  ),
                   Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 20.0, bottom: 10, right: 5, left: 5),
-                        child: Container(
-                          height: 180,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 134, 0, 212),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: PageView.builder(
-                            onPageChanged: (value) {
-                              setState(() {
-                                currentPage = value;
-                              });
-                            },
-                            itemCount: imageList.length,
-                            itemBuilder: (context, index) => ScrollingImageHome(
-                              image: imageList[index]['image'],
+                      Container(
+                        color: const Color.fromARGB(255, 235, 235, 235),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 5, bottom: 10, right: 5, left: 5),
+                              child: SizedBox(
+                                height: 185,
+                                width: double.infinity,
+                                child: PageView.builder(
+                                  onPageChanged: (value) {
+                                    setState(() {
+                                      currentPage = value;
+                                    });
+                                  },
+                                  itemCount: imageList.length,
+                                  itemBuilder: (context, index) =>
+                                      ScrollingImageHome(
+                                    image: imageList[index]['image'],
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: List.generate(imageList.length,
+                                    (index) => buildDots(index: index))),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 310),
+                              child: Text(
+                                'Brand',
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                brandicons('asset/download(Nike).png', 'Nike'),
+                                brandicons(
+                                    'asset/images(adiddas).png', 'Adidas'),
+                                brandicons('asset/images(puma).png', 'Puma'),
+                                brandicons('asset/download(ds).png', 'Dc')
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                          ],
                         ),
                       ),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: List.generate(imageList.length,
-                              (index) => buildDots(index: index))),
                     ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25),
-                    child: Text(
-                      'Brand',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
                   ),
                   const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      brandicons('asset/download(Nike).png'),
-                      brandicons('asset/images(adiddas).png'),
-                      brandicons('asset/images(puma).png'),
-                      brandicons('asset/download(ds).png')
-                    ],
-                  ),
-                  const SizedBox(height: 15),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25),
                     child: Row(
@@ -174,14 +168,23 @@ class _HomeState extends State<Home> {
         ));
   }
 
-  CircleAvatar brandicons(String image) {
-    return CircleAvatar(
-      radius: 35,
-      backgroundColor: Colors.black,
-      child: Image(
-        width: 56,
-        image: AssetImage(image),
-      ),
+  Column brandicons(String image, String name) {
+    return Column(
+      children: [
+        CircleAvatar(
+          radius: 35,
+          backgroundColor: Colors.black,
+          child: Image(
+            width: 56,
+            image: AssetImage(image),
+          ),
+        ),
+        const SizedBox(height: 10),
+        Text(
+          name,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+        ),
+      ],
     );
   }
 

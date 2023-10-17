@@ -26,6 +26,7 @@ class _CartScreenState extends State<CartScreen> {
     cartt.getAllCart();
     // GlobalKey<FormState> formkey2 = GlobalKey<FormState>();
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -62,12 +63,9 @@ class _CartScreenState extends State<CartScreen> {
                   Widget? child) {
                 if (cartList.isEmpty) {
                   return const Center(
-                    child: Text(
-                      'Your cart is Empty',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 139, 139, 139),
-                        fontSize: 18,
-                      ),
+                    child: Image(
+                      fit: BoxFit.fill,
+                      image: AssetImage('asset/download(cartEmpty).png'),
                     ),
                   );
                 }

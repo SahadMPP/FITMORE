@@ -50,11 +50,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             Widget? child) {
           if (favoriteList.isEmpty) {
             return const Center(
-              child: Text(
-                'Your favorite is Empty',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 139, 139, 139),
-                  fontSize: 18,
+              child: SizedBox(
+                height: 350,
+                width: 400,
+                child: Image(
+                  fit: BoxFit.fill,
+                  image: AssetImage('asset/download favoriteEmpty.png'),
                 ),
               ),
             );
