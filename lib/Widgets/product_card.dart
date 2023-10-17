@@ -143,7 +143,8 @@ class ProductList extends StatelessWidget {
                                         isFavorite
                                             ? Icons.favorite
                                             : Icons.favorite_border,
-                                        color: Colors.red,
+                                        color:
+                                            const Color.fromARGB(255, 0, 0, 0),
                                       ),
                                     );
                                   },
