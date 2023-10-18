@@ -3,6 +3,7 @@ import 'package:e_commerce/Widgets/scrolling_image.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
 import 'package:e_commerce/screens/user/category_list.dart';
+import 'package:e_commerce/screens/user/search.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -46,20 +47,41 @@ class _HomeState extends State<Home> {
             ),
           ),
           actions: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10, right: 8),
-              child: SizedBox(
-                width: 270,
-                child: TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: const Color.fromARGB(255, 255, 255, 255),
-                    prefixIcon: const Icon(Icons.search),
-                    hintText: 'Search product',
-                    hintStyle: const TextStyle(color: Colors.grey),
-                    contentPadding: const EdgeInsets.all(5),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const SearchScreen(),
+                ));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  padding: const EdgeInsets.all(13),
+                  width: 270,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                    border: Border.all(
+                      width: 1,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  child: const Row(
+                    children: [
+                      Text(
+                        'Search products',
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 122, 122, 122),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w300),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 110),
+                        child: Icon(
+                          Icons.search,
+                          color: Colors.grey,
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),
@@ -156,9 +178,16 @@ class _HomeState extends State<Home> {
                       'Recommended Items',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    Text(
-                      'View All >',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const SearchScreen(),
+                        ));
+                      },
+                      child: Text(
+                        'View All >',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
                     ),
                   ],
                 ),

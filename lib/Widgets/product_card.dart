@@ -49,12 +49,12 @@ class ProductList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           AspectRatio(
-                            aspectRatio: 1.02,
+                            aspectRatio: 1,
                             child: Container(
-                              padding: const EdgeInsets.all(5),
                               decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(15),
+                                // border: Border.all(
+                                //     width: .5, color: Colors.blueGrey),
+                                borderRadius: BorderRadius.circular(10),
                               ),
                               child: Image(
                                 fit: BoxFit.fill,
