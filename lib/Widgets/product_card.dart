@@ -20,9 +20,9 @@ class ProductList extends StatelessWidget {
       builder: (BuildContext context, List<ProductModel> productList,
           Widget? child) {
         return SizedBox(
-          height: 230,
+          height: 200,
           child: Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
+            padding: const EdgeInsets.only(left: 15, right: 15),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
@@ -41,119 +41,124 @@ class ProductList extends StatelessWidget {
                       ),
                     );
                   },
-                  child: SizedBox(
-                    width: 140,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AspectRatio(
-                          aspectRatio: 1.02,
-                          child: Container(
-                            padding: const EdgeInsets.all(13),
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 255, 255, 255),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Image(
-                              fit: BoxFit.fill,
-                              image: MemoryImage(imageBytes),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10, left: 10),
-                          child: SizedBox(
-                            height: 30,
-                            child: Text(
-                              data.title,
-                              maxLines: 2,
-                              style: const TextStyle(
-                                color: Colors.black,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 15, top: 20),
+                    child: SizedBox(
+                      width: 110,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AspectRatio(
+                            aspectRatio: 1.02,
+                            child: Container(
+                              padding: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Image(
+                                fit: BoxFit.fill,
+                                image: MemoryImage(imageBytes),
                               ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10, left: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                '\$${data.price}',
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                right: 10, left: 10, top: 5),
+                            child: SizedBox(
+                              height: 30,
+                              child: Text(
+                                data.title,
+                                maxLines: 2,
                                 style: const TextStyle(
-                                  color: Color.fromARGB(255, 210, 56, 45),
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                    color: Color.fromARGB(255, 17, 17, 17),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500),
                               ),
-                              Container(
-                                width: 30,
-                                height: 30,
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: ValueListenableBuilder(
-                                  valueListenable:
-                                      Hive.box<FavoriteModel>('favorite_db')
-                                          .listenable(),
-                                  builder: (context, box, child) {
-                                    final isFavorite = box.get(index) != null;
-                                    return IconButton(
-                                      padding: const EdgeInsets.all(3),
-                                      onPressed: () async {
-                                        ScaffoldMessenger.of(context)
-                                            .clearSnackBars();
-
-                                        if (isFavorite) {
-                                          await box.delete(index);
-
-                                          // ignore: use_build_context_synchronously
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            const SnackBar(
-                                              content:
-                                                  Text('Remove Successfully'),
-                                              backgroundColor: Color.fromARGB(
-                                                  255, 255, 62, 62),
-                                            ),
-                                          );
-                                        } else {
-                                          final favorite = FavoriteModel(
-                                              id: index,
-                                              title: data.title,
-                                              price: data.price,
-                                              image: data.image1);
-                                          await box.put(index, favorite);
-
-                                          // ignore: use_build_context_synchronously
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            const SnackBar(
-                                              content:
-                                                  Text('Added Successfully'),
-                                              backgroundColor: Color.fromARGB(
-                                                  255, 93, 255, 39),
-                                            ),
-                                          );
-                                        }
-
-                                        // print('Button Working');
-                                      },
-                                      icon: Icon(
-                                        isFavorite
-                                            ? Icons.favorite
-                                            : Icons.favorite_border,
-                                        color: Colors.red,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              )
-                            ],
+                            ),
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10, left: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  '\$${data.price}',
+                                  style: const TextStyle(
+                                    color: Color.fromARGB(255, 210, 56, 45),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                Container(
+                                  width: 30,
+                                  height: 30,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: ValueListenableBuilder(
+                                    valueListenable:
+                                        Hive.box<FavoriteModel>('favorite_db')
+                                            .listenable(),
+                                    builder: (context, box, child) {
+                                      final isFavorite = box.get(index) != null;
+                                      return IconButton(
+                                        padding: const EdgeInsets.all(3),
+                                        onPressed: () async {
+                                          ScaffoldMessenger.of(context)
+                                              .clearSnackBars();
+
+                                          if (isFavorite) {
+                                            await box.delete(index);
+
+                                            // ignore: use_build_context_synchronously
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                content:
+                                                    Text('Remove Successfully'),
+                                                backgroundColor: Color.fromARGB(
+                                                    255, 255, 62, 62),
+                                              ),
+                                            );
+                                          } else {
+                                            final favorite = FavoriteModel(
+                                                id: index,
+                                                title: data.title,
+                                                price: data.price,
+                                                image: data.image1);
+                                            await box.put(index, favorite);
+
+                                            // ignore: use_build_context_synchronously
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                content:
+                                                    Text('Added Successfully'),
+                                                backgroundColor: Color.fromARGB(
+                                                    255, 93, 255, 39),
+                                              ),
+                                            );
+                                          }
+
+                                          // print('Button Working');
+                                        },
+                                        icon: Icon(
+                                          isFavorite
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
+                                          color: Colors.red,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );

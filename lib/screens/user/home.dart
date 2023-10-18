@@ -2,8 +2,8 @@ import 'package:e_commerce/Widgets/product_card.dart';
 import 'package:e_commerce/Widgets/scrolling_image.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
+import 'package:e_commerce/screens/user/category_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:hive_flutter/adapters.dart';
 
 class Home extends StatefulWidget {
@@ -113,11 +113,12 @@ class _HomeState extends State<Home> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                brandicons('asset/download(Nike).png', 'Nike'),
                                 brandicons(
-                                    'asset/images(adiddas).png', 'Adidas'),
-                                brandicons('asset/images(puma).png', 'Puma'),
-                                brandicons('asset/download(ds).png', 'Dc')
+                                    'asset/download(Nike).png', 'Nike', 0),
+                                brandicons(
+                                    'asset/images(adiddas).png', 'Adidas', 1),
+                                brandicons('asset/images(puma).png', 'Puma', 2),
+                                brandicons('asset/download(ds).png', 'Dc', 3)
                               ],
                             ),
                             const SizedBox(height: 10),
@@ -128,7 +129,7 @@ class _HomeState extends State<Home> {
                   ),
                   const SizedBox(height: 10),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -168,15 +169,32 @@ class _HomeState extends State<Home> {
         ));
   }
 
-  Column brandicons(String image, String name) {
+  Column brandicons(String image, String name, int index) {
+    List<String> categoryName = [
+      'Nike',
+      'Adiddas',
+      'Puma',
+      'DS',
+    ];
     return Column(
       children: [
-        CircleAvatar(
-          radius: 35,
-          backgroundColor: Colors.black,
-          child: Image(
-            width: 56,
-            image: AssetImage(image),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => CategotyList(
+                  category: categoryName[index],
+                ),
+              ),
+            );
+          },
+          child: CircleAvatar(
+            radius: 35,
+            backgroundColor: Colors.black,
+            child: Image(
+              width: 56,
+              image: AssetImage(image),
+            ),
           ),
         ),
         const SizedBox(height: 10),
