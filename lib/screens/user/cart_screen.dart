@@ -13,14 +13,6 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  // @override
-  // void initState() {
-  //   getTotelPrice();
-  //   discoundCalculator();
-  //   afterDiscounting();
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     cartt.getAllCart();

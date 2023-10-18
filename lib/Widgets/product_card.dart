@@ -34,7 +34,7 @@ class ProductList extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ProductDetiles(
-                            index: index,
+                            index: data.id!,
                             title: data.title,
                             price: data.price,
                             image: data.image1),
@@ -124,7 +124,7 @@ class ProductList extends StatelessWidget {
                                             );
                                           } else {
                                             final favorite = FavoriteModel(
-                                                id: index,
+                                                id: data.id!,
                                                 title: data.title,
                                                 price: data.price,
                                                 image: data.image1);

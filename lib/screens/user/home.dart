@@ -97,7 +97,12 @@ class _HomeState extends State<Home> {
                   Column(
                     children: [
                       Container(
-                        color: const Color.fromARGB(255, 235, 235, 235),
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(255, 255, 160, 18),
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.elliptical(40, 40),
+                              bottomRight: Radius.elliptical(40, 40)),
+                        ),
                         child: Column(
                           children: [
                             Padding(

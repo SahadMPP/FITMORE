@@ -123,7 +123,6 @@ class _AdminListState extends State<AdminList> {
                             ),
                             child: Container(
                               decoration: const BoxDecoration(
-                                  color: Colors.red,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
                               height: 85,

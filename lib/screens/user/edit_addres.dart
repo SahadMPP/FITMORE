@@ -219,9 +219,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                   onPressed: () {
                     if (formkey.currentState!.validate()) {
                       updateAddressOnButtonClick();
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const AddressScreen(),
-                      ));
+                      Navigator.of(context).pop();
                     }
                   },
                   child: const Text(

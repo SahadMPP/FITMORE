@@ -3,6 +3,7 @@ import 'package:e_commerce/screens/admin/admin_login.dart';
 import 'package:e_commerce/screens/user/address_screen.dart';
 import 'package:e_commerce/screens/user/edit_profile.dart';
 import 'package:e_commerce/screens/user/login_screen.dart';
+import 'package:e_commerce/screens/user/myorder_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -78,7 +79,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 35, left: 35),
             child: Container(
-              height: 70,
+              height: 60,
               width: double.infinity,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -89,7 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Icon(Icons.person, size: 30, color: Colors.orange),
+                    const Icon(Icons.place, size: 30, color: Colors.orange),
                     const Padding(
                       padding: EdgeInsets.only(right: 110),
                       child: Text(
@@ -112,11 +113,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 25),
+          const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.only(right: 35, left: 35),
             child: Container(
-              height: 70,
+              height: 60,
               width: double.infinity,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -150,11 +151,128 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 25),
+          const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.only(right: 35, left: 35),
             child: Container(
-              height: 70,
+              height: 60,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: Color.fromARGB(255, 215, 215, 215),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Icon(Icons.privacy_tip,
+                        size: 25, color: Colors.orange),
+                    const Padding(
+                      padding: EdgeInsets.only(right: 85),
+                      child: Text(
+                        'Privacy Policy',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 134, 134, 134),
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      child: const Icon(
+                        Icons.chevron_right,
+                        size: 35,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.only(right: 35, left: 35),
+            child: Container(
+              height: 60,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: Color.fromARGB(255, 215, 215, 215),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Icon(Icons.private_connectivity,
+                        size: 25, color: Colors.orange),
+                    const Padding(
+                      padding: EdgeInsets.only(right: 50),
+                      child: Text(
+                        'Terms & Condition',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 134, 134, 134),
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      child: const Icon(
+                        Icons.chevron_right,
+                        size: 35,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.only(right: 35, left: 35),
+            child: Container(
+              height: 60,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: Color.fromARGB(255, 215, 215, 215),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Icon(Icons.history, size: 25, color: Colors.orange),
+                    const Padding(
+                      padding: EdgeInsets.only(right: 85),
+                      child: Text(
+                        'Order History',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 134, 134, 134),
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const MyOrderScreen()));
+                      },
+                      child: const Icon(
+                        Icons.chevron_right,
+                        size: 35,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.only(right: 35, left: 35),
+            child: Container(
+              height: 60,
               width: double.infinity,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -191,7 +309,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 25),
+          const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.only(right: 35, left: 35),
             child: GestureDetector(
@@ -221,7 +339,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     });
               },
               child: Container(
-                height: 70,
+                height: 60,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
