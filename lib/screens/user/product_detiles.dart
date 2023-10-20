@@ -7,7 +7,7 @@ import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
 
 import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
-import 'package:e_commerce/screens/user/address_screen.dart';
+import 'package:e_commerce/screens/user/payment/payment_address.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -303,7 +303,7 @@ class _ProductDetilesState extends State<ProductDetiles> {
                 ),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const AddressScreen(),
+                    builder: (context) => const PaymentAddress(),
                   ));
                 },
                 child: const Text(
@@ -350,5 +350,25 @@ class _ProductDetilesState extends State<ProductDetiles> {
         ),
       ),
     );
+  }
+
+  Future<void> countAdding({quantityy, pricee, titlee, imagee, idd}) async {
+    int id = idd ?? 0;
+    int quantity = quantityy ?? 0;
+    int price = pricee ?? 0;
+    String title = titlee ?? "";
+    String image = imagee;
+
+    quantity = quantity + 1;
+    int newPrice = quantity * price;
+    final cart = CartModel(
+      id: id,
+      quantity: quantity,
+      title: title,
+      price: price,
+      image: image,
+      newPrice: newPrice,
+    );
+    await cartt.upgradeCart(id, cart);
   }
 }

@@ -11,10 +11,15 @@ class PaymentScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: .2,
-        leading: const Icon(
-          Icons.chevron_left,
-          size: 30,
-          color: Colors.grey,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(
+            Icons.chevron_left,
+            size: 30,
+            color: Colors.grey,
+          ),
         ),
         title: const Text(
           'Order Summery',

@@ -98,7 +98,7 @@ class _HomeState extends State<Home> {
                     children: [
                       Container(
                         decoration: const BoxDecoration(
-                          color: Color.fromARGB(255, 255, 179, 64),
+                          color: Color.fromARGB(255, 255, 166, 33),
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.elliptical(40, 40),
                               bottomRight: Radius.elliptical(40, 40)),

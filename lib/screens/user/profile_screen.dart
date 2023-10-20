@@ -42,23 +42,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Stack(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 135),
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 65,
+                padding: const EdgeInsets.only(left: 110, top: 10),
+                child: SizedBox(
+                  height: 120,
+                  width: 200,
                   child: selectedImage == null
-                      ? Image.asset(
-                          'asset/images (profile).jpg',
-                          fit: BoxFit.fill,
+                      ? const CircleAvatar(
+                          backgroundImage:
+                              AssetImage('asset/images (profile).jpg'),
                         )
-                      : Image.file(
-                          File(selectedImage!.path),
-                          fit: BoxFit.fill,
+                      : CircleAvatar(
+                          backgroundImage: FileImage(File(selectedImage!.path)),
                         ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 240, top: 100),
+                padding: const EdgeInsets.only(left: 230, top: 100),
                 child: CircleAvatar(
                   radius: 25,
                   backgroundColor: Colors.white,
