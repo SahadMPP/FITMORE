@@ -289,16 +289,14 @@ class _CartScreenState extends State<CartScreen> {
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return Text(
-                                  snapshot
-                                      .data!, // Use the null-aware operator here.
+                                  snapshot.data!,
                                   style: const TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 );
                               } else {
-                                return const Text(
-                                    'No data'); // Handle the case when there's no data.
+                                return const Text('No data');
                               }
                             },
                           )

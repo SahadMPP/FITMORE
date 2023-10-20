@@ -5,7 +5,9 @@ import 'package:e_commerce/screens/user/payment/payment_scr.dart';
 import 'package:flutter/material.dart';
 
 class PaymentAddress extends StatelessWidget {
-  const PaymentAddress({super.key});
+  final int productIndex;
+
+  const PaymentAddress({required this.productIndex, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -129,8 +131,10 @@ class PaymentAddress extends StatelessWidget {
                                       onPressed: () {
                                         Navigator.of(context)
                                             .push(MaterialPageRoute(
-                                          builder: (context) =>
-                                              const PaymentScreen(),
+                                          builder: (context) => PaymentScreen(
+                                            index: index,
+                                            productIndex: productIndex,
+                                          ),
                                         ));
                                       },
                                       icon: const Icon(

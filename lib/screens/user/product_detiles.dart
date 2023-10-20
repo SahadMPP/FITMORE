@@ -303,7 +303,8 @@ class _ProductDetilesState extends State<ProductDetiles> {
                 ),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const PaymentAddress(),
+                    builder: (context) =>
+                        PaymentAddress(productIndex: widget.index),
                   ));
                 },
                 child: const Text(

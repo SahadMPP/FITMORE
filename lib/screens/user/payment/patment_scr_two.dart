@@ -2,7 +2,10 @@ import 'package:e_commerce/screens/user/payment/payment_last_page.dart';
 import 'package:flutter/material.dart';
 
 class PaymentScreenTwo extends StatefulWidget {
-  const PaymentScreenTwo({super.key});
+  final int price;
+  final int quantity;
+  const PaymentScreenTwo(
+      {required this.price, required this.quantity, super.key});
 
   @override
   State<PaymentScreenTwo> createState() => _PaymentScreenTwoState();
@@ -10,6 +13,19 @@ class PaymentScreenTwo extends StatefulWidget {
 
 class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
   String groupValue = 'Yes';
+  discoundCalculator(totelPrice) {
+    int totel = totelPrice ?? 0;
+    dynamic discountedAmount = (5 / 100) * totel;
+    return discountedAmount;
+  }
+
+  afterdicount(totelPrice) {
+    int totel = totelPrice ?? 0;
+    dynamic discountedAmount = (5 / 100) * totel;
+    num afterdisc = totel - discountedAmount;
+    return afterdisc;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -258,10 +274,10 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
               Container(
                 padding: const EdgeInsets.all(10),
                 width: double.infinity,
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'PRICE DETAILS',
                       style: TextStyle(
                         color: Colors.grey,
@@ -269,21 +285,21 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'price (1 item)',
-                          style: TextStyle(
+                          'price (${widget.quantity} item)',
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         Text(
-                          '\$1800',
-                          style: TextStyle(
+                          '\$${widget.price}.00',
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
@@ -291,11 +307,11 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           'Discount',
                           style: TextStyle(
                             color: Colors.black,
@@ -304,8 +320,8 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
                           ),
                         ),
                         Text(
-                          '-\$5.00',
-                          style: TextStyle(
+                          '-\$${discoundCalculator(widget.price)}',
+                          style: const TextStyle(
                             color: Color.fromARGB(255, 42, 117, 44),
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
@@ -313,8 +329,8 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
-                    Row(
+                    const SizedBox(height: 10),
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
@@ -343,10 +359,10 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
                 padding: const EdgeInsets.all(10),
                 height: 37,
                 width: double.infinity,
-                child: const Row(
+                child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Totel Amount',
                         style: TextStyle(
                           color: Colors.black,
@@ -355,8 +371,8 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
                         ),
                       ),
                       Text(
-                        '\$1,800',
-                        style: TextStyle(
+                        '\$${afterdicount(widget.price)}.0',
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -404,9 +420,9 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  '\$1,800',
-                  style: TextStyle(
+                Text(
+                  '\$${afterdicount(widget.price)}.00',
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
