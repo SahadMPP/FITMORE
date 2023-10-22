@@ -1,11 +1,19 @@
+import 'package:e_commerce/data_base/function/order_history.dart';
+import 'package:e_commerce/data_base/models/order_history/order_history_model.dart';
 import 'package:e_commerce/screens/user/payment/payment_last_page.dart';
 import 'package:flutter/material.dart';
 
 class PaymentScreenTwo extends StatefulWidget {
   final int price;
   final int quantity;
+  final String image;
+  final String title;
   const PaymentScreenTwo(
-      {required this.price, required this.quantity, super.key});
+      {required this.price,
+      required this.quantity,
+      required this.image,
+      required this.title,
+      super.key});
 
   @override
   State<PaymentScreenTwo> createState() => _PaymentScreenTwoState();
@@ -439,6 +447,7 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => const PaymentLastScareen(),
                         ));
+                        addToOrderHistory();
                       }
                     },
                     child: const Text(
@@ -455,5 +464,15 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
         ],
       ),
     );
+  }
+
+  addToOrderHistory() {
+    final orderhistory = OrderhistoryModel(
+      image: widget.image,
+      title: widget.title,
+      price: widget.price,
+      quantity: widget.quantity,
+    );
+    orderhistoryy.addOrderHistory(orderhistory);
   }
 }

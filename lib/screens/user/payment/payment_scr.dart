@@ -243,7 +243,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         )
                       ],
                     ),
-                    //--------------------------------------------------------------
                     const SizedBox(height: 20),
                     SizedBox(
                       width: double.infinity,
@@ -538,6 +537,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             builder: (context) => PaymentScreenTwo(
                               price: newPrice ?? data.price,
                               quantity: quantity,
+                              image: data.image1,
+                              title: data.title,
                             ),
                           ));
                         },

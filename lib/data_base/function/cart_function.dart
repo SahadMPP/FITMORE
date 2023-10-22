@@ -5,12 +5,23 @@ import 'package:hive_flutter/adapters.dart';
 ValueNotifier<List<CartModel>> cartvaluelisener = ValueNotifier([]);
 Cart cartt = Cart();
 
+//  cart maybe need some edit
 class Cart extends ChangeNotifier {
   Future<void> addTocart(CartModel value) async {
     final cartDB = await Hive.openBox<CartModel>('cart_db');
     final id = await cartDB.add(value);
     value.id = id;
-    cartvaluelisener.value.clear();
+    final cart = cartDB.get(id);
+    await cartDB.put(
+        id,
+        CartModel(
+            newPrice: cart!.newPrice,
+            quantity: cart.quantity,
+            id: id,
+            title: cart.title,
+            price: cart.price,
+            image: cart.image));
+    cartvaluelisener.value.add(cart);
     cartvaluelisener.notifyListeners();
   }
 

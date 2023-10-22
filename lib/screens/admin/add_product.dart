@@ -307,7 +307,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   Future pickImageFromGallery1() async {
     final returnedImage =
-        await ImagePicker().pickImage(source: ImageSource.camera);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (returnedImage == null) {
       return;
     }
@@ -318,7 +318,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   Future pickImageFromGallery2() async {
     final returnedImage =
-        await ImagePicker().pickImage(source: ImageSource.camera);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (returnedImage == null) {
       return;
     }
@@ -329,7 +329,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   Future pickImageFromGallery3() async {
     final returnedImage =
-        await ImagePicker().pickImage(source: ImageSource.camera);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (returnedImage == null) {
       return;
     }
@@ -340,7 +340,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   Future pickImageFromGallery4() async {
     final returnedImage =
-        await ImagePicker().pickImage(source: ImageSource.camera);
+        await ImagePicker().pickImage(source: ImageSource.gallery);
     if (returnedImage == null) {
       return;
     }

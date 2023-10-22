@@ -10,7 +10,15 @@ class UserFunction extends ChangeNotifier {
     final userDB = await Hive.openBox<UserModel>('user_db');
     final id = await userDB.add(value);
     value.id = id;
-    userListNotifier.value.add(value);
+    final user = userDB.get(id);
+    userDB.put(
+        id,
+        UserModel(
+            name: user!.name,
+            phoneNumber: user.phoneNumber,
+            email: user.email,
+            password: user.password));
+    userListNotifier.value.add(user);
 
     userListNotifier.notifyListeners();
   }

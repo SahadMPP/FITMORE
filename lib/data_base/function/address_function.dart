@@ -10,7 +10,17 @@ class Address extends ChangeNotifier {
     final addressdb = await Hive.openBox<AddressModel>('db_address');
     final id = await addressdb.add(value);
     value.id = id;
-    addressListNotifyer.value.add(value);
+    final addres = addressdb.get(id);
+    await addressdb.put(
+        id,
+        AddressModel(
+            name: addres!.name,
+            city: addres.city,
+            state: addres.state,
+            pincode: addres.pincode,
+            phonenumber: addres.phonenumber,
+            id: id));
+    addressListNotifyer.value.add(addres);
     addressListNotifyer.notifyListeners();
   }
 

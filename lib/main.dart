@@ -1,6 +1,7 @@
 import 'package:e_commerce/data_base/models/address/db_address_model.dart';
 import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
 import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
+import 'package:e_commerce/data_base/models/order_history/order_history_model.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
 import 'package:e_commerce/data_base/models/user/db_model.dart';
 import 'package:e_commerce/screens/user/splash_scree.dart';
@@ -27,6 +28,9 @@ Future<void> main() async {
   }
   if (!Hive.isAdapterRegistered(FavoriteModelAdapter().typeId)) {
     Hive.registerAdapter(FavoriteModelAdapter());
+  }
+  if (!Hive.isAdapterRegistered(OrderhistoryModelAdapter().typeId)) {
+    Hive.registerAdapter(OrderhistoryModelAdapter());
   }
   await Hive.openBox<FavoriteModel>('favorite_db');
   await Hive.openBox<CartModel>('cart_db');

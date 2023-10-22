@@ -10,7 +10,7 @@ class Product extends ChangeNotifier {
   void addProduct(ProductModel value) async {
     final productDB = await Hive.openBox<ProductModel>('product_db');
     final id = await productDB.add(value);
-
+    value.id = id;
     final product = productDB.get(id);
     await productDB.put(
       id,

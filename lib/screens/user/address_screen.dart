@@ -2,7 +2,6 @@ import 'package:e_commerce/data_base/function/address_function.dart';
 import 'package:e_commerce/data_base/models/address/db_address_model.dart';
 import 'package:e_commerce/screens/user/add_address.dart';
 import 'package:e_commerce/screens/user/edit_addres.dart';
-import 'package:e_commerce/screens/user/payment/payment_scr.dart';
 import 'package:flutter/material.dart';
 
 class AddressScreen extends StatefulWidget {

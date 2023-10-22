@@ -6,12 +6,23 @@ ValueNotifier<List<FavoriteModel>> favoriteNotifier = ValueNotifier([]);
 
 Favorite favoritee = Favorite();
 
+// maybe favorite need some edit
 class Favorite extends ChangeNotifier {
   Future<void> addInfavorite(FavoriteModel value) async {
     final favoriteDB = await Hive.openBox<FavoriteModel>('favorite_db');
     final id = await favoriteDB.add(value);
     value.id = id;
-    favoriteNotifier.value.clear();
+    final favorite = favoriteDB.get(id);
+    await favoriteDB.put(
+      id,
+      FavoriteModel(
+        id: id,
+        title: favorite!.title,
+        price: favorite.price,
+        image: favorite.image,
+      ),
+    );
+    favoriteNotifier.value.add(favorite);
     favoriteNotifier.notifyListeners();
   }
 
