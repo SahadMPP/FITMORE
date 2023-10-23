@@ -1,5 +1,6 @@
 import 'package:e_commerce/data_base/models/address/db_address_model.dart';
 import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
+import 'package:e_commerce/data_base/models/coupon/coupon_model.dart';
 import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
 import 'package:e_commerce/data_base/models/order_history/order_history_model.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
@@ -32,6 +33,10 @@ Future<void> main() async {
   if (!Hive.isAdapterRegistered(OrderhistoryModelAdapter().typeId)) {
     Hive.registerAdapter(OrderhistoryModelAdapter());
   }
+  if (!Hive.isAdapterRegistered(CouponModelAdapter().typeId)) {
+    Hive.registerAdapter(CouponModelAdapter());
+  }
+
   await Hive.openBox<FavoriteModel>('favorite_db');
   await Hive.openBox<CartModel>('cart_db');
   runApp(const MyApp());

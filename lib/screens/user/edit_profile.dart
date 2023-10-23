@@ -32,7 +32,7 @@ class _EditProfileState extends State<EditProfile> {
     final userlist = userListNotifier.value;
 
     if (userlist.isNotEmpty) {
-      _userModel = userlist[1];
+      _userModel = userlist[0];
       _nameEditcontroller.text = _userModel.name!;
       _phonenumberEditcontroller.text = _userModel.phoneNumber!;
       _emailEditconstroller.text = _userModel.email!;
@@ -263,6 +263,7 @@ class _EditProfileState extends State<EditProfile> {
     final oldpassword = _oldPasswordEditcontroller.text;
     final newpassword = _newPasswordEditcontroller.text;
     final conformPassword = _conformPasswordEditconstroller.text;
+    // ignore: unrelated_type_equality_checks
     if (_dbPasswordcontroller != oldpassword) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         behavior: SnackBarBehavior.floating,

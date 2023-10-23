@@ -53,7 +53,7 @@ class _SecondSpState extends State<SecondSp> {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Column(
+                  child: ListView(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
