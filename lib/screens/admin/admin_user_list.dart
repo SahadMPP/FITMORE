@@ -54,15 +54,18 @@ class _AdminUserListScreenState extends State<AdminUserListScreen> {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CircleAvatar(
-                      radius: 26,
-                      child: Image(
-                        // ignore: unnecessary_null_comparison
-                        image: data.profile == null
-                            ? const AssetImage('asset/images(person).png')
-                                as ImageProvider<Object>
-                            : MemoryImage(imageBytes),
-                      ),
+                    Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: data.profile == null
+                          ? const CircleAvatar(
+                              radius: 26,
+                              backgroundImage:
+                                  AssetImage('asset/images(person).png'),
+                            )
+                          : CircleAvatar(
+                              radius: 26,
+                              backgroundImage: MemoryImage(imageBytes),
+                            ),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +73,7 @@ class _AdminUserListScreenState extends State<AdminUserListScreen> {
                         SizedBox(
                           width: 150,
                           child: Text(
-                            data.name,
+                            data.name ?? "sahad",
                             style: const TextStyle(
                               color: Colors.black,
                               fontSize: 22,
@@ -79,7 +82,7 @@ class _AdminUserListScreenState extends State<AdminUserListScreen> {
                           ),
                         ),
                         Text(
-                          data.email,
+                          data.email ?? "sahad@gmail.com",
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 17,

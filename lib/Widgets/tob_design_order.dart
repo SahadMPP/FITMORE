@@ -52,7 +52,7 @@ class TopBannerOrderPage extends StatelessWidget {
                             color: const Color.fromARGB(255, 33, 40, 243),
                             border: Border.all(
                                 width: 1,
-                                color: Color.fromARGB(255, 2, 62, 181)),
+                                color: const Color.fromARGB(255, 2, 62, 181)),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(35))),
                         child: const Center(

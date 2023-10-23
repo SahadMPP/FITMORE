@@ -1,3 +1,5 @@
+import 'package:e_commerce/data_base/function/user_functions.dart';
+import 'package:e_commerce/data_base/models/user/db_model.dart';
 import 'package:flutter/material.dart';
 
 class EditProfile extends StatefulWidget {
@@ -8,25 +10,45 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-  // late TextEditingController _nameEditcontroller;
-  // late TextEditingController _phonenumberEditcontroller;
-  // late TextEditingController _emailEditconstroller;
-  // late UserModel _userModel;
+  GlobalKey<FormState> foemKey = GlobalKey<FormState>();
+  late TextEditingController _nameEditcontroller;
+  late TextEditingController _phonenumberEditcontroller;
+  late TextEditingController _emailEditconstroller;
+  late TextEditingController _dbPasswordcontroller;
 
-  // int indexOfUserWithId(List<UserModel> userlist, String targetId) {
-  //   return userlist.indexWhere((user) => user.id == targetId);
-  // }
+  final _oldPasswordEditcontroller = TextEditingController();
+  final _newPasswordEditcontroller = TextEditingController();
+  final _conformPasswordEditconstroller = TextEditingController();
 
-  // @override
-  // void initState() {
-  //   _nameEditcontroller = TextEditingController();
-  //   _phonenumberEditcontroller = TextEditingController();
-  //   _emailEditconstroller = TextEditingController();
+  late UserModel _userModel;
 
-  //   final userlist = userListNotifier.value;
+  @override
+  void initState() {
+    _nameEditcontroller = TextEditingController();
+    _phonenumberEditcontroller = TextEditingController();
+    _emailEditconstroller = TextEditingController();
+    _dbPasswordcontroller = TextEditingController();
 
-  //   super.initState();
-  // }
+    final userlist = userListNotifier.value;
+
+    if (userlist.isNotEmpty) {
+      _userModel = userlist[1];
+      _nameEditcontroller.text = _userModel.name!;
+      _phonenumberEditcontroller.text = _userModel.phoneNumber!;
+      _emailEditconstroller.text = _userModel.email!;
+      _dbPasswordcontroller.text = _userModel.password!;
+    }
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _nameEditcontroller.dispose();
+    _phonenumberEditcontroller.dispose();
+    _emailEditconstroller.dispose();
+    _dbPasswordcontroller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,30 +57,20 @@ class _EditProfileState extends State<EditProfile> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        title: const Padding(
-          padding: EdgeInsets.only(left: 70),
-          child: Text(
-            'Edit Profile',
-            style: TextStyle(
-              color: Color.fromARGB(255, 123, 123, 123),
-              fontSize: 22,
-              fontWeight: FontWeight.w300,
-            ),
-          ),
-        ),
       ),
       body: ListView(
         children: [
-          // const SizedBox(height: 40),
-          // const Text(
-          //   'Edit Profile',
-          //   textAlign: TextAlign.center,
-          //   style: TextStyle(color: Colors.black, fontSize: 27),
-          // ),
+          const SizedBox(height: 40),
+          const Text(
+            'Edit Profile',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.black, fontSize: 27),
+          ),
           const SizedBox(height: 62),
           Padding(
             padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
             child: TextFormField(
+              controller: _nameEditcontroller,
               decoration: const InputDecoration(
                 labelText: "Name",
                 floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -75,7 +87,7 @@ class _EditProfileState extends State<EditProfile> {
           Padding(
             padding: const EdgeInsets.only(left: 40, right: 40, bottom: 25),
             child: TextFormField(
-              obscureText: true,
+              controller: _phonenumberEditcontroller,
               decoration: const InputDecoration(
                 labelText: "Phone Number",
                 floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -91,6 +103,7 @@ class _EditProfileState extends State<EditProfile> {
           Padding(
             padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
             child: TextFormField(
+              controller: _emailEditconstroller,
               decoration: const InputDecoration(
                 labelText: "Email",
                 floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -104,37 +117,6 @@ class _EditProfileState extends State<EditProfile> {
             ),
           ),
           const SizedBox(height: 10),
-          // Padding(
-          //   padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
-          //   child: TextFormField(
-          //     decoration: const InputDecoration(
-          //       labelText: "Password",
-          //       floatingLabelBehavior: FloatingLabelBehavior.always,
-          //       contentPadding: EdgeInsets.all(20),
-          //       suffixIcon: Icon(Icons.lock, color: Colors.grey),
-          //       hintText: 'Enter your password',
-          //       border: OutlineInputBorder(
-          //         borderRadius: BorderRadius.all(Radius.circular(20)),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          // const SizedBox(height: 10),
-          // Padding(
-          //   padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
-          //   child: TextFormField(
-          //     decoration: const InputDecoration(
-          //       labelText: "Conform Password",
-          //       floatingLabelBehavior: FloatingLabelBehavior.always,
-          //       contentPadding: EdgeInsets.all(20),
-          //       suffixIcon: Icon(Icons.lock, color: Colors.grey),
-          //       hintText: 'Enter your conform password',
-          //       border: OutlineInputBorder(
-          //         borderRadius: BorderRadius.all(Radius.circular(20)),
-          //       ),
-          //     ),
-          //   ),
-          // ),
           Padding(
             padding: const EdgeInsets.only(right: 50),
             child: GestureDetector(
@@ -144,40 +126,75 @@ class _EditProfileState extends State<EditProfile> {
                   builder: (context) => AlertDialog(
                     backgroundColor: const Color.fromARGB(255, 236, 236, 236),
                     actionsPadding: const EdgeInsets.all(10),
-                    title: const Text('Update your pasword'),
-                    content: const SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Text(
-                            'Enter your old password',
-                          ),
-                          SizedBox(height: 10),
-                          TextField(
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.all(10)),
-                          ),
-                          SizedBox(height: 10),
-                          Text('Enter your new password'),
-                          SizedBox(height: 10),
-                          TextField(
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.all(10)),
-                          ),
-                          SizedBox(height: 10),
-                          Text('Conform password'),
-                          SizedBox(height: 10),
-                          TextField(
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.all(10)),
-                          ),
-                        ],
+                    title: const Text('Change your pasword'),
+                    content: SingleChildScrollView(
+                      child: Form(
+                        key: foemKey,
+                        child: Column(
+                          children: [
+                            const Text(
+                              'Enter your old password',
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormField(
+                              obscureText: true,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Old password";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              controller: _oldPasswordEditcontroller,
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsets.all(10)),
+                            ),
+                            const SizedBox(height: 10),
+                            const Text('Enter your new password'),
+                            const SizedBox(height: 10),
+                            TextFormField(
+                              obscureText: true,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "New password";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              controller: _newPasswordEditcontroller,
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsets.all(10)),
+                            ),
+                            const SizedBox(height: 10),
+                            const Text('Conform password'),
+                            const SizedBox(height: 10),
+                            TextFormField(
+                              validator: (value) {
+                                if (value != _newPasswordEditcontroller.text) {
+                                  return "password not match";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              controller: _conformPasswordEditconstroller,
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsets.all(10)),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     actions: [
-                      TextButton(onPressed: () {}, child: const Text('Submit')),
+                      TextButton(
+                          onPressed: () {
+                            if (foemKey.currentState!.validate()) {
+                              changingPassword();
+                            }
+                          },
+                          child: const Text('Submit')),
                       TextButton(
                           onPressed: () {
                             Navigator.of(context).pop();
@@ -211,7 +228,10 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  updateUserdetailsOnAclike();
+                  Navigator.of(context).pop();
+                },
                 child: const Text(
                   'Update',
                   style: TextStyle(
@@ -225,5 +245,52 @@ class _EditProfileState extends State<EditProfile> {
         ],
       ),
     );
+  }
+
+  updateUserdetailsOnAclike() async {
+    final name = _nameEditcontroller.text;
+    final phoneNum = _phonenumberEditcontroller.text;
+    final email = _emailEditconstroller.text;
+    final user = UserModel(
+      name: name,
+      phoneNumber: phoneNum,
+      email: email,
+    );
+    userr.updateUser(_userModel.id!, user);
+  }
+
+  changingPassword() async {
+    final oldpassword = _oldPasswordEditcontroller.text;
+    final newpassword = _newPasswordEditcontroller.text;
+    final conformPassword = _conformPasswordEditconstroller.text;
+    if (_dbPasswordcontroller != oldpassword) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.red,
+        margin: EdgeInsets.all(15),
+        content: Text('Wrong old Password'),
+      ));
+      return;
+    }
+    if (newpassword != conformPassword) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.red,
+        margin: EdgeInsets.all(15),
+        content: Text('Password does not match'),
+      ));
+      return;
+    }
+
+    if (_userModel.password == oldpassword || newpassword == oldpassword) {
+      final user = UserModel(password: newpassword);
+      userr.updateUser(_userModel.id!, user);
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Color.fromARGB(255, 131, 131, 131),
+        margin: EdgeInsets.all(15),
+        content: Text('Password changed'),
+      ));
+    }
   }
 }

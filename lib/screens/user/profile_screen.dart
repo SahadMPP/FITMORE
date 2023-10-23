@@ -1,9 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:e_commerce/data_base/function/user_functions.dart';
+import 'package:e_commerce/data_base/models/user/db_model.dart';
 import 'package:e_commerce/screens/admin/admin_login.dart';
 import 'package:e_commerce/screens/user/address_screen.dart';
 import 'package:e_commerce/screens/user/edit_profile.dart';
 import 'package:e_commerce/screens/user/login_screen.dart';
 import 'package:e_commerce/screens/user/myorder_screen.dart';
+import 'package:e_commerce/screens/user/terms_/terms.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -178,6 +182,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const TermsOne(),
+                        ));
+                      },
                       child: const Icon(
                         Icons.chevron_right,
                         size: 35,
@@ -216,6 +225,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const TermsOne(),
+                        ));
+                      },
                       child: const Icon(
                         Icons.chevron_right,
                         size: 35,
@@ -390,5 +404,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       selectedImage = File(returnedImage.path);
     });
+    final bytes2 = await selectedImage!.readAsBytes();
+    final String base64Image2 = base64Encode(bytes2);
+
+    final profile = UserModel(
+      profile: base64Image2,
+    );
+    userr.updateUser(0, profile);
   }
+
+  // addProfile() async {
+  //   final bytes2 = await selectedImage!.readAsBytes();
+  //   final String base64Image2 = base64Encode(bytes2);
+
+  //   final profile = UserModel(
+  //     profile: base64Image2,
+  //   );
+  //   // userr.updateUser(,profile);
+  // }
 }

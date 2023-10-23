@@ -323,11 +323,6 @@ class _ProductEditState extends State<ProductEdit> {
     final discription = _discriptionController.text.trim();
     final category = _productCategory;
     final id = _productModel.id;
-    // print(name);
-    // print(price);
-    // print(discription);
-    // print(category);
-    // print(id);
 
     if (name.isEmpty ||
         discription.isEmpty ||
@@ -337,7 +332,6 @@ class _ProductEditState extends State<ProductEdit> {
         base64Image4.isEmpty) {
       return;
     }
-    print('current id of product $id');
 
     final product = ProductModel(
       id: _productModel.id!,

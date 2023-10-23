@@ -46,15 +46,24 @@ class _SearchScreenState extends State<SearchScreen> {
         elevation: 0,
         toolbarHeight: 70,
         backgroundColor: Colors.white,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: const Icon(
+              Icons.chevron_left,
+              size: 45,
+              color: Colors.grey,
+            )),
         title: SizedBox(
-          width: 300,
+          width: 310,
           child: TextField(
             onChanged: (value) => runFilter(value),
             decoration: const InputDecoration(
               labelText: 'search ',
-              // border: OutlineInputBorder(
-              //     borderRadius: BorderRadius.all(Radius.circular(15))),
-              // filled: true,
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15))),
+              filled: true,
               fillColor: Color.fromARGB(255, 255, 255, 255),
               prefixIcon: Icon(Icons.search),
               hintStyle: TextStyle(color: Colors.grey),

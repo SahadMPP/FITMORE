@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: const Color.fromARGB(255, 250, 250, 250),
+          backgroundColor: Colors.white,
           toolbarHeight: 65,
           title: Container(
             height: 45,
@@ -164,9 +164,16 @@ class _HomeState extends State<Home> {
                           'Populor Product',
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
-                        Text(
-                          'View All >',
-                          style: Theme.of(context).textTheme.bodyMedium,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const SearchScreen(),
+                            ));
+                          },
+                          child: Text(
+                            'View All >',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
                         ),
                       ],
                     ),
