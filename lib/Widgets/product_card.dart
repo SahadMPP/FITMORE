@@ -22,7 +22,7 @@ class ProductList extends StatelessWidget {
         return SizedBox(
           height: 200,
           child: Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15),
+            padding: const EdgeInsets.only(left: 10, right: 15),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
@@ -83,11 +83,11 @@ class ProductList extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  '\$${data.price}',
+                                  '\$ ${data.price}',
                                   style: const TextStyle(
-                                    color: Color.fromARGB(255, 210, 56, 45),
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                                 Container(

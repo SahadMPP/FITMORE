@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:e_commerce/Widgets/product_card.dart';
+import 'package:e_commerce/Widgets/product_card_second.dart';
 import 'package:e_commerce/Widgets/scrolling_image.dart';
+import 'package:e_commerce/Widgets/sponser_banner.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
 import 'package:e_commerce/screens/user/category_list.dart';
@@ -19,11 +23,11 @@ class _HomeState extends State<Home> {
   int currentPage = 0;
 
   List<Map<String, String>> imageList = [
-    {'image': 'asset/images-b1.jpg'},
+    {'image': 'asset/images-b5.jpg'},
     {'image': 'asset/images-6.jpg'},
     {'image': 'asset/images-b3.jpg'},
     {'image': 'asset/images-b4.jpg'},
-    {'image': 'asset/images-b5.jpg'},
+    {'image': 'asset/images-b1.jpg'},
   ];
 
   @override
@@ -204,7 +208,18 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-              const ProductList(),
+              const ProductSecondCard(),
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.only(left: 25),
+                child: Text(
+                  'Sponsored',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              ),
+              const SizedBox(height: 20),
+              const SponserBanner(),
+              const SizedBox(height: 50),
             ],
           ),
         ));
