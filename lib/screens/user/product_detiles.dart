@@ -7,6 +7,7 @@ import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
 
 import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
+import 'package:e_commerce/screens/user/cart_screen.dart';
 import 'package:e_commerce/screens/user/payment/payment_address.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -243,13 +244,9 @@ class _ProductDetilesState extends State<ProductDetiles> {
                       ScaffoldMessenger.of(context).clearSnackBars();
                       // addToCart();
                       if (isInCart) {
-                        // incresss cart item count
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Incresing cart product count'),
-                            backgroundColor: Color.fromARGB(255, 99, 98, 98),
-                          ),
-                        );
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const CartScreen(),
+                        ));
                       } else {
                         final title = widget.title;
                         final price = widget.price;
@@ -272,13 +269,21 @@ class _ProductDetilesState extends State<ProductDetiles> {
                         );
                       }
                     },
-                    child: const Text(
-                      'Add to Cart',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                      ),
-                    ),
+                    child: isInCart == true
+                        ? const Text(
+                            'Go to Cart',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                            ),
+                          )
+                        : const Text(
+                            'Added to Cart',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                            ),
+                          ),
                   );
                 },
               ),
