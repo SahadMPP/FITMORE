@@ -1,7 +1,9 @@
 import 'package:e_commerce/data_base/function/order_history.dart';
+import 'package:e_commerce/data_base/models/coupon/coupon_model.dart';
 import 'package:e_commerce/data_base/models/order_history/order_history_model.dart';
 import 'package:e_commerce/screens/user/payment/payment_last_page.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 
 class PaymentScreenTwo extends StatefulWidget {
   final int price;
@@ -20,18 +22,49 @@ class PaymentScreenTwo extends StatefulWidget {
 }
 
 class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
+  final _couponController = TextEditingController();
   String groupValue = 'Yes';
-  discoundCalculator(totelPrice) {
-    int totel = totelPrice ?? 0;
-    dynamic discountedAmount = (5 / 100) * totel;
-    return discountedAmount;
+  bool? allow = false;
+
+  checkingCoupon(totelPrice) async {
+    final code = _couponController.text;
+    final couponDB = await Hive.openBox<CouponModel>('coupon_db');
+
+    for (var i = 0; i < couponDB.length; i++) {
+      final currentCode = couponDB.getAt(i);
+      if (currentCode!.code == code) {
+        allow = true;
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Valid Coupon'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    }
+    // ignore: use_build_context_synchronously
+    Navigator.of(context).pop();
+    print(allow);
+    discoundCalculator(totelPrice, allow!);
   }
 
-  afterdicount(totelPrice) {
-    int totel = totelPrice ?? 0;
-    dynamic discountedAmount = (5 / 100) * totel;
-    num afterdisc = totel - discountedAmount;
-    return afterdisc;
+  dynamic discoundCalculator(totelPrice, bool allowV) {
+    if (allowV == true) {
+      int totel = totelPrice ?? 0;
+      dynamic discountedAmount = (5 / 100) * totel;
+      print(discountedAmount);
+      return discountedAmount;
+    }
+  }
+
+  afterdicount(totelPrice, bool allowV) {
+    if (allowV == true) {
+      int totel = totelPrice ?? 0;
+      dynamic discountedAmount = (5 / 100) * totel;
+      num afterdisc = totel - discountedAmount;
+      return afterdisc;
+    }
   }
 
   @override
@@ -257,13 +290,19 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
                     builder: (context) => AlertDialog(
                       content: const Text('Type you code here'),
                       actions: [
-                        const TextField(
-                          decoration: InputDecoration(
+                        TextField(
+                          controller: _couponController,
+                          decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               contentPadding: EdgeInsets.all(10)),
                         ),
                         TextButton(
-                            onPressed: () {}, child: const Text('Submit')),
+                            onPressed: () {
+                              setState(() {
+                                checkingCoupon(widget.price);
+                              });
+                            },
+                            child: const Text('Submit')),
                         TextButton(
                             onPressed: () {
                               Navigator.of(context).pop();
@@ -327,14 +366,23 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        Text(
-                          '-\$${discoundCalculator(widget.price)}',
-                          style: const TextStyle(
-                            color: Color.fromARGB(255, 42, 117, 44),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        allow == true
+                            ? Text(
+                                '\$${discoundCalculator(widget.price, allow!)}',
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              )
+                            : const Text(
+                                '\$0.00',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                       ],
                     ),
                     const SizedBox(height: 10),
@@ -378,14 +426,23 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Text(
-                        '\$${afterdicount(widget.price)}.0',
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      allow == true
+                          ? Text(
+                              '\$${afterdicount(widget.price, allow!)}',
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )
+                          : Text(
+                              '\$${widget.price}',
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                     ]),
               ),
               const Divider(thickness: 1),
@@ -428,14 +485,23 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  '\$${afterdicount(widget.price)}.00',
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                allow == true
+                    ? Text(
+                        '\$${afterdicount(widget.price, allow!)}',
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    : Text(
+                        '\$${widget.price}',
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                 SizedBox(
                   width: 150,
                   child: ElevatedButton(

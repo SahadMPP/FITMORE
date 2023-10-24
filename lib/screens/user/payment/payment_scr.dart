@@ -20,6 +20,7 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
+  
   int quantity = 1;
   int? newPrice;
   late ProductModel? datag;
