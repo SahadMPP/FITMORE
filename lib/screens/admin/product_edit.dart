@@ -23,6 +23,7 @@ class _ProductEditState extends State<ProductEdit> {
   late TextEditingController _productNameController;
   late TextEditingController _priceController;
   late TextEditingController _discriptionController;
+  late TextEditingController _productCountController;
   String? _productCategory;
   late ProductModel _productModel;
   List<String> categories = [
@@ -36,12 +37,14 @@ class _ProductEditState extends State<ProductEdit> {
     _productNameController = TextEditingController();
     _priceController = TextEditingController();
     _discriptionController = TextEditingController();
+    _productCountController = TextEditingController();
     final productlist = productListNotifier.value;
     _productModel = productlist[widget.index];
     _productNameController.text = _productModel.title;
     _priceController.text = _productModel.price.toString();
     _discriptionController.text = _productModel.discription;
     _productCategory = _productModel.category;
+    _productCountController.text = _productModel.productCount.toString();
     super.initState();
   }
 
@@ -244,6 +247,21 @@ class _ProductEditState extends State<ProductEdit> {
             Padding(
               padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
               child: TextFormField(
+                controller: _productCountController,
+                decoration: const InputDecoration(
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  contentPadding: EdgeInsets.all(20),
+                  hintText: 'Product item Count',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
+              child: TextFormField(
                 maxLines: 4,
                 controller: _discriptionController,
                 decoration: const InputDecoration(
@@ -322,6 +340,7 @@ class _ProductEditState extends State<ProductEdit> {
     final int price = int.parse(_priceController.text);
     final discription = _discriptionController.text.trim();
     final category = _productCategory;
+    final count = int.parse(_productCountController.text);
     final id = _productModel.id;
 
     if (name.isEmpty ||
@@ -339,6 +358,7 @@ class _ProductEditState extends State<ProductEdit> {
       discription: _discriptionController.text,
       category: category!,
       price: price,
+      productCount: count,
       image1: base64Image1,
       image2: base64Image2,
       image3: base64Image3,

@@ -1,6 +1,8 @@
 import 'package:e_commerce/data_base/function/order_history.dart';
+import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/coupon/coupon_model.dart';
 import 'package:e_commerce/data_base/models/order_history/order_history_model.dart';
+import 'package:e_commerce/data_base/models/product/db_product_model.dart';
 import 'package:e_commerce/screens/user/payment/payment_last_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -10,12 +12,15 @@ class PaymentScreenTwo extends StatefulWidget {
   final int quantity;
   final String image;
   final String title;
-  const PaymentScreenTwo(
-      {required this.price,
-      required this.quantity,
-      required this.image,
-      required this.title,
-      super.key});
+  final int productIndex;
+  const PaymentScreenTwo({
+    required this.price,
+    required this.productIndex,
+    required this.quantity,
+    required this.image,
+    required this.title,
+    super.key,
+  });
 
   @override
   State<PaymentScreenTwo> createState() => _PaymentScreenTwoState();
@@ -41,11 +46,19 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
             backgroundColor: Colors.green,
           ),
         );
+      } else {
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Invalid Coupon'),
+            backgroundColor: Color.fromARGB(255, 255, 61, 61),
+          ),
+        );
       }
     }
     // ignore: use_build_context_synchronously
     Navigator.of(context).pop();
-    print(allow);
+
     discoundCalculator(totelPrice, allow!);
   }
 
@@ -53,7 +66,7 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
     if (allowV == true) {
       int totel = totelPrice ?? 0;
       dynamic discountedAmount = (5 / 100) * totel;
-      print(discountedAmount);
+
       return discountedAmount;
     }
   }
@@ -504,24 +517,42 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
                       ),
                 SizedBox(
                   width: 150,
-                  child: ElevatedButton(
-                    style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(Colors.orange),
-                    ),
-                    onPressed: () {
-                      if (groupValue == 'Now3') {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const PaymentLastScareen(),
-                        ));
-                        addToOrderHistory();
-                      }
+                  child: ValueListenableBuilder(
+                    valueListenable: productListNotifier,
+                    builder: (BuildContext context,
+                        List<ProductModel> productList, Widget? child) {
+                      final data = productList[widget.productIndex];
+                      return ElevatedButton(
+                        style: const ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.orange),
+                        ),
+                        onPressed: () {
+                          if (groupValue == 'Now3') {
+                            addToOrderHistory(data.productCount);
+                            final product = ProductModel(
+                              title: data.title,
+                              discription: data.discription,
+                              image1: data.image1,
+                              image2: data.image2,
+                              image3: data.image3,
+                              image4: data.image4,
+                              price: data.price,
+                              category: data.category,
+                              productCount: data.productCount - 1,
+                              id: data.id,
+                            );
+                            productt.updateProduct(data.id!, product);
+                          }
+                        },
+                        child: const Text(
+                          'Continue',
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                      );
                     },
-                    child: const Text(
-                      'Continue',
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
                   ),
                 ),
               ],
@@ -532,13 +563,28 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
     );
   }
 
-  addToOrderHistory() {
+  addToOrderHistory(productCount) {
     final orderhistory = OrderhistoryModel(
       image: widget.image,
       title: widget.title,
       price: widget.price,
       quantity: widget.quantity,
     );
-    orderhistoryy.addOrderHistory(orderhistory);
+    if (productCount > 0) {
+      print(productCount);
+      orderhistoryy.addOrderHistory(orderhistory);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => const PaymentLastScareen(),
+          ),
+          (route) => false);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Out of stock'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 }

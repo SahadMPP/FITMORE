@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:e_commerce/Widgets/tob_design_order.dart';
 import 'package:e_commerce/data_base/function/address_function.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
@@ -20,7 +19,6 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-  
   int quantity = 1;
   int? newPrice;
   late ProductModel? datag;
@@ -536,6 +534,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => PaymentScreenTwo(
+                              productIndex: widget.productIndex,
                               price: newPrice ?? data.price,
                               quantity: quantity,
                               image: data.image1,

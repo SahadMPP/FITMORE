@@ -23,6 +23,8 @@ class ProductModel {
   final String category;
   @HiveField(9)
   bool? active;
+  @HiveField(10)
+  int productCount;
 
   ProductModel({
     required this.title,
@@ -33,6 +35,7 @@ class ProductModel {
     required this.image4,
     required this.price,
     required this.category,
+    required this.productCount,
     this.id,
     this.active = true,
   });

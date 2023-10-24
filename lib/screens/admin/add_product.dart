@@ -21,6 +21,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final _productNameController = TextEditingController();
   final _priceController = TextEditingController();
   final _discriptionController = TextEditingController();
+  final _productCountController = TextEditingController();
   String? _productCategory;
 
   @override
@@ -217,6 +218,22 @@ class _AddProductScreenState extends State<AddProductScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
             child: TextFormField(
+              keyboardType: TextInputType.number,
+              controller: _productCountController,
+              decoration: const InputDecoration(
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                contentPadding: EdgeInsets.all(20),
+                hintText: 'Product item count ',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 15),
+          Padding(
+            padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
+            child: TextFormField(
               maxLines: 4,
               controller: _discriptionController,
               decoration: const InputDecoration(
@@ -282,6 +299,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     final int price = int.parse(_priceController.text);
     final discription = _discriptionController.text.trim();
     final category = _productCategory;
+    final count = int.parse(_productCountController.text);
 
     if (name.isEmpty ||
         discription.isEmpty ||
@@ -299,9 +317,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
         image2: base64Image2,
         image3: base64Image3,
         image4: base64Image4,
+        productCount: count,
         price: price,
         category: category!);
-
+    print(count);
     productt.addProduct(product);
   }
 
