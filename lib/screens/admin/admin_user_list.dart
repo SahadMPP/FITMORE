@@ -17,16 +17,17 @@ class _AdminUserListScreenState extends State<AdminUserListScreen> {
   Widget build(BuildContext context) {
     userr.getAlluser();
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         title: const Padding(
-          padding: EdgeInsets.only(left: 25),
+          padding: EdgeInsets.only(left: 60),
           child: Text(
             'Latest Customers',
             style: TextStyle(
               color: Colors.black,
-              fontSize: 25,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ),
@@ -97,43 +98,42 @@ class _AdminUserListScreenState extends State<AdminUserListScreen> {
                           ScaffoldMessenger.of(context).clearSnackBars();
                           final id = data.id;
 
-                          if (id != null) {
-                            if (isActive) {
-                              // true
-                              setState(() {
-                                data.active = false;
-                              });
+                          if (isActive) {
+                            // true
+                            setState(() {
+                              data.active = false;
+                            });
 
-                              final user = UserModel(
-                                  name: data.name,
-                                  phoneNumber: data.phoneNumber,
-                                  email: data.email,
-                                  password: data.password,
-                                  active: false);
-                              userr.updateUser(id, user);
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content: Text('User deactiveted'),
-                                backgroundColor: Colors.red,
-                              ));
-                            } else {
-                              // false
-                              setState(() {
-                                data.active = true;
-                              });
-                              final user = UserModel(
-                                  name: data.name,
-                                  phoneNumber: data.phoneNumber,
-                                  email: data.email,
-                                  password: data.password,
-                                  active: true);
-                              userr.updateUser(id, user);
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content: Text('User Activeted'),
-                                backgroundColor: Colors.green,
-                              ));
-                            }
+                            final user = UserModel(
+                                name: data.name,
+                                phoneNumber: data.phoneNumber,
+                                email: data.email,
+                                password: data.password,
+                                active: false);
+                            userr.updateUser(id!, user);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text('User deactiveted'),
+                              backgroundColor: Colors.red,
+                            ));
+                          } else {
+                            // false
+
+                            setState(() {
+                              data.active = true;
+                            });
+                            final user = UserModel(
+                                name: data.name,
+                                phoneNumber: data.phoneNumber,
+                                email: data.email,
+                                password: data.password,
+                                active: true);
+                            userr.updateUser(id!, user);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text('User Activeted'),
+                              backgroundColor: Colors.green,
+                            ));
                           }
                         },
                         icon: Icon(

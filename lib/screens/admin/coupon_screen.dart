@@ -20,21 +20,14 @@ class _CouponScreenState extends State<CouponScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.chevron_left,
-            size: 40,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        title: const Text(
-          'Coupon List',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w400,
+        title: const Padding(
+          padding: EdgeInsets.only(left: 70),
+          child: Text(
+            'Coupon List',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w400,
+            ),
           ),
         ),
       ),

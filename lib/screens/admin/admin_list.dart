@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
 import 'package:e_commerce/screens/admin/add_product.dart';
-import 'package:e_commerce/screens/admin/admin_user_list.dart';
-import 'package:e_commerce/screens/admin/coupon_screen.dart';
 import 'package:e_commerce/screens/admin/product_edit.dart';
 import 'package:flutter/material.dart';
 
@@ -24,56 +22,25 @@ class _AdminListState extends State<AdminList> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 50),
-              child: Text(
-                'Product List',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 123, 123, 123),
-                  fontSize: 22,
-                  fontWeight: FontWeight.w300,
-                ),
-              ),
+        title: const Padding(
+          padding: EdgeInsets.only(left: 70),
+          child: Text(
+            'Product List',
+            style: TextStyle(
+              color: Color.fromARGB(255, 123, 123, 123),
+              fontSize: 22,
+              fontWeight: FontWeight.w300,
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 50),
-              child: Text(
-                "items",
-                style: TextStyle(
-                  color: Color.fromARGB(255, 123, 123, 123),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w300,
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
         actions: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const AdminUserListScreen(),
-                  ));
-                },
-                icon: const Icon(
-                  Icons.person,
-                  color: Colors.black,
-                ),
-              ),
-              IconButton(
-                icon: const Icon(Icons.add),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const AddProductScreen()));
-                },
-                color: Colors.black,
-              ),
-            ],
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const AddProductScreen()));
+            },
+            color: Colors.black,
           )
         ],
       ),
@@ -205,40 +172,6 @@ class _AdminListState extends State<AdminList> {
                   });
             },
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 240, top: 520, right: 10),
-            child: Container(
-              width: 200,
-              height: 70,
-              decoration: const BoxDecoration(
-                color: Colors.orange,
-                borderRadius: BorderRadius.all(Radius.circular(100)),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Coupon',
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black,
-                    ),
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const CouponScreen(),
-                        ));
-                      },
-                      icon: const Icon(
-                        Icons.add,
-                        size: 35,
-                      )),
-                ],
-              ),
-            ),
-          )
         ],
       ),
     );

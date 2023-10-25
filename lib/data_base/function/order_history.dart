@@ -23,4 +23,11 @@ class OrderHistory extends ChangeNotifier {
     orderhistoryNotify.value.add(orderhistory);
     orderhistoryNotify.notifyListeners();
   }
+
+  getAllOrders() async {
+    final orderDB = await Hive.openBox<OrderhistoryModel>('order_history_db');
+    orderhistoryNotify.value.clear();
+    orderhistoryNotify.value.addAll(orderDB.values);
+    orderhistoryNotify.notifyListeners();
+  }
 }

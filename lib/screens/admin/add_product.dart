@@ -320,7 +320,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         productCount: count,
         price: price,
         category: category!);
-    print(count);
+
     productt.addProduct(product);
   }
 

@@ -66,14 +66,14 @@ class ProductList extends StatelessWidget {
                             padding: const EdgeInsets.only(
                                 right: 10, left: 10, top: 5),
                             child: SizedBox(
-                              height: 30,
+                              height: 35,
                               child: Text(
                                 data.title,
                                 maxLines: 2,
                                 style: const TextStyle(
                                     color: Color.fromARGB(255, 17, 17, 17),
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500),
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w400),
                               ),
                             ),
                           ),

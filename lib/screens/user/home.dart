@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:e_commerce/Widgets/product_card.dart';
 import 'package:e_commerce/Widgets/product_card_second.dart';
 import 'package:e_commerce/Widgets/scrolling_image.dart';
@@ -185,6 +183,7 @@ class _HomeState extends State<Home> {
                 ],
               ),
               const ProductList(),
+              const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: Row(
