@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:e_commerce/Widgets/headline.dart';
+import 'package:e_commerce/Widgets/profile_card.dart';
 import 'package:e_commerce/data_base/function/user_functions.dart';
 import 'package:e_commerce/data_base/models/user/db_model.dart';
 import 'package:e_commerce/screens/admin/admin_login.dart';
@@ -30,14 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         backgroundColor: Colors.white,
         title: const Padding(
           padding: EdgeInsets.only(left: 150),
-          child: Text(
-            'Profile',
-            style: TextStyle(
-              color: Color.fromARGB(255, 123, 123, 123),
-              fontSize: 22,
-              fontWeight: FontWeight.w300,
-            ),
-          ),
+          child: HeadLine(text: "Profile"),
         ),
       ),
       body: ListView(
@@ -79,307 +74,96 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
           const SizedBox(height: 45),
-          Padding(
-            padding: const EdgeInsets.only(right: 35, left: 35),
-            child: Container(
-              height: 60,
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: Color.fromARGB(255, 215, 215, 215),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Icon(Icons.place, size: 30, color: Colors.orange),
-                    const Padding(
-                      padding: EdgeInsets.only(right: 110),
-                      child: Text(
-                        'Address',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 134, 134, 134),
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const AddressScreen(),
-                          ));
-                        },
-                        child: const Icon(Icons.chevron_right, size: 35))
-                  ],
-                ),
-              ),
-            ),
+          ProfileCardd(
+            title: "Address",
+            icon: Icons.location_city,
+            onTapp: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const AddressScreen(),
+              ));
+            },
           ),
           const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.only(right: 35, left: 35),
-            child: Container(
-              height: 60,
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: Color.fromARGB(255, 215, 215, 215),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Icon(Icons.person_add,
-                        size: 25, color: Colors.orange),
-                    const Padding(
-                      padding: EdgeInsets.only(right: 120),
-                      child: Text(
-                        'Admin',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 134, 134, 134),
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const AdminLogin()));
-                        },
-                        child: const Icon(Icons.chevron_right, size: 35))
-                  ],
-                ),
-              ),
-            ),
+          ProfileCardd(
+            title: "Admin",
+            icon: Icons.person_add,
+            onTapp: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const AdminLogin(),
+              ));
+            },
           ),
           const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.only(right: 35, left: 35),
-            child: Container(
-              height: 60,
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: Color.fromARGB(255, 215, 215, 215),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Icon(Icons.privacy_tip,
-                        size: 25, color: Colors.orange),
-                    const Padding(
-                      padding: EdgeInsets.only(right: 85),
-                      child: Text(
-                        'Privacy Policy',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 134, 134, 134),
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const TermsOne(),
-                        ));
-                      },
-                      child: const Icon(
-                        Icons.chevron_right,
-                        size: 35,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
+          ProfileCardd(
+            title: "Policy",
+            icon: Icons.privacy_tip,
+            onTapp: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const TermsOne(),
+              ));
+            },
           ),
           const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.only(right: 35, left: 35),
-            child: Container(
-              height: 60,
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: Color.fromARGB(255, 215, 215, 215),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Icon(Icons.private_connectivity,
-                        size: 25, color: Colors.orange),
-                    const Padding(
-                      padding: EdgeInsets.only(right: 50),
-                      child: Text(
-                        'Terms & Condition',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 134, 134, 134),
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const TermsOne(),
-                        ));
-                      },
-                      child: const Icon(
-                        Icons.chevron_right,
-                        size: 35,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
+          ProfileCardd(
+            title: "Terms",
+            icon: Icons.private_connectivity,
+            onTapp: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const TermsOne(),
+              ));
+            },
           ),
           const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.only(right: 35, left: 35),
-            child: Container(
-              height: 60,
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: Color.fromARGB(255, 215, 215, 215),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Icon(Icons.history, size: 25, color: Colors.orange),
-                    const Padding(
-                      padding: EdgeInsets.only(right: 85),
-                      child: Text(
-                        'Order History',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 134, 134, 134),
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const MyOrderScreen()));
-                      },
-                      child: const Icon(
-                        Icons.chevron_right,
-                        size: 35,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
+          ProfileCardd(
+            title: "Order",
+            icon: Icons.history,
+            onTapp: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const MyOrderScreen(),
+              ));
+            },
           ),
           const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.only(right: 35, left: 35),
-            child: Container(
-              height: 60,
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: Color.fromARGB(255, 215, 215, 215),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Icon(Icons.edit, size: 25, color: Colors.orange),
-                    const Padding(
-                      padding: EdgeInsets.only(right: 85),
-                      child: Text(
-                        'Edit Profile',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 134, 134, 134),
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const EditProfile()));
-                      },
-                      child: const Icon(
-                        Icons.chevron_right,
-                        size: 35,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
+          ProfileCardd(
+            title: "Edit",
+            icon: Icons.edit,
+            onTapp: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const EditProfile(),
+              ));
+            },
           ),
           const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.only(right: 35, left: 35),
-            child: GestureDetector(
-              onTap: () {
-                showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text("Log Out?"),
-                        content: const Text('Are you sure?'),
-                        actions: [
-                          TextButton(
-                            child: const Text('Yes'),
-                            onPressed: () {
-                              signOut(context);
-                            },
-                          ),
-                          TextButton(
-                            child: const Text('No'),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
-                      );
-                    });
-              },
-              child: Container(
-                height: 60,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: Color.fromARGB(255, 215, 215, 215),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(Icons.logout, size: 25, color: Colors.orange),
-                      Padding(
-                        padding: EdgeInsets.only(right: 170),
-                        child: Text(
-                          'Log Out',
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 134, 134, 134),
-                            fontSize: 18,
-                          ),
+          ProfileCardd(
+            title: "Log Out",
+            icon: Icons.logout,
+            onTapp: () {
+              showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text("Log Out?"),
+                      content: const Text('Are you sure?'),
+                      actions: [
+                        TextButton(
+                          child: const Text('Yes'),
+                          onPressed: () {
+                            signOut(context);
+                          },
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+                        TextButton(
+                          child: const Text('No'),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    );
+                  });
+            },
           ),
+          const SizedBox(height: 10),
         ],
       ),
     );
@@ -412,14 +196,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
     userr.updateUser(0, profile);
   }
-
-  // addProfile() async {
-  //   final bytes2 = await selectedImage!.readAsBytes();
-  //   final String base64Image2 = base64Encode(bytes2);
-
-  //   final profile = UserModel(
-  //     profile: base64Image2,
-  //   );
-  //   // userr.updateUser(,profile);
-  // }
 }
