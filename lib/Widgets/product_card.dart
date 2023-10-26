@@ -34,10 +34,11 @@ class ProductList extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ProductDetiles(
-                            index: data.id!,
-                            title: data.title,
-                            price: data.price,
-                            image: data.image1),
+                          index: data.id!,
+                          title: data.title,
+                          price: data.price,
+                          image: data.image1,
+                        ),
                       ),
                     );
                   },

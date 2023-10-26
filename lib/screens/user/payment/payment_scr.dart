@@ -7,6 +7,7 @@ import 'package:e_commerce/data_base/models/product/db_product_model.dart';
 import 'package:e_commerce/screens/user/payment/patment_scr_two.dart';
 import 'package:e_commerce/screens/user/payment/payment_address.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 
 class PaymentScreen extends StatefulWidget {
   final int productIndex;
@@ -280,10 +281,40 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                           style: const TextStyle(
                                               color: Colors.black)),
                                       InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            quantity++;
-                                          });
+                                        onTap: () async {
+                                          final productDB =
+                                              await Hive.openBox<ProductModel>(
+                                                  'product_db');
+
+                                          int count = 0;
+                                          for (var i = 0;
+                                              i < productDB.length;
+                                              i++) {
+                                            final currentProduct =
+                                                productDB.getAt(i);
+                                            if (currentProduct!.id == data.id) {
+                                              count =
+                                                  currentProduct.productCount;
+                                            }
+                                          }
+                                          if (count > quantity) {
+                                            setState(() {
+                                              quantity++;
+                                            });
+                                          } else {
+                                            // ignore: use_build_context_synchronously
+                                            ScaffoldMessenger.of(context)
+                                                .clearSnackBars();
+                                            // ignore: use_build_context_synchronously
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                content: Text(
+                                                    'product out of stock'),
+                                                backgroundColor: Colors.red,
+                                              ),
+                                            );
+                                          }
 
                                           newPrice = data.price * quantity;
                                         },

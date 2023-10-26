@@ -10,6 +10,9 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    userr.getAlluser();
+    productt.getAllProduct();
+    orderhistoryy.getAllOrders();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -81,7 +84,7 @@ class DashboardScreen extends StatelessWidget {
                                 style: const TextStyle(
                                   wordSpacing: 2,
                                   letterSpacing: 1,
-                                  color: Colors.black,
+                                  color: Colors.blue,
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -147,7 +150,7 @@ class DashboardScreen extends StatelessWidget {
                               style: const TextStyle(
                                 wordSpacing: 2,
                                 letterSpacing: 1,
-                                color: Colors.black,
+                                color: Colors.orange,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -215,7 +218,7 @@ class DashboardScreen extends StatelessWidget {
                               style: const TextStyle(
                                 wordSpacing: 2,
                                 letterSpacing: 1,
-                                color: Colors.black,
+                                color: Colors.green,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -278,11 +281,11 @@ class DashboardScreen extends StatelessWidget {
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 return Text(
-                                  snapshot.data!,
+                                  '\$${snapshot.data!}',
                                   style: const TextStyle(
                                     wordSpacing: 2,
                                     letterSpacing: 1,
-                                    color: Colors.black,
+                                    color: Colors.red,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w500,
                                   ),

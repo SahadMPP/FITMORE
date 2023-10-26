@@ -39,13 +39,13 @@ class _HomeState extends State<Home> {
           backgroundColor: Colors.white,
           toolbarHeight: 65,
           title: Container(
-            height: 45,
-            width: 140,
+            height: 120,
+            width: 180,
             decoration: const BoxDecoration(
               image: DecorationImage(
                   fit: BoxFit.fill,
                   image: AssetImage(
-                      'asset/Screenshot 2023-10-17 131021(icon-home).png')),
+                      'asset/photo_2023-10-26_20-08-37-removebg-preview (1).png')),
             ),
           ),
           actions: [
@@ -59,7 +59,7 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(10.0),
                 child: Container(
                   padding: const EdgeInsets.all(13),
-                  width: 270,
+                  width: 250,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(15)),
                     border: Border.all(
@@ -77,7 +77,7 @@ class _HomeState extends State<Home> {
                             fontWeight: FontWeight.w300),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 110),
+                        padding: EdgeInsets.only(left: 90),
                         child: Icon(
                           Icons.search,
                           color: Colors.grey,

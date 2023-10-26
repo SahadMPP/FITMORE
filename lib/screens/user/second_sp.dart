@@ -34,22 +34,25 @@ class _SecondSpState extends State<SecondSp> {
         child: SafeArea(
           child: Column(
             children: [
-              const SizedBox(height: 100),
               Expanded(
                 flex: 6,
-                child: PageView.builder(
-                  onPageChanged: (value) {
-                    setState(() {
-                      crrentpage = value;
-                    });
-                  },
-                  itemCount: splashData.length,
-                  itemBuilder: (context, index) => Splashcontent(
-                      text: splashData[index]['text'],
-                      image: splashData[index]["image"]),
+                child: Container(
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(40))),
+                  child: PageView.builder(
+                    onPageChanged: (value) {
+                      setState(() {
+                        crrentpage = value;
+                      });
+                    },
+                    itemCount: splashData.length,
+                    itemBuilder: (context, index) => Splashcontent(
+                        text: splashData[index]['text'],
+                        image: splashData[index]["image"]),
+                  ),
                 ),
               ),
-              const SizedBox(height: 40),
+
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),

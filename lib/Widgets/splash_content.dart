@@ -13,15 +13,14 @@ class Splashcontent extends StatelessWidget {
     return Column(
       children: [
         const Spacer(),
-        const Text(
-          'MENCART',
-          style: TextStyle(
-            fontSize: 36,
-            color: Color.fromARGB(255, 245, 151, 28),
-            fontWeight: FontWeight.bold,
-          ),
+        const SizedBox(
+          height: 150,
+          width: 190,
+          child: Image(
+              fit: BoxFit.cover,
+              image: AssetImage(
+                  'asset/photo_2023-10-26_20-08-37-removebg-preview (1).png')),
         ),
-        const SizedBox(height: 5),
         Text(
           text!,
           textAlign: TextAlign.center,

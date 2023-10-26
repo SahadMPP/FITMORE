@@ -1,33 +1,21 @@
-import 'package:e_commerce/data_base/function/order_history.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/coupon/coupon_model.dart';
-import 'package:e_commerce/data_base/models/order_history/order_history_model.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
 import 'package:e_commerce/screens/user/notification_screen.dart';
 import 'package:e_commerce/screens/user/payment/payment_last_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 
-class PaymentScreenTwo extends StatefulWidget {
-  final int price;
-  final int quantity;
-  final String image;
-  final String title;
-  final int productIndex;
-  const PaymentScreenTwo({
-    required this.price,
-    required this.productIndex,
-    required this.quantity,
-    required this.image,
-    required this.title,
+class CartPaymentScreen extends StatefulWidget {
+  const CartPaymentScreen({
     super.key,
   });
 
   @override
-  State<PaymentScreenTwo> createState() => _PaymentScreenTwoState();
+  State<CartPaymentScreen> createState() => _CartPaymentScreenState();
 }
 
-class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
+class _CartPaymentScreenState extends State<CartPaymentScreen> {
   final _couponController = TextEditingController();
   String groupValue = 'Yes';
   bool? allow = false;
@@ -313,7 +301,7 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
                         TextButton(
                             onPressed: () {
                               setState(() {
-                                checkingCoupon(widget.price);
+                                checkingCoupon(10);
                               });
                             },
                             child: const Text('Submit')),
@@ -347,20 +335,20 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        // Text(
+                        //   'price ($} item)',
+                        //   style: const TextStyle(
+                        //     color: Colors.black,
+                        //     fontSize: 16,
+                        //     fontWeight: FontWeight.w500,
+                        //   ),
+                        // ),
                         Text(
-                          'price (${widget.quantity} item)',
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          '\$${widget.price}.00',
-                          style: const TextStyle(
+                          '\$150.00',
+                          style: TextStyle(
                             color: Colors.black,
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
@@ -382,7 +370,7 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
                         ),
                         allow == true
                             ? Text(
-                                '\$${discoundCalculator(widget.price, allow!)}',
+                                '\$${discoundCalculator(10, allow!)}',
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
@@ -442,16 +430,16 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
                       ),
                       allow == true
                           ? Text(
-                              '\$${afterdicount(widget.price, allow!)}',
+                              '\$${afterdicount(10, allow!)}',
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
                               ),
                             )
-                          : Text(
-                              '\$${widget.price}',
-                              style: const TextStyle(
+                          : const Text(
+                              '\$10',
+                              style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
@@ -501,16 +489,16 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
               children: [
                 allow == true
                     ? Text(
-                        '\$${afterdicount(widget.price, allow!)}',
+                        '\$${afterdicount(10, allow!)}',
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                         ),
                       )
-                    : Text(
-                        '\$${widget.price}',
-                        style: const TextStyle(
+                    : const Text(
+                        '\$10',
+                        style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
@@ -522,29 +510,35 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
                     valueListenable: productListNotifier,
                     builder: (BuildContext context,
                         List<ProductModel> productList, Widget? child) {
-                      final data = productList[widget.productIndex];
+                      // final data = productList[widget.productIndex];
                       return ElevatedButton(
                         style: const ButtonStyle(
                           backgroundColor:
                               MaterialStatePropertyAll(Colors.orange),
                         ),
                         onPressed: () {
-                          if (groupValue == 'Now3') {
-                            addToOrderHistory(data.productCount);
-                            final product = ProductModel(
-                              title: data.title,
-                              discription: data.discription,
-                              image1: data.image1,
-                              image2: data.image2,
-                              image3: data.image3,
-                              image4: data.image4,
-                              price: data.price,
-                              category: data.category,
-                              productCount: data.productCount - widget.quantity,
-                              id: data.id,
-                            );
-                            productt.updateProduct(data.id!, product);
-                          }
+                          // if (groupValue == 'Now3') {
+                          //   addToOrderHistory(data.productCount);
+                          //   final product = ProductModel(
+                          //     title: data.title,
+                          //     discription: data.discription,
+                          //     image1: data.image1,
+                          //     image2: data.image2,
+                          //     image3: data.image3,
+                          //     image4: data.image4,
+                          //     price: data.price,
+                          //     category: data.category,
+                          //     productCount: data.productCount - widget.quantity,
+                          //     id: data.id,
+                          //   );
+                          //   productt.updateProduct(data.id!, product);
+                          // }
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const PaymentLastScareen(),
+                              ),
+                              (route) => false);
                         },
                         child: const Text(
                           'Continue',
@@ -565,16 +559,16 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
   }
 
   addToOrderHistory(productCount) {
-    final orderhistory = OrderhistoryModel(
-      image: widget.image,
-      title: widget.title,
-      price: widget.price,
-      quantity: widget.quantity,
-    );
+    // final orderhistory = OrderhistoryModel(
+    //   image: widget.image,
+    //   title: widget.title,
+    //   price: widget.price,
+    //   quantity: widget.quantity,
+    // );
 
     if (productCount > 0) {
       notificationCount++;
-      orderhistoryy.addOrderHistory(orderhistory);
+      // orderhistoryy.addOrderHistory(orderhistory);
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
             builder: (context) => const PaymentLastScareen(),

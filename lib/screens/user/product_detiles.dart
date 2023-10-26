@@ -1,10 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
-import 'package:e_commerce/data_base/function/cart_function.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
-
 import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
 import 'package:e_commerce/screens/user/cart_screen.dart';
@@ -18,6 +15,7 @@ class ProductDetiles extends StatefulWidget {
   String title;
   int price;
   String image;
+
   late Box<CartModel> cartBox;
 
   ProductDetiles({
@@ -251,6 +249,7 @@ class _ProductDetilesState extends State<ProductDetiles> {
                         final title = widget.title;
                         final price = widget.price;
                         final image = widget.image;
+
                         final cart = CartModel(
                           id: widget.index,
                           title: title,
@@ -356,25 +355,5 @@ class _ProductDetilesState extends State<ProductDetiles> {
         ),
       ),
     );
-  }
-
-  Future<void> countAdding({quantityy, pricee, titlee, imagee, idd}) async {
-    int id = idd ?? 0;
-    int quantity = quantityy ?? 0;
-    int price = pricee ?? 0;
-    String title = titlee ?? "";
-    String image = imagee;
-
-    quantity = quantity + 1;
-    int newPrice = quantity * price;
-    final cart = CartModel(
-      id: id,
-      quantity: quantity,
-      title: title,
-      price: price,
-      image: image,
-      newPrice: newPrice,
-    );
-    await cartt.upgradeCart(id, cart);
   }
 }

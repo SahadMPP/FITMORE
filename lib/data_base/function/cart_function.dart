@@ -15,12 +15,13 @@ class Cart extends ChangeNotifier {
     await cartDB.put(
         id,
         CartModel(
-            newPrice: cart!.newPrice,
-            quantity: cart.quantity,
-            id: id,
-            title: cart.title,
-            price: cart.price,
-            image: cart.image));
+          newPrice: cart!.newPrice,
+          quantity: cart.quantity,
+          id: id,
+          title: cart.title,
+          price: cart.price,
+          image: cart.image,
+        ));
     cartvaluelisener.value.add(cart);
     cartvaluelisener.notifyListeners();
   }
