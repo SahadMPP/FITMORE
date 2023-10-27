@@ -455,21 +455,24 @@ class _CartScreenState extends State<CartScreen> {
 
 Future<String> getTotelPrice() async {
   int totelPrice = 0;
+
   final cartDB = await Hive.openBox<CartModel>('cart_db');
-  for (var i = 0; i <= cartDB.length; i++) {
-    final currentProduct = cartDB.get(i);
+
+  for (var i = 0; i < cartDB.length; i++) {
+    final currentProduct = cartDB.getAt(i);
     if (currentProduct != null) {
       totelPrice = totelPrice + currentProduct.newPrice;
     }
   }
+
   return '\$$totelPrice.00';
 }
 
 Future<String> discoundCalculator() async {
   final cartDB = await Hive.openBox<CartModel>('cart_db');
   num totelPrice = 0;
-  for (var i = 0; i <= cartDB.length; i++) {
-    final currentProduct = cartDB.get(i);
+  for (var i = 0; i < cartDB.length; i++) {
+    final currentProduct = cartDB.getAt(i);
     if (currentProduct != null) {
       totelPrice += currentProduct.newPrice;
     }
@@ -481,8 +484,8 @@ Future<String> discoundCalculator() async {
 Future<String> afterDiscounting() async {
   final cartDB = await Hive.openBox<CartModel>('cart_db');
   num totelPrice = 0;
-  for (var i = 0; i <= cartDB.length; i++) {
-    final currentProduct = cartDB.get(i);
+  for (var i = 0; i < cartDB.length; i++) {
+    final currentProduct = cartDB.getAt(i);
     if (currentProduct != null) {
       totelPrice += currentProduct.newPrice;
     }
