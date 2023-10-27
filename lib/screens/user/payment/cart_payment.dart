@@ -1,14 +1,20 @@
+import 'package:e_commerce/data_base/function/order_history.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
+import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
 import 'package:e_commerce/data_base/models/coupon/coupon_model.dart';
+import 'package:e_commerce/data_base/models/order_history/order_history_model.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
-import 'package:e_commerce/screens/user/notification_screen.dart';
 import 'package:e_commerce/screens/user/payment/payment_last_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 
 class CartPaymentScreen extends StatefulWidget {
+  final dynamic totelPrice;
+  final int index;
   const CartPaymentScreen({
     super.key,
+    required this.index,
+    required this.totelPrice,
   });
 
   @override
@@ -335,20 +341,20 @@ class _CartPaymentScreenState extends State<CartPaymentScreen> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Text(
-                        //   'price ($} item)',
-                        //   style: const TextStyle(
-                        //     color: Colors.black,
-                        //     fontSize: 16,
-                        //     fontWeight: FontWeight.w500,
-                        //   ),
-                        // ),
-                        Text(
-                          '\$150.00',
+                        const Text(
+                          'price',
                           style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          '\$${widget.totelPrice}',
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
@@ -370,7 +376,7 @@ class _CartPaymentScreenState extends State<CartPaymentScreen> {
                         ),
                         allow == true
                             ? Text(
-                                '\$${discoundCalculator(10, allow!)}',
+                                '\$${discoundCalculator(widget.totelPrice, allow!)}',
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
@@ -430,16 +436,16 @@ class _CartPaymentScreenState extends State<CartPaymentScreen> {
                       ),
                       allow == true
                           ? Text(
-                              '\$${afterdicount(10, allow!)}',
+                              '\$${afterdicount(widget.totelPrice, allow!)}',
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
                               ),
                             )
-                          : const Text(
-                              '\$10',
-                              style: TextStyle(
+                          : Text(
+                              '\$${widget.totelPrice}',
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
@@ -489,16 +495,16 @@ class _CartPaymentScreenState extends State<CartPaymentScreen> {
               children: [
                 allow == true
                     ? Text(
-                        '\$${afterdicount(10, allow!)}',
+                        '\$${afterdicount(widget.totelPrice, allow!)}',
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                         ),
                       )
-                    : const Text(
-                        '\$10',
-                        style: TextStyle(
+                    : Text(
+                        '\$${widget.totelPrice}',
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
@@ -510,35 +516,31 @@ class _CartPaymentScreenState extends State<CartPaymentScreen> {
                     valueListenable: productListNotifier,
                     builder: (BuildContext context,
                         List<ProductModel> productList, Widget? child) {
-                      // final data = productList[widget.productIndex];
+                      final data = productList[widget.index];
                       return ElevatedButton(
                         style: const ButtonStyle(
                           backgroundColor:
                               MaterialStatePropertyAll(Colors.orange),
                         ),
-                        onPressed: () {
-                          // if (groupValue == 'Now3') {
-                          //   addToOrderHistory(data.productCount);
-                          //   final product = ProductModel(
-                          //     title: data.title,
-                          //     discription: data.discription,
-                          //     image1: data.image1,
-                          //     image2: data.image2,
-                          //     image3: data.image3,
-                          //     image4: data.image4,
-                          //     price: data.price,
-                          //     category: data.category,
-                          //     productCount: data.productCount - widget.quantity,
-                          //     id: data.id,
-                          //   );
-                          //   productt.updateProduct(data.id!, product);
-                          // }
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const PaymentLastScareen(),
-                              ),
-                              (route) => false);
+                        onPressed: () async {
+                          if (groupValue == 'Now3') {
+                            final cardDb =
+                                await Hive.openBox<CartModel>('cart_db');
+                            cardDb.clear();
+                            final order = OrderhistoryModel(
+                                image: data.image1,
+                                title: data.title,
+                                price: afterdicount(widget.totelPrice, allow!),
+                                quantity: 2);
+                            orderhistoryy.addOrderHistory(order);
+                            // ignore: use_build_context_synchronously
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const PaymentLastScareen(),
+                                ),
+                                (route) => false);
+                          }
                         },
                         child: const Text(
                           'Continue',
@@ -558,29 +560,29 @@ class _CartPaymentScreenState extends State<CartPaymentScreen> {
     );
   }
 
-  addToOrderHistory(productCount) {
-    // final orderhistory = OrderhistoryModel(
-    //   image: widget.image,
-    //   title: widget.title,
-    //   price: widget.price,
-    //   quantity: widget.quantity,
-    // );
+  // addToOrderHistory(productCount) {
+  //   // final orderhistory = OrderhistoryModel(
+  //   //   image: widget.image,
+  //   //   title: widget.title,
+  //   //   price: widget.price,
+  //   //   quantity: widget.quantity,
+  //   // );
 
-    if (productCount > 0) {
-      notificationCount++;
-      // orderhistoryy.addOrderHistory(orderhistory);
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (context) => const PaymentLastScareen(),
-          ),
-          (route) => false);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Out of stock'),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
-  }
+  //   if (productCount > 0) {
+  //     notificationCount++;
+  //     // orderhistoryy.addOrderHistory(orderhistory);
+  //     Navigator.of(context).pushAndRemoveUntil(
+  //         MaterialPageRoute(
+  //           builder: (context) => const PaymentLastScareen(),
+  //         ),
+  //         (route) => false);
+  //   } else {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(
+  //         content: Text('Out of stock'),
+  //         backgroundColor: Colors.red,
+  //       ),
+  //     );
+  //   }
+  // }
 }

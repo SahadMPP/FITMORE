@@ -13,6 +13,8 @@ class CartScreen extends StatefulWidget {
   State<CartScreen> createState() => _CartScreenState();
 }
 
+int totelPriceShare = 0;
+
 class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
@@ -365,7 +367,10 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const CartPaymentScreen(),
+                          builder: (context) => CartPaymentScreen(
+                            index: 0,
+                            totelPrice: totelPriceShare,
+                          ),
                         ));
                       },
                       child: const Text(
@@ -464,7 +469,7 @@ Future<String> getTotelPrice() async {
       totelPrice = totelPrice + currentProduct.newPrice;
     }
   }
-
+  totelPriceShare = totelPrice;
   return '\$$totelPrice.00';
 }
 

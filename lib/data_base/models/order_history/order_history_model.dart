@@ -10,7 +10,7 @@ class OrderhistoryModel {
   @HiveField(2)
   String title;
   @HiveField(3)
-  int price;
+  num price;
   @HiveField(4)
   int quantity;
   OrderhistoryModel(

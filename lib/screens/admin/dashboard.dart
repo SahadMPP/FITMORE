@@ -311,7 +311,7 @@ class DashboardScreen extends StatelessWidget {
   Future<String> totelRevenue() async {
     final orderDB = await Hive.openBox<OrderhistoryModel>('order_history_db');
 
-    int sum = 0;
+    num sum = 0;
 
     for (var i = 0; i < orderDB.length; i++) {
       final current = orderDB.getAt(i);

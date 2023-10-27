@@ -19,7 +19,7 @@ class OrderhistoryModelAdapter extends TypeAdapter<OrderhistoryModel> {
     return OrderhistoryModel(
       image: fields[1] as String,
       title: fields[2] as String,
-      price: fields[3] as int,
+      price: fields[3] as num,
       quantity: fields[4] as int,
       id: fields[0] as int?,
     );
