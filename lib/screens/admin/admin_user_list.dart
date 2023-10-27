@@ -110,7 +110,7 @@ class _AdminUserListScreenState extends State<AdminUserListScreen> {
                                 email: data.email,
                                 password: data.password,
                                 active: false);
-                            userr.updateUser(id!, user);
+                            userr.updateUser(id ?? 0, user);
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(const SnackBar(
                               content: Text('User deactiveted'),
