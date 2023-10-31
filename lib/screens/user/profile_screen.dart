@@ -9,6 +9,7 @@ import 'package:e_commerce/screens/user/address_screen.dart';
 import 'package:e_commerce/screens/user/edit_profile.dart';
 import 'package:e_commerce/screens/user/login_screen.dart';
 import 'package:e_commerce/screens/user/myorder_screen.dart';
+import 'package:e_commerce/screens/user/terms_/about_us.dart';
 import 'package:e_commerce/screens/user/terms_/terms.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -95,11 +96,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           const SizedBox(height: 10),
           ProfileCardd(
-            title: "Policy",
+            title: "About Us",
             icon: Icons.privacy_tip,
             onTapp: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const TermsOne(),
+                builder: (context) => const AboutUs(),
               ));
             },
           ),

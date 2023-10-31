@@ -110,19 +110,23 @@ class _HomeState extends State<Home> {
                             Padding(
                               padding: const EdgeInsets.only(
                                   top: 5, bottom: 10, right: 5, left: 5),
-                              child: SizedBox(
-                                height: 185,
-                                width: double.infinity,
-                                child: PageView.builder(
-                                  onPageChanged: (value) {
-                                    setState(() {
-                                      currentPage = value;
-                                    });
-                                  },
-                                  itemCount: imageList.length,
-                                  itemBuilder: (context, index) =>
-                                      ScrollingImageHome(
-                                    image: imageList[index]['image'],
+                              child: ClipRRect(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(40)),
+                                child: SizedBox(
+                                  height: 185,
+                                  width: double.infinity,
+                                  child: PageView.builder(
+                                    onPageChanged: (value) {
+                                      setState(() {
+                                        currentPage = value;
+                                      });
+                                    },
+                                    itemCount: imageList.length,
+                                    itemBuilder: (context, index) =>
+                                        ScrollingImageHome(
+                                      image: imageList[index]['image'],
+                                    ),
                                   ),
                                 ),
                               ),
