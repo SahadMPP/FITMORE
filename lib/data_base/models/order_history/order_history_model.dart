@@ -11,12 +11,7 @@ class OrderhistoryModel {
   String title;
   @HiveField(3)
   num price;
-  @HiveField(4)
-  int quantity;
+
   OrderhistoryModel(
-      {required this.image,
-      required this.title,
-      required this.price,
-      required this.quantity,
-      this.id});
+      {required this.image, required this.title, required this.price, this.id});
 }

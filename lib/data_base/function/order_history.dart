@@ -17,7 +17,6 @@ class OrderHistory extends ChangeNotifier {
         image: orderhistory!.image,
         title: orderhistory.title,
         price: orderhistory.price,
-        quantity: orderhistory.quantity,
       ),
     );
     orderhistoryNotify.value.add(orderhistory);

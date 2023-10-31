@@ -20,7 +20,6 @@ class OrderhistoryModelAdapter extends TypeAdapter<OrderhistoryModel> {
       image: fields[1] as String,
       title: fields[2] as String,
       price: fields[3] as num,
-      quantity: fields[4] as int,
       id: fields[0] as int?,
     );
   }
@@ -28,7 +27,7 @@ class OrderhistoryModelAdapter extends TypeAdapter<OrderhistoryModel> {
   @override
   void write(BinaryWriter writer, OrderhistoryModel obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -36,9 +35,7 @@ class OrderhistoryModelAdapter extends TypeAdapter<OrderhistoryModel> {
       ..writeByte(2)
       ..write(obj.title)
       ..writeByte(3)
-      ..write(obj.price)
-      ..writeByte(4)
-      ..write(obj.quantity);
+      ..write(obj.price);
   }
 
   @override

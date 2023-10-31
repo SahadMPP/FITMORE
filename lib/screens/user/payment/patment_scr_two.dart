@@ -569,7 +569,6 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
       image: widget.image,
       title: widget.title,
       price: widget.price,
-      quantity: widget.quantity,
     );
 
     if (productCount > 0) {

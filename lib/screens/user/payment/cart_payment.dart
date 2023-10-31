@@ -1,9 +1,8 @@
+import 'package:e_commerce/data_base/function/cart_function.dart';
 import 'package:e_commerce/data_base/function/order_history.dart';
-import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
 import 'package:e_commerce/data_base/models/coupon/coupon_model.dart';
 import 'package:e_commerce/data_base/models/order_history/order_history_model.dart';
-import 'package:e_commerce/data_base/models/product/db_product_model.dart';
 import 'package:e_commerce/screens/user/payment/payment_last_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -70,7 +69,7 @@ class _CartPaymentScreenState extends State<CartPaymentScreen> {
     if (allowV == true) {
       int totel = totelPrice ?? 0;
       dynamic discountedAmount = (5 / 100) * totel;
-      num afterdisc = totel - discountedAmount;
+      dynamic afterdisc = totel - discountedAmount;
       return afterdisc;
     }
   }
@@ -513,10 +512,9 @@ class _CartPaymentScreenState extends State<CartPaymentScreen> {
                 SizedBox(
                   width: 150,
                   child: ValueListenableBuilder(
-                    valueListenable: productListNotifier,
-                    builder: (BuildContext context,
-                        List<ProductModel> productList, Widget? child) {
-                      final data = productList[widget.index];
+                    valueListenable: cartvaluelisener,
+                    builder: (BuildContext context, List<CartModel> cartList,
+                        Widget? child) {
                       return ElevatedButton(
                         style: const ButtonStyle(
                           backgroundColor:
@@ -526,13 +524,18 @@ class _CartPaymentScreenState extends State<CartPaymentScreen> {
                           if (groupValue == 'Now3') {
                             final cardDb =
                                 await Hive.openBox<CartModel>('cart_db');
-                            cardDb.clear();
-                            final order = OrderhistoryModel(
-                                image: data.image1,
+
+                            for (var i = 0; i < cardDb.length; i++) {
+                              final data = cartList[i];
+                              final order = OrderhistoryModel(
+                                image: data.image,
                                 title: data.title,
-                                price: afterdicount(widget.totelPrice, allow!),
-                                quantity: 2);
-                            orderhistoryy.addOrderHistory(order);
+                                price: data.price,
+                              );
+                              orderhistoryy.addOrderHistory(order);
+                            }
+                            cardDb.clear();
+
                             // ignore: use_build_context_synchronously
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(
