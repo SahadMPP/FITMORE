@@ -19,25 +19,6 @@ class _SearchScreenState extends State<SearchScreen> {
     super.initState();
   }
 
-  runFilter(String enteredKeyWord) {
-    ValueNotifier<List<ProductModel>> result = ValueNotifier([]);
-
-    if (enteredKeyWord.isEmpty) {
-      result.value = productListNotifier.value;
-    } else {
-      List<ProductModel> filteredList = productListNotifier.value
-          .where((product) => product.title
-              .toLowerCase()
-              .contains(enteredKeyWord.toLowerCase()))
-          .toList();
-      result.value = filteredList;
-    }
-
-    setState(() {
-      foundproduct = result;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,5 +54,24 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
       body: SearchListWidget(foundproduct: foundproduct),
     );
+  }
+
+  runFilter(String enteredKeyWord) {
+    ValueNotifier<List<ProductModel>> result = ValueNotifier([]);
+
+    if (enteredKeyWord.isEmpty) {
+      result.value = productListNotifier.value;
+    } else {
+      List<ProductModel> filteredList = productListNotifier.value
+          .where((product) => product.title
+              .toLowerCase()
+              .contains(enteredKeyWord.toLowerCase()))
+          .toList();
+      result.value = filteredList;
+    }
+
+    setState(() {
+      foundproduct = result;
+    });
   }
 }

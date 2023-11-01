@@ -1,9 +1,7 @@
+import 'package:e_commerce/Widgets/mainbutton.dart';
 import 'package:e_commerce/Widgets/text_field_reg.dart';
-import 'package:e_commerce/data_base/function/user_functions.dart';
-import 'package:e_commerce/data_base/models/user/db_model.dart';
-import 'package:e_commerce/screens/user/login_screen.dart';
+import 'package:e_commerce/funtions/registration_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
 // ignore: depend_on_referenced_packages
 import 'package:email_validator/email_validator.dart';
 
@@ -122,53 +120,34 @@ class _RegScreenState extends State<RegScreen> {
                 },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 40.0, right: 40.0),
-              child: SizedBox(
-                width: double.infinity,
-                height: 56,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: const MaterialStatePropertyAll(
-                      Color.fromARGB(255, 255, 145, 0),
-                    ),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
-                    isValid = EmailValidator.validate(_emailController.text);
-                    if (isValid) {
-                      if (formKey.currentState!.validate()) {
-                        checkingUserAlreadyExiste(context);
-                      }
-                    } else if (_emailController.text.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        behavior: SnackBarBehavior.floating,
-                        backgroundColor: Colors.red,
-                        margin: EdgeInsets.all(15),
-                        content: Text('Enter Email'),
-                      ));
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        behavior: SnackBarBehavior.floating,
-                        backgroundColor: Colors.red,
-                        margin: EdgeInsets.all(15),
-                        content: Text('Enter a valid email'),
-                      ));
-                    }
-                  },
-                  child: const Text(
-                    'Continue',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
+            Button(
+              text: 'Continue',
+              onPressedCallback: () {
+                isValid = EmailValidator.validate(_emailController.text);
+                if (isValid) {
+                  if (formKey.currentState!.validate()) {
+                    checkingUserAlreadyExiste(context,
+                        emailController: _emailController,
+                        nameController: _nameController,
+                        phonenumberController: _phonenumberController,
+                        passwordControlle: _passwordControlle);
+                  }
+                } else if (_emailController.text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    behavior: SnackBarBehavior.floating,
+                    backgroundColor: Colors.red,
+                    margin: EdgeInsets.all(15),
+                    content: Text('Enter Email'),
+                  ));
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    behavior: SnackBarBehavior.floating,
+                    backgroundColor: Colors.red,
+                    margin: EdgeInsets.all(15),
+                    content: Text('Enter a valid email'),
+                  ));
+                }
+              },
             ),
             const SizedBox(height: 20),
             const Padding(
@@ -184,56 +163,5 @@ class _RegScreenState extends State<RegScreen> {
         ),
       ),
     );
-  }
-
-  Future<void> checkingUserAlreadyExiste(BuildContext context) async {
-    final userDB = await Hive.openBox<UserModel>('user_db');
-    final email = _emailController.text;
-
-    // ignore: unnecessary_null_comparison
-    if (userDB != null) {
-      for (var i = 0; i < userDB.length; i++) {
-        final currentUser = userDB.getAt(i);
-        if (currentUser!.email == email) {
-          // ignore: use_build_context_synchronously
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            behavior: SnackBarBehavior.floating,
-            backgroundColor: Colors.red,
-            margin: EdgeInsets.all(15),
-            content: Text('Email Already registered'),
-          ));
-          return;
-        }
-      }
-    }
-
-    final name = _nameController.text;
-    final phonenumber = _phonenumberController.text;
-    final password = _passwordControlle.text;
-
-    if (name.isEmpty ||
-        phonenumber.isEmpty ||
-        email.isEmpty ||
-        password.isEmpty) {
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.red,
-        margin: EdgeInsets.all(15),
-        content: Text('Invalid User name and password'),
-      ));
-    } else {
-      final usermodel = UserModel(
-        name: name,
-        phoneNumber: phonenumber,
-        email: email,
-        password: password,
-      );
-      userr.addUser(usermodel);
-
-      // ignore: use_build_context_synchronously
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const LoginScreen()));
-    }
   }
 }

@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
-class Mainbutton extends StatefulWidget {
-  String? text;
-  String? page;
-  Mainbutton({super.key, this.text, this.page});
+class Button extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressedCallback;
 
-  @override
-  State<Mainbutton> createState() => _MainbuttonState();
-}
+  const Button(
+      {super.key, required this.text, required this.onPressedCallback});
 
-class _MainbuttonState extends State<Mainbutton> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,9 +25,9 @@ class _MainbuttonState extends State<Mainbutton> {
               ),
             ),
           ),
-          onPressed: () {},
+          onPressed: onPressedCallback,
           child: Text(
-            widget.text!,
+            text,
             style: const TextStyle(
               fontSize: 18,
               color: Colors.white,

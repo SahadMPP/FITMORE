@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:e_commerce/Widgets/mainbutton.dart';
+import 'package:e_commerce/Widgets/product_deatiles_card.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
-import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
 import 'package:e_commerce/screens/user/cart_screen.dart';
 import 'package:e_commerce/screens/user/payment/payment_address.dart';
@@ -35,9 +36,9 @@ class _ProductDetilesState extends State<ProductDetiles> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 240, 240, 240),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 240, 240, 240),
+        backgroundColor: Colors.white,
         elevation: 0,
         actions: [
           Padding(
@@ -45,7 +46,7 @@ class _ProductDetilesState extends State<ProductDetiles> {
             child: Container(
               width: 60,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: const Color.fromARGB(255, 241, 241, 241),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: const Row(
@@ -117,210 +118,61 @@ class _ProductDetilesState extends State<ProductDetiles> {
             ),
           ),
           const SizedBox(height: 30),
-          Container(
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(20)),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 15),
-              child: ValueListenableBuilder(
-                valueListenable: productListNotifier,
-                builder: (BuildContext context, List<ProductModel> productList,
-                    Widget? child) {
-                  final data = productList[widget.index];
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 15),
-                      Text(
-                        data.title,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '\$${data.price}',
-                            style: const TextStyle(
-                              color: Color(0xFFFF4848),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: ValueListenableBuilder(
-                              valueListenable:
-                                  Hive.box<FavoriteModel>('favorite_db')
-                                      .listenable(),
-                              builder: (context, box, child) {
-                                final isFavorite =
-                                    box.get(widget.index) != null;
-                                return Container(
-                                  width: 70,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    color: const Color.fromARGB(
-                                        255, 233, 232, 232),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: IconButton(
-                                      onPressed: () async {
-                                        ScaffoldMessenger.of(context)
-                                            .clearSnackBars();
-                                        if (isFavorite) {
-                                          box.delete(widget.index);
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(const SnackBar(
-                                            content:
-                                                Text('Remove from Favorite'),
-                                            backgroundColor: Colors.red,
-                                          ));
-                                        } else {
-                                          final base64Image1 = data.image1;
-                                          final favorite = FavoriteModel(
-                                              id: widget.index,
-                                              title: data.title,
-                                              price: data.price,
-                                              image: base64Image1);
-                                          await box.put(widget.index, favorite);
-                                        }
-                                      },
-                                      icon: Icon(
-                                        isFavorite
-                                            ? Icons.favorite
-                                            : Icons.favorite_border,
-                                        color: const Color(0xFFFF4848),
-                                        size: 30,
-                                      )),
-                                );
-                              },
-                            ),
-                          )
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 150),
-                        child: SizedBox(
-                          height: 90,
-                          width: 200,
-                          child: Text(
-                            data.discription,
-                            maxLines: 4,
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ),
-                      )
-                    ],
-                  );
-                },
-              ),
-            ),
-          ),
+          ProductDetiCard(widget: widget),
           const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.only(left: 40.0, right: 40.0),
-            child: SizedBox(
-              width: double.infinity,
-              height: 56,
-              child: ValueListenableBuilder(
-                valueListenable: Hive.box<CartModel>('cart_db').listenable(),
-                builder: (context, box, child) {
-                  //  some logical error
-                  final isInCart = box.get(widget.index) != null;
-                  return ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: const MaterialStatePropertyAll(
-                        Color.fromARGB(255, 255, 145, 0),
-                      ),
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
+          SizedBox(
+            width: double.infinity,
+            height: 56,
+            child: ValueListenableBuilder(
+              valueListenable: Hive.box<CartModel>('cart_db').listenable(),
+              builder: (context, box, child) {
+                //  some logical error
+                final isInCart = box.get(widget.index) != null;
+                return Button(
+                  text: isInCart == true ? 'Goto Cart' : 'AddTo Cart',
+                  onPressedCallback: () {
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    // addToCart();
+                    if (isInCart) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const CartScreen(),
+                      ));
+                    } else {
+                      final title = widget.title;
+                      final price = widget.price;
+                      final image = widget.image;
+
+                      final cart = CartModel(
+                        id: widget.index,
+                        title: title,
+                        price: price,
+                        image: image,
+                        quantity: 1,
+                        newPrice: price,
+                      );
+
+                      box.put(widget.index, cart);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Added to Cart'),
+                          backgroundColor: Colors.green,
                         ),
-                      ),
-                    ),
-                    onPressed: () {
-                      ScaffoldMessenger.of(context).clearSnackBars();
-                      // addToCart();
-                      if (isInCart) {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const CartScreen(),
-                        ));
-                      } else {
-                        final title = widget.title;
-                        final price = widget.price;
-                        final image = widget.image;
-
-                        final cart = CartModel(
-                          id: widget.index,
-                          title: title,
-                          price: price,
-                          image: image,
-                          quantity: 1,
-                          newPrice: price,
-                        );
-
-                        box.put(widget.index, cart);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Added to Cart'),
-                            backgroundColor: Colors.green,
-                          ),
-                        );
-                      }
-                    },
-                    child: isInCart == true
-                        ? const Text(
-                            'Go to Cart',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                            ),
-                          )
-                        : const Text(
-                            'Added to Cart',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                            ),
-                          ),
-                  );
-                },
-              ),
+                      );
+                    }
+                  },
+                );
+              },
             ),
           ),
           const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.only(left: 40.0, right: 40.0),
-            child: SizedBox(
-              width: double.infinity,
-              height: 56,
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: const MaterialStatePropertyAll(
-                    Color.fromARGB(255, 255, 145, 0),
-                  ),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                    ),
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>
-                        PaymentAddress(productIndex: widget.index),
-                  ));
-                },
-                child: const Text(
-                  'Buy now',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ),
+          Button(
+              text: "Buy now",
+              onPressedCallback: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) =>
+                      PaymentAddress(productIndex: widget.index),
+                ));
+              }),
           const SizedBox(height: 20),
         ],
       ),

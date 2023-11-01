@@ -1,10 +1,8 @@
 import 'dart:convert';
-
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
 import 'package:e_commerce/screens/user/product_detiles.dart';
-
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -53,13 +51,14 @@ class ProductList extends StatelessWidget {
                             aspectRatio: 1,
                             child: Container(
                               decoration: BoxDecoration(
-                                // border: Border.all(
-                                //     width: .5, color: Colors.blueGrey),
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: Image(
-                                fit: BoxFit.fill,
-                                image: MemoryImage(imageBytes),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image(
+                                  fit: BoxFit.fill,
+                                  image: MemoryImage(imageBytes),
+                                ),
                               ),
                             ),
                           ),

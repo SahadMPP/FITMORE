@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:e_commerce/Widgets/favorite_card.dart';
 import 'package:e_commerce/data_base/function/favorite_function.dart';
 import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
+import 'package:e_commerce/funtions/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -17,33 +19,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     favoritee.getAllFavorite();
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: const Padding(
-          padding: EdgeInsets.only(left: 140),
-          child: Column(
-            children: [
-              Text(
-                'Favorite',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 123, 123, 123),
-                  fontSize: 22,
-                  fontWeight: FontWeight.w300,
-                ),
-              ),
-              Text(
-                "items",
-                style: TextStyle(
-                  color: Color.fromARGB(255, 123, 123, 123),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w300,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      appBar: mainTitle('Favorite'),
       body: ValueListenableBuilder(
         valueListenable: favoriteNotifier,
         builder: (BuildContext context, List<FavoriteModel> favoriteList,
@@ -98,59 +74,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             ),
                           ),
                         ),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 88,
-                              child: AspectRatio(
-                                aspectRatio: 0.88,
-                                child: Container(
-                                  width: 88,
-                                  padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: Image(
-                                    fit: BoxFit.fill,
-                                    image: MemoryImage(imagebytes),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 20),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 15),
-                                Text(
-                                  data.title,
-                                  style: const TextStyle(
-                                    color: Color.fromARGB(255, 65, 65, 65),
-                                    fontSize: 16,
-                                  ),
-                                  maxLines: 2,
-                                ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  'Size 1$index',
-                                  style: const TextStyle(
-                                    color: Color.fromARGB(255, 65, 65, 65),
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                const SizedBox(height: 20),
-                                Text(
-                                  '\$${data.price}',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.red,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
+                        child: FavoriteCard(
+                            imagebytes: imagebytes, data: data, index: index),
                       );
                     },
                   ),

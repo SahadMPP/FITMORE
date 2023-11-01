@@ -1,19 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:e_commerce/Widgets/headline.dart';
 import 'package:e_commerce/Widgets/profile_card.dart';
 import 'package:e_commerce/data_base/function/user_functions.dart';
 import 'package:e_commerce/data_base/models/user/db_model.dart';
+import 'package:e_commerce/funtions/profile_screen.dart';
 import 'package:e_commerce/screens/admin/admin_login.dart';
 import 'package:e_commerce/screens/user/address_screen.dart';
 import 'package:e_commerce/screens/user/edit_profile.dart';
-import 'package:e_commerce/screens/user/login_screen.dart';
 import 'package:e_commerce/screens/user/myorder_screen.dart';
 import 'package:e_commerce/screens/user/terms_/about_us.dart';
 import 'package:e_commerce/screens/user/terms_/terms.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -28,14 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        title: const Padding(
-          padding: EdgeInsets.only(left: 150),
-          child: HeadLine(text: "Profile"),
-        ),
-      ),
+      appBar: mainTitle('Profile'),
       body: ListView(
         children: [
           const SizedBox(height: 35),
@@ -170,16 +161,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  signOut(BuildContext ctx) async {
-    final shareprefe = await SharedPreferences.getInstance();
-    await shareprefe.clear();
-
-    // ignore: use_build_context_synchronously
-    Navigator.of(ctx).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (ctx) => const LoginScreen()),
-        (route) => false);
-  }
-
   Future pickImageFromGallery() async {
     final returnedImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -191,7 +172,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
     final bytes2 = await selectedImage!.readAsBytes();
     final String base64Image2 = base64Encode(bytes2);
-
     final profile = UserModel(
       profile: base64Image2,
     );
