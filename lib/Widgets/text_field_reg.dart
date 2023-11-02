@@ -9,6 +9,7 @@ class TextFieldInReg extends StatelessWidget {
   final TextInputType keyboardType;
   final bool obscureText;
   final dynamic maxLength;
+  final dynamic maxLines;
   const TextFieldInReg({
     super.key,
     required this.icon,
@@ -16,6 +17,7 @@ class TextFieldInReg extends StatelessWidget {
     required this.hintText,
     required this.validatorText,
     this.nameController,
+    this.maxLines,
     required this.keyboardType,
     required this.obscureText,
     required this.maxLength,
@@ -29,6 +31,7 @@ class TextFieldInReg extends StatelessWidget {
         keyboardType: keyboardType,
         obscureText: obscureText,
         controller: nameController,
+        maxLines: maxLines,
         maxLength: maxLength,
         decoration: InputDecoration(
           labelText: labelText,

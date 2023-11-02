@@ -1,6 +1,6 @@
 import 'package:e_commerce/data_base/function/cart_function.dart';
 import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
-import 'package:e_commerce/funtions/cart_functions.dart';
+import 'package:e_commerce/user_functions/cart_functions.dart';
 import 'package:flutter/material.dart';
 
 class CalculateCart extends StatelessWidget {

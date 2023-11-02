@@ -1,5 +1,5 @@
 import 'package:e_commerce/Widgets/nitification_card.dart';
-import 'package:e_commerce/funtions/notification.dart';
+import 'package:e_commerce/user_functions/notification.dart';
 import 'package:flutter/material.dart';
 
 int notificationCount = 1;

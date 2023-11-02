@@ -1,6 +1,6 @@
 import 'package:e_commerce/Widgets/mainbutton.dart';
 import 'package:e_commerce/Widgets/text_field_reg.dart';
-import 'package:e_commerce/funtions/registration_screen.dart';
+import 'package:e_commerce/user_functions/registration_screen.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:email_validator/email_validator.dart';

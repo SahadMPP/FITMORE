@@ -2,7 +2,7 @@ import 'package:e_commerce/data_base/function/cart_function.dart';
 import 'package:e_commerce/data_base/function/order_history.dart';
 import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
 import 'package:e_commerce/data_base/models/order_history/order_history_model.dart';
-import 'package:e_commerce/funtions/payment_last_screen_func.dart';
+import 'package:e_commerce/user_functions/payment_last_screen_func.dart';
 import 'package:e_commerce/screens/user/payment/cart_payment.dart';
 import 'package:e_commerce/screens/user/payment/payment_last_page.dart';
 import 'package:flutter/material.dart';

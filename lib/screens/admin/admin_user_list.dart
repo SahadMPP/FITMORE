@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:e_commerce/data_base/function/user_functions.dart';
 import 'package:e_commerce/data_base/models/user/db_model.dart';
+import 'package:e_commerce/user_functions/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class AdminUserListScreen extends StatefulWidget {
@@ -18,20 +18,7 @@ class _AdminUserListScreenState extends State<AdminUserListScreen> {
     userr.getAlluser();
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: const Padding(
-          padding: EdgeInsets.only(left: 60),
-          child: Text(
-            'Latest Customers',
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ),
-      ),
+      appBar: mainTitle('Users'),
       body: ValueListenableBuilder(
         valueListenable: userListNotifier,
         builder:

@@ -18,7 +18,7 @@ AppBar mainTitle(String text) {
     elevation: 0,
     backgroundColor: Colors.white,
     title: Padding(
-      padding: const EdgeInsets.only(left: 150),
+      padding: const EdgeInsets.only(left: 110),
       child: HeadLine(text: text),
     ),
   );

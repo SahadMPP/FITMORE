@@ -13,14 +13,14 @@ class CatogeryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(15),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: 3 / 2,
         crossAxisSpacing: 10,
         mainAxisExtent: 150,
       ),
-      itemCount: 3,
+      itemCount: categoryProducts.length,
       itemBuilder: (context, index) {
         final data = categoryProducts[index];
         final base64Image = data.image1;

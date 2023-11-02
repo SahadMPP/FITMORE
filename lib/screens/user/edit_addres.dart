@@ -3,7 +3,7 @@ import 'package:e_commerce/Widgets/mainbutton.dart';
 import 'package:e_commerce/Widgets/text_field_reg.dart';
 import 'package:e_commerce/data_base/function/address_function.dart';
 import 'package:e_commerce/data_base/models/address/db_address_model.dart';
-import 'package:e_commerce/funtions/edit_address_func.dart';
+import 'package:e_commerce/user_functions/edit_address_func.dart';
 import 'package:flutter/material.dart';
 
 class EditAddressScreen extends StatefulWidget {

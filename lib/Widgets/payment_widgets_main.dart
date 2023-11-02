@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
-import 'package:e_commerce/funtions/payment_function.dart';
+import 'package:e_commerce/user_functions/payment_function.dart';
 import 'package:e_commerce/screens/user/payment/patment_scr_two.dart';
 import 'package:e_commerce/screens/user/payment/payment_scr.dart';
 import 'package:flutter/material.dart';

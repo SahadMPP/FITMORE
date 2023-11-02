@@ -1,7 +1,8 @@
-import 'dart:convert';
 import 'dart:io';
-import 'package:e_commerce/data_base/function/product_db_function.dart';
-import 'package:e_commerce/data_base/models/product/db_product_model.dart';
+import 'package:e_commerce/Widgets/mainbutton.dart';
+import 'package:e_commerce/Widgets/text_field_reg.dart';
+import 'package:e_commerce/admin_side_functions/add_product_fun.dart';
+import 'package:e_commerce/user_functions/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -26,30 +27,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> categories = [
-      'Nike',
-      'Adiddas',
-      'Puma',
-      'DS',
-    ];
-
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: const Padding(
-          padding: EdgeInsets.only(left: 70),
-          child: Text(
-            'Add Product',
-            style: TextStyle(
-              color: Color.fromARGB(255, 123, 123, 123),
-              fontSize: 22,
-              fontWeight: FontWeight.w300,
-            ),
-          ),
-        ),
-      ),
+      appBar: mainTitle('Add Product'),
       body: ListView(
         children: [
           const SizedBox(height: 20),
@@ -149,21 +129,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
             ),
           ),
           const SizedBox(height: 30),
-          Padding(
-            padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
-            child: TextFormField(
-              controller: _productNameController,
-              decoration: const InputDecoration(
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                contentPadding: EdgeInsets.all(20),
-                hintText: 'Enter product name',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-              ),
-            ),
+          TextFieldInReg(
+            icon: Icons.card_travel,
+            labelText: 'Name',
+            hintText: 'Enter product name',
+            validatorText: 'Enter product name',
+            keyboardType: TextInputType.name,
+            obscureText: false,
+            maxLength: null,
+            nameController: _productNameController,
           ),
           const SizedBox(height: 15),
           Padding(
@@ -199,129 +173,58 @@ class _AddProductScreenState extends State<AddProductScreen> {
             ),
           ),
           const SizedBox(height: 15),
-          Padding(
-            padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
-            child: TextFormField(
-              keyboardType: TextInputType.number,
-              controller: _priceController,
-              decoration: const InputDecoration(
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                contentPadding: EdgeInsets.all(20),
-                hintText: 'Enter product price',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-              ),
-            ),
+          TextFieldInReg(
+            icon: Icons.price_change,
+            labelText: 'Price',
+            hintText: 'Enter product price',
+            validatorText: 'Enter product price',
+            keyboardType: TextInputType.phone,
+            obscureText: false,
+            maxLength: null,
+            nameController: _priceController,
           ),
           const SizedBox(height: 15),
-          Padding(
-            padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
-            child: TextFormField(
-              keyboardType: TextInputType.number,
-              controller: _productCountController,
-              decoration: const InputDecoration(
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                contentPadding: EdgeInsets.all(20),
-                hintText: 'Product item count ',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-              ),
-            ),
+          TextFieldInReg(
+            icon: Icons.production_quantity_limits,
+            labelText: 'Stock',
+            hintText: 'Enter product Stock',
+            validatorText: 'Enter product Stock',
+            keyboardType: TextInputType.phone,
+            obscureText: false,
+            maxLength: null,
+            nameController: _productCountController,
           ),
           const SizedBox(height: 15),
-          Padding(
-            padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
-            child: TextFormField(
-              maxLines: 4,
-              controller: _discriptionController,
-              decoration: const InputDecoration(
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                contentPadding: EdgeInsets.all(20),
-                hintText: 'Enter product Discription',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-              ),
-            ),
+          TextFieldInReg(
+            icon: Icons.text_fields,
+            labelText: 'Discription',
+            hintText: 'Enter product Discription',
+            validatorText: 'Enter product Discription',
+            keyboardType: TextInputType.text,
+            obscureText: false,
+            maxLength: null,
+            nameController: _discriptionController,
+            maxLines: 4,
           ),
           const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.only(left: 40.0, right: 40.0),
-            child: SizedBox(
-              width: double.infinity,
-              height: 56,
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: const MaterialStatePropertyAll(
-                    Color.fromARGB(255, 255, 145, 0),
-                  ),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                    ),
-                  ),
-                ),
-                onPressed: () {
-                  addProductOnbuttenClick();
-                  Navigator.of(context).pop();
-                },
-                child: const Text(
-                  'Add Product',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ),
+          Button(
+              text: 'Add Product',
+              onPressedCallback: () {
+                addProductOnbuttenClick(
+                    selectedImage1: selectedImage1,
+                    selectedImage2: selectedImage2,
+                    selectedImage3: selectedImage3,
+                    selectedImage4: selectedImage4,
+                    productNameController: _productNameController,
+                    priceController: _priceController,
+                    discriptionController: _discriptionController,
+                    productCategory: _productCategory,
+                    productCountController: _productCountController);
+                Navigator.of(context).pop();
+              })
         ],
       ),
     );
-  }
-
-  Future<void> addProductOnbuttenClick() async {
-    final bytes1 = await selectedImage1!.readAsBytes();
-    final String base64Image1 = base64Encode(bytes1);
-
-    final bytes2 = await selectedImage2!.readAsBytes();
-    final String base64Image2 = base64Encode(bytes2);
-
-    final bytes3 = await selectedImage3!.readAsBytes();
-    final String base64Image3 = base64Encode(bytes3);
-
-    final bytes4 = await selectedImage4!.readAsBytes();
-    final String base64Image4 = base64Encode(bytes4);
-
-    final name = _productNameController.text.trim();
-    final int price = int.parse(_priceController.text);
-    final discription = _discriptionController.text.trim();
-    final category = _productCategory;
-    final count = int.parse(_productCountController.text);
-
-    if (name.isEmpty ||
-        discription.isEmpty ||
-        base64Image1.isEmpty ||
-        base64Image2.isEmpty ||
-        base64Image3.isEmpty ||
-        base64Image4.isEmpty) {
-      return;
-    }
-
-    final product = ProductModel(
-        title: name,
-        discription: discription,
-        image1: base64Image1,
-        image2: base64Image2,
-        image3: base64Image3,
-        image4: base64Image4,
-        productCount: count,
-        price: price,
-        category: category!);
-
-    productt.addProduct(product);
   }
 
   Future pickImageFromGallery1() async {

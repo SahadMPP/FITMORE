@@ -1,5 +1,5 @@
 import 'package:e_commerce/data_base/models/user/db_model.dart';
-import 'package:e_commerce/funtions/edit_profile_func.dart';
+import 'package:e_commerce/user_functions/edit_profile_func.dart';
 import 'package:flutter/material.dart';
 
 class ChangePasswordWidget extends StatelessWidget {

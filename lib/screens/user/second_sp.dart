@@ -1,7 +1,7 @@
 import 'package:e_commerce/Widgets/bottom_navigator.dart';
 import 'package:e_commerce/Widgets/mainbutton.dart';
 import 'package:e_commerce/Widgets/splash_content.dart';
-import 'package:e_commerce/funtions/second_sp_screen.dart';
+import 'package:e_commerce/user_functions/second_sp_screen.dart';
 import 'package:flutter/material.dart';
 
 class SecondSp extends StatefulWidget {

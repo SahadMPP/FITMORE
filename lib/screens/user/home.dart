@@ -5,7 +5,7 @@ import 'package:e_commerce/Widgets/search_bar_home.dart';
 import 'package:e_commerce/Widgets/sponser_banner.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
-import 'package:e_commerce/funtions/home_page_fun.dart';
+import 'package:e_commerce/user_functions/home_page_fun.dart';
 import 'package:e_commerce/screens/user/search.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';

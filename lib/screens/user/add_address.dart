@@ -1,8 +1,8 @@
 import 'package:e_commerce/Widgets/h1_headline.dart';
 import 'package:e_commerce/Widgets/mainbutton.dart';
 import 'package:e_commerce/Widgets/text_field_reg.dart';
-import 'package:e_commerce/funtions/add_address_fun.dart';
-import 'package:e_commerce/funtions/profile_screen.dart';
+import 'package:e_commerce/user_functions/add_address_fun.dart';
+import 'package:e_commerce/user_functions/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class AddAdress extends StatefulWidget {

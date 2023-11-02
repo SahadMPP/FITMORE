@@ -2,7 +2,7 @@ import 'package:e_commerce/Widgets/paym_last_product_del.dart';
 import 'package:e_commerce/Widgets/payment_bottom_last.dart';
 import 'package:e_commerce/Widgets/payment_secon_top_banner.dart';
 import 'package:e_commerce/Widgets/visa_card.dart';
-import 'package:e_commerce/funtions/payment_last_screen_func.dart';
+import 'package:e_commerce/user_functions/payment_last_screen_func.dart';
 import 'package:flutter/material.dart';
 
 class PaymentScreenTwo extends StatefulWidget {

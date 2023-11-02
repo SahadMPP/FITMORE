@@ -2,8 +2,8 @@ import 'package:e_commerce/Widgets/h1_headline.dart';
 import 'package:e_commerce/Widgets/mainbutton.dart';
 import 'package:e_commerce/Widgets/text_field_reg.dart';
 import 'package:e_commerce/data_base/function/user_functions.dart';
-import 'package:e_commerce/funtions/login_screen_fun.dart';
-import 'package:e_commerce/funtions/profile_screen.dart';
+import 'package:e_commerce/user_functions/login_screen_fun.dart';
+import 'package:e_commerce/user_functions/profile_screen.dart';
 import 'package:e_commerce/screens/user/registrationscreen.dart';
 import 'package:flutter/material.dart';
 

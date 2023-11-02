@@ -1,4 +1,4 @@
-import 'package:e_commerce/funtions/spalsh_scree.dart';
+import 'package:e_commerce/user_functions/spalsh_scree.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
