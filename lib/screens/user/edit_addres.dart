@@ -1,5 +1,9 @@
+import 'package:e_commerce/Widgets/h1_headline.dart';
+import 'package:e_commerce/Widgets/mainbutton.dart';
+import 'package:e_commerce/Widgets/text_field_reg.dart';
 import 'package:e_commerce/data_base/function/address_function.dart';
 import 'package:e_commerce/data_base/models/address/db_address_model.dart';
+import 'package:e_commerce/funtions/edit_address_func.dart';
 import 'package:flutter/material.dart';
 
 class EditAddressScreen extends StatefulWidget {
@@ -50,209 +54,87 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
     GlobalKey<FormState> formkey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        title: const Center(
-          child: Padding(
-            padding: EdgeInsets.only(right: 50),
-            child: Text(
-              'Edit Address',
-              style: TextStyle(
-                color: Color.fromARGB(255, 123, 123, 123),
-                fontSize: 22,
-                fontWeight: FontWeight.w300,
-              ),
-            ),
-          ),
-        ),
-      ),
       body: Form(
         key: formkey,
         child: ListView(
           children: [
-            const SizedBox(height: 20),
-            const Text(
-              'Complete Profile',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black, fontSize: 27),
-            ),
+            const SizedBox(height: 50),
+            const H1headline(text: 'Complete Profile'),
             const SizedBox(height: 62),
-            Padding(
-              padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
-              child: TextFormField(
-                controller: _nameEditcontroller,
-                decoration: const InputDecoration(
-                  labelText: "Name",
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  contentPadding: EdgeInsets.all(20),
-                  suffixIcon: Icon(Icons.person, color: Colors.grey),
-                  hintText: 'Enter your name',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter your name";
-                  } else {
-                    return null;
-                  }
-                },
-              ),
+            TextFieldInReg(
+              icon: Icons.person,
+              labelText: "Name",
+              hintText: 'Enter your name',
+              validatorText: "Please enter your name",
+              keyboardType: TextInputType.name,
+              obscureText: false,
+              maxLength: null,
+              nameController: _nameEditcontroller,
             ),
             const SizedBox(height: 15),
-            Padding(
-              padding: const EdgeInsets.only(left: 40, right: 40, bottom: 25),
-              child: TextFormField(
-                keyboardType: TextInputType.phone,
-                controller: _phonenumberEditcontroller,
-                decoration: const InputDecoration(
-                  labelText: "Phone Number",
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  contentPadding: EdgeInsets.all(20),
-                  suffixIcon: Icon(Icons.phone_android, color: Colors.grey),
-                  hintText: 'Enter your phone number',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter your number";
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
-              child: TextFormField(
-                controller: _cityEditcontroller,
-                decoration: const InputDecoration(
-                  labelText: "City",
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  contentPadding: EdgeInsets.all(20),
-                  suffixIcon: Icon(Icons.place_outlined, color: Colors.grey),
-                  hintText: 'Enter your city',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter your city";
-                  } else {
-                    return null;
-                  }
-                },
-              ),
+            TextFieldInReg(
+              icon: Icons.phone,
+              labelText: "Phone Number",
+              hintText: 'Enter your phone number',
+              validatorText: 'Enter your phone number',
+              keyboardType: TextInputType.phone,
+              obscureText: false,
+              maxLength: null,
+              nameController: _phonenumberEditcontroller,
             ),
             const SizedBox(height: 15),
-            Padding(
-              padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                controller: _pincodeEditcontroller,
-                decoration: const InputDecoration(
-                  labelText: "Pincode",
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  contentPadding: EdgeInsets.all(20),
-                  suffixIcon: Icon(Icons.pin_drop_outlined, color: Colors.grey),
-                  hintText: 'Enter your pincode',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter your pincode";
-                  } else {
-                    return null;
-                  }
-                },
-              ),
+            TextFieldInReg(
+              icon: Icons.place_outlined,
+              labelText: "City",
+              hintText: 'Enter your City',
+              validatorText: 'Enter your City',
+              keyboardType: TextInputType.phone,
+              obscureText: false,
+              maxLength: null,
+              nameController: _cityEditcontroller,
+            ),
+            const SizedBox(height: 15),
+            TextFieldInReg(
+              icon: Icons.pin_drop_outlined,
+              labelText: "Pincode",
+              hintText: 'Enter your Pincode',
+              validatorText: 'Enter your Pincode',
+              keyboardType: TextInputType.number,
+              obscureText: false,
+              maxLength: null,
+              nameController: _pincodeEditcontroller,
             ),
             const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
-              child: TextFormField(
-                controller: _stateEditcontroller,
-                decoration: const InputDecoration(
-                  labelText: "State",
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  contentPadding: EdgeInsets.all(20),
-                  suffixIcon: Icon(Icons.map_outlined, color: Colors.grey),
-                  hintText: 'Enter your state',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter your state";
-                  } else {
-                    return null;
-                  }
-                },
-              ),
+            TextFieldInReg(
+              icon: Icons.map_outlined,
+              labelText: "State",
+              hintText: 'Enter your State',
+              validatorText: 'Enter your State',
+              keyboardType: TextInputType.streetAddress,
+              obscureText: false,
+              maxLength: null,
+              nameController: _stateEditcontroller,
+            ),
+            const SizedBox(height: 10),
+            Button(
+              text: 'Update Address',
+              onPressedCallback: () {
+                if (formkey.currentState!.validate()) {
+                  updateAddressOnButtonClick(
+                      nameEditcontroller: _nameEditcontroller,
+                      phonenumberEditcontroller: _phonenumberEditcontroller,
+                      cityEditcontroller: _cityEditcontroller,
+                      pincodeEditcontroller: _pincodeEditcontroller,
+                      stateEditcontroller: _stateEditcontroller,
+                      addresModel: _addresModel);
+                  Navigator.of(context).pop();
+                }
+              },
             ),
             const SizedBox(height: 18),
-            Padding(
-              padding: const EdgeInsets.only(left: 40.0, right: 40.0),
-              child: SizedBox(
-                width: double.infinity,
-                height: 56,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: const MaterialStatePropertyAll(
-                      Color.fromARGB(255, 255, 145, 0),
-                    ),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
-                    if (formkey.currentState!.validate()) {
-                      updateAddressOnButtonClick();
-                      Navigator.of(context).pop();
-                    }
-                  },
-                  child: const Text(
-                    'Update Address',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       ),
     );
-  }
-
-  Future<void> updateAddressOnButtonClick() async {
-    final name = _nameEditcontroller.text;
-    final phoneNumber = _phonenumberEditcontroller.text;
-    final city = _cityEditcontroller.text;
-    final pincode = _pincodeEditcontroller.text;
-    final state = _stateEditcontroller.text;
-
-    final address = AddressModel(
-      id: _addresModel.id,
-      name: name,
-      city: city,
-      state: state,
-      pincode: pincode,
-      phonenumber: phoneNumber,
-    );
-
-    addres.updateAddress(_addresModel.id!, address);
   }
 }
