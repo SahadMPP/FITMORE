@@ -87,15 +87,16 @@ class _RegScreenState extends State<RegScreen> {
             ),
             const SizedBox(height: 15),
             TextFieldInReg(
-              icon: Icons.email_sharp,
+              icon: Icons.lock,
               labelText: 'Password',
               hintText: 'Enter your Password',
-              validatorText: "Field is empty",
+              validatorText: "Field is Password",
               nameController: _passwordControlle,
               keyboardType: TextInputType.text,
-              maxLength: 8,
-              obscureText: true,
+              maxLength: null,
+              obscureText: false,
             ),
+            const SizedBox(height: 15),
             Padding(
               padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
               child: TextFormField(

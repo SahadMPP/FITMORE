@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
               hintText: 'Enter your password',
               validatorText: 'Field is empty',
               keyboardType: TextInputType.text,
-              obscureText: true,
+              obscureText: false,
               maxLength: null,
               nameController: _passwordControlle,
             ),

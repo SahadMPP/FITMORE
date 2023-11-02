@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return const Scaffold(
       body: Center(
         child: Text(
-          'MENCART',
+          'FITMORE',
           style: TextStyle(
             fontSize: 36,
             color: Color.fromARGB(255, 245, 151, 28),

@@ -37,7 +37,7 @@ class _EditProfileState extends State<EditProfile> {
     final userlist = userListNotifier.value;
 
     if (userlist.isNotEmpty) {
-      _userModel = userlist[1];
+      _userModel = userlist[0];
       _nameEditcontroller.text = _userModel.name!;
       _phonenumberEditcontroller.text = _userModel.phoneNumber!;
       _emailEditconstroller.text = _userModel.email!;

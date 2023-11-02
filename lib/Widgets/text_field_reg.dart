@@ -19,8 +19,8 @@ class TextFieldInReg extends StatelessWidget {
     this.nameController,
     this.maxLines,
     required this.keyboardType,
-    required this.obscureText,
-    required this.maxLength,
+    this.obscureText = true,
+    this.maxLength,
   });
 
   @override
