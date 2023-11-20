@@ -1,3 +1,4 @@
+import 'package:e_commerce/Widgets/bottom_navigator.dart';
 import 'package:e_commerce/Widgets/dash_bord_card.dart';
 import 'package:e_commerce/Widgets/h1_headline.dart';
 import 'package:e_commerce/data_base/function/order_history.dart';
@@ -17,11 +18,57 @@ class DashboardScreen extends StatelessWidget {
     productt.getAllProduct();
     orderhistoryy.getAllOrders();
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: IconButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Are your sure LogOut?'),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text(
+                            'Cancel',
+                            style: TextStyle(color: Colors.blue),
+                          )),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (context) => const BottomNavigator(),
+                                ),
+                                (route) => false);
+                          },
+                          child: const Text(
+                            'SignOut',
+                            style: TextStyle(color: Colors.red),
+                          )),
+                    ],
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.logout,
+                color: Colors.grey,
+                size: 30,
+              ),
+            ),
+          ),
+        ],
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: ListView(
           children: [
-            const SizedBox(height: 50),
+            const SizedBox(height: 10),
             const H1headline(text: 'Welcome Admin'),
             const SizedBox(height: 20),
             DashbordCard(

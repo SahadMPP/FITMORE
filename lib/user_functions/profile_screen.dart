@@ -17,9 +17,7 @@ AppBar mainTitle(String text) {
   return AppBar(
     elevation: 0,
     backgroundColor: Colors.white,
-    title: Padding(
-      padding: const EdgeInsets.only(left: 110),
-      child: HeadLine(text: text),
-    ),
+    centerTitle: true,
+    title: HeadLine(text: text),
   );
 }

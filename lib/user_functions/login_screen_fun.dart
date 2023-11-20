@@ -6,12 +6,6 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> login(String email, String password, BuildContext context) async {
-  if (email == 'sahad@gmail.com' && password == '12345') {
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: ((ctx) => const BottomNavigator())),
-        (Route<dynamic> route) => false);
-  }
-
   final userDB = await Hive.openBox<UserModel>('user_db');
   UserModel? user;
 

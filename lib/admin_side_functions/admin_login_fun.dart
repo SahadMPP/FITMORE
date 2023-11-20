@@ -8,8 +8,11 @@ adminCheckLogin(BuildContext ctx,
   final email = adminEmailEditingCon.text;
   final password = adminPasswordEditingCon.text;
   if (email == "sahad@gmail.com" || password == "12345") {
-    Navigator.of(ctx).pushReplacement(
-        MaterialPageRoute(builder: (ctx) => const BottomNavigationAdmin()));
+    Navigator.of(ctx).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => const BottomNavigationAdmin(),
+        ),
+        (route) => false);
   } else {
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       behavior: SnackBarBehavior.floating,
