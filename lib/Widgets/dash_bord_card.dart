@@ -17,14 +17,14 @@ class DashbordCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: ValueListenableBuilder(
-        valueListenable: listNotifier,
-        builder: (BuildContext context, value, child) {
-          return Container(
+    return ValueListenableBuilder(
+      valueListenable: listNotifier,
+      builder: (BuildContext context, value, child) {
+        return Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Container(
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              borderRadius: const BorderRadius.all(Radius.circular(15)),
               border: Border.all(
                 width: 2,
                 color: Colors.grey,
@@ -34,7 +34,7 @@ class DashbordCard extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  height: 120,
+                  height: 130,
                   width: 20,
                   decoration: BoxDecoration(
                       color: color,
@@ -45,7 +45,7 @@ class DashbordCard extends StatelessWidget {
                 ),
                 Container(
                   padding: const EdgeInsets.all(20),
-                  height: 120,
+                  height: 130,
                   width: 360,
                   decoration: const BoxDecoration(),
                   child: Column(
@@ -80,9 +80,9 @@ class DashbordCard extends StatelessWidget {
                 ),
               ],
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

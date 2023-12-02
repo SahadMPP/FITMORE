@@ -19,7 +19,7 @@ class DashboardScreen extends StatelessWidget {
     orderhistoryy.getAllOrders();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
           Padding(
@@ -28,8 +28,12 @@ class DashboardScreen extends StatelessWidget {
               onPressed: () {
                 showDialog(
                   context: context,
+                  barrierDismissible: false,
                   builder: (context) => AlertDialog(
-                    title: const Text('Are your sure LogOut?'),
+                    title: const Padding(
+                      padding: EdgeInsets.all(15.0),
+                      child: Text('Are your sure LogOut?'),
+                    ),
                     actions: [
                       TextButton(
                           onPressed: () {
@@ -65,8 +69,9 @@ class DashboardScreen extends StatelessWidget {
         ],
       ),
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: ListView(
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
           children: [
             const SizedBox(height: 10),
             const H1headline(text: 'Welcome Admin'),
@@ -93,7 +98,7 @@ class DashboardScreen extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  borderRadius: const BorderRadius.all(Radius.circular(15)),
                   border: Border.all(
                     width: 2,
                     color: Colors.grey,
@@ -103,7 +108,7 @@ class DashboardScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     Container(
-                      height: 120,
+                      height: 130,
                       width: 20,
                       decoration: const BoxDecoration(
                           color: Colors.red,
@@ -114,7 +119,7 @@ class DashboardScreen extends StatelessWidget {
                     ),
                     Container(
                       padding: const EdgeInsets.all(20),
-                      height: 120,
+                      height: 130,
                       width: 360,
                       decoration: const BoxDecoration(),
                       child: Column(

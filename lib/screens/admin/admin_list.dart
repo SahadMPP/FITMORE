@@ -22,15 +22,13 @@ class _AdminListState extends State<AdminList> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Padding(
-          padding: EdgeInsets.only(left: 70),
-          child: Text(
-            'Product List',
-            style: TextStyle(
-              color: Color.fromARGB(255, 123, 123, 123),
-              fontSize: 22,
-              fontWeight: FontWeight.w300,
-            ),
+        centerTitle: true,
+        title: const Text(
+          'Product List',
+          style: TextStyle(
+            color: Color.fromARGB(255, 123, 123, 123),
+            fontSize: 22,
+            fontWeight: FontWeight.w300,
           ),
         ),
         actions: [

@@ -22,11 +22,12 @@ class SearchBarHome extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(15)),
             border: Border.all(
-              width: 1,
+              width: .5,
               color: Colors.grey,
             ),
           ),
           child: const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 'Search products',
@@ -35,12 +36,9 @@ class SearchBarHome extends StatelessWidget {
                     fontSize: 15,
                     fontWeight: FontWeight.w300),
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 90),
-                child: Icon(
-                  Icons.search,
-                  color: Colors.grey,
-                ),
+              Icon(
+                Icons.search,
+                color: Colors.grey,
               )
             ],
           ),

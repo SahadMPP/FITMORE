@@ -43,106 +43,94 @@ class _HomeState extends State<Home> {
             SearchBarHome(),
           ],
         ),
-        body: SafeArea(
-          child: ListView(
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        decoration: const BoxDecoration(
-                          // color: Color.fromARGB(255, 255, 166, 33),
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.elliptical(40, 40),
-                              bottomRight: Radius.elliptical(40, 40)),
-                        ),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 5, bottom: 10, right: 5, left: 5),
-                              child: ClipRRect(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(40)),
-                                child: SizedBox(
-                                  height: 185,
-                                  width: double.infinity,
-                                  child: PageView.builder(
-                                    onPageChanged: (value) {
-                                      setState(() {
-                                        currentPage = value;
-                                      });
-                                    },
-                                    itemCount: imageListHome.length,
-                                    itemBuilder: (context, index) =>
-                                        ScrollingImageHome(
-                                      image: imageListHome[index]['image'],
-                                    ),
-                                  ),
-                                ),
-                              ),
+              Container(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.elliptical(40, 40),
+                      bottomRight: Radius.elliptical(40, 40)),
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 5, bottom: 10, right: 5, left: 5),
+                      child: ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(40)),
+                        child: SizedBox(
+                          height: 185,
+                          width: double.infinity,
+                          child: PageView.builder(
+                            onPageChanged: (value) {
+                              setState(() {
+                                currentPage = value;
+                              });
+                            },
+                            itemCount: imageListHome.length,
+                            itemBuilder: (context, index) => ScrollingImageHome(
+                              image: imageListHome[index]['image'],
                             ),
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: List.generate(
-                                    imageListHome.length,
-                                    (index) => buildDots(
-                                        index: index,
-                                        currentPage: currentPage))),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 310),
-                              child: Text(
-                                'Brand',
-                                style: Theme.of(context).textTheme.titleLarge,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                brandicons('asset/download(Nike).png', 'Nike',
-                                    0, context),
-                                brandicons('asset/images(adiddas).png',
-                                    'Adidas', 1, context),
-                                brandicons('asset/images(puma).png', 'Puma', 2,
-                                    context),
-                                brandicons(
-                                    'asset/download(ds).png', 'Dc', 3, context)
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Populor Product',
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const SearchScreen(),
-                            ));
-                          },
-                          child: Text(
-                            'View All >',
-                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ),
+                      ),
+                    ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                            imageListHome.length,
+                            (index) => buildDots(
+                                index: index, currentPage: currentPage))),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 310),
+                      child: Text(
+                        'Brand',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        brandicons(
+                            'asset/download(Nike).png', 'Nike', 0, context),
+                        brandicons(
+                            'asset/images(adiddas).png', 'Adidas', 1, context),
+                        brandicons(
+                            'asset/images(puma).png', 'Puma', 2, context),
+                        brandicons('asset/download(ds).png', 'Dc', 3, context)
                       ],
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 10),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Populor Product',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const SearchScreen(),
+                        ));
+                      },
+                      child: Text(
+                        'View All >',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const ProductList(),
               const SizedBox(height: 10),
