@@ -43,6 +43,7 @@ class TextFieldInReg extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
         ),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return validatorText;
