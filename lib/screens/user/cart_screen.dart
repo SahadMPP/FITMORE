@@ -7,7 +7,9 @@ import 'package:e_commerce/user_functions/cart_functions.dart';
 import 'package:e_commerce/user_functions/profile_screen.dart';
 import 'package:e_commerce/screens/user/payment/cart_payment.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:lottie/lottie.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -33,12 +35,10 @@ class _CartScreenState extends State<CartScreen> {
               builder: (BuildContext context, List<CartModel> cartList,
                   Widget? child) {
                 if (cartList.isEmpty) {
-                  return const Center(
-                    child: Image(
-                      fit: BoxFit.fill,
-                      image: AssetImage('asset/download(cartEmpty).png'),
-                    ),
-                  );
+                  return Center(
+                      child: Lottie.asset(
+                          "asset/Animation - 1717596108476 (2).json",
+                          height: 250));
                 }
                 return ListView.builder(
                   itemCount: cartList.length,
@@ -47,13 +47,13 @@ class _CartScreenState extends State<CartScreen> {
                     final base64Image = data.image;
                     final imagebytes = base64.decode(base64Image);
                     GlobalKey<FormState> formkey = GlobalKey<FormState>();
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: ValueListenableBuilder(
-                        valueListenable:
-                            Hive.box<CartModel>('cart_db').listenable(),
-                        builder: (context, box, child) {
-                          return Dismissible(
+                    return ValueListenableBuilder(
+                      valueListenable:
+                          Hive.box<CartModel>('cart_db').listenable(),
+                      builder: (context, box, child) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Dismissible(
                             key: formkey,
                             onDismissed: (direction) {
                               setState(() {
@@ -63,143 +63,164 @@ class _CartScreenState extends State<CartScreen> {
                             },
                             direction: DismissDirection.endToStart,
                             background: Container(
+                              alignment: Alignment.centerRight,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
                                 color: const Color.fromARGB(255, 255, 243, 242),
                               ),
                               child: const Padding(
-                                padding: EdgeInsets.only(left: 280),
+                                padding: EdgeInsets.only(right: 20),
                                 child: Icon(
                                   Icons.delete,
                                   color: Color.fromARGB(255, 240, 43, 43),
                                 ),
                               ),
                             ),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: 88,
-                                  child: AspectRatio(
-                                    aspectRatio: 0.88,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, top: 10),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(13),
-                                        child: Image(
-                                          fit: BoxFit.fill,
+                          
+                            child: Container(
+                              height: 110,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[50],
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  SizedBox(
+                                    height: double.infinity,
+                                    width:
+                                        MediaQuery.of(context).size.width * .3,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Image(
                                           image: MemoryImage(imagebytes),
-                                        ),
-                                      ),
+                                          fit: BoxFit.cover),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(width: 20),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 8, bottom: 1),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const SizedBox(height: 15),
-                                      Text(
-                                        data.title,
-                                        style: const TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 65, 65, 65),
-                                          fontSize: 16,
-                                        ),
-                                        maxLines: 2,
-                                      ),
-                                      const SizedBox(height: 5),
-                                      Text(
-                                        'Size 1$index',
-                                        style: const TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 65, 65, 65),
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 20),
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            width: 60,
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * .6,
+                                    child: Column(
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            alignment: Alignment.centerLeft,
                                             child: Text(
-                                              '\$${data.newPrice}',
+                                              data.title,
                                               style: const TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.red,
-                                                fontSize: 20,
-                                              ),
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black),
                                             ),
                                           ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 90),
-                                            child: Container(
-                                              height: 35,
-                                              width: 100,
-                                              decoration: BoxDecoration(
-                                                color: Colors.green,
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  InkWell(
-                                                    onTap: () {
-                                                      countLessing(
-                                                        idd: data.id,
-                                                        imagee: data.image,
-                                                        pricee: data.price,
-                                                        quantityy:
-                                                            data.quantity,
-                                                        titlee: data.title,
-                                                      );
-                                                    },
-                                                    child: const Icon(
-                                                        Icons.remove,
-                                                        color: Colors.white),
+                                        ),
+                                        Expanded(
+                                          child: Container(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              'Size 1$index',
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.black45),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .spaceBetween,
+                                            children: [
+                                              SizedBox(
+                                                width: 60,
+                                                child: Text(
+                                                  '\$${data.newPrice}',
+                                                  style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.w500,
+                                                    color: Colors.red,
+                                                    fontSize: 20,
                                                   ),
-                                                  Text('${data.quantity}',
-                                                      style: const TextStyle(
-                                                          color: Colors.white)),
-                                                  InkWell(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        countAdding(
+                                                ),
+                                              ),
+                                              Container(
+                                                height: 30,
+                                                width: 80,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.green,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5),
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  children: [
+                                                    InkWell(
+                                                      onTap: () {
+                                                        countLessing(
                                                           idd: data.id,
-                                                          imagee: data.image,
-                                                          pricee: data.price,
+                                                          imagee:
+                                                              data.image,
+                                                          pricee:
+                                                              data.price,
                                                           quantityy:
                                                               data.quantity,
-                                                          titlee: data.title,
-                                                          context: context,
+                                                          titlee:
+                                                              data.title,
                                                         );
-                                                      });
-                                                    },
-                                                    child: const Icon(Icons.add,
-                                                        color: Colors.white),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
+                                                      },
+                                                      child: const Icon(
+                                                          Icons.remove,
+                                                          color:
+                                                              Colors.white),
+                                                    ),
+                                                    Text('${data.quantity}',
+                                                        style:
+                                                            const TextStyle(
+                                                                color: Colors
+                                                                    .white)),
+                                                    InkWell(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          countAdding(
+                                                            idd: data.id,
+                                                            imagee:
+                                                                data.image,
+                                                            pricee:
+                                                                data.price,
+                                                            quantityy: data
+                                                                .quantity,
+                                                            titlee:
+                                                                data.title,
+                                                            context:
+                                                                context,
+                                                          );
+                                                        });
+                                                      },
+                                                      child: const Icon(
+                                                          Icons.add,
+                                                          color:
+                                                              Colors.white),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        );
+                      },
                     );
                   },
                 );

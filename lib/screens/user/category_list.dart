@@ -12,16 +12,15 @@ class CategotyList extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 120),
-          child: Text(
-            category,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-            ),
+        title: Text(
+          category,
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
           ),
         ),
       ),

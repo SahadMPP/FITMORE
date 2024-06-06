@@ -4,6 +4,7 @@ import 'package:e_commerce/data_base/models/product/db_product_model.dart';
 import 'package:e_commerce/screens/admin/add_product.dart';
 import 'package:e_commerce/screens/admin/product_edit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class AdminList extends StatefulWidget {
   const AdminList({super.key});
@@ -26,9 +27,9 @@ class _AdminListState extends State<AdminList> {
         title: const Text(
           'Product List',
           style: TextStyle(
-            color: Color.fromARGB(255, 123, 123, 123),
+            color: Colors.black,
             fontSize: 22,
-            fontWeight: FontWeight.w300,
+            fontWeight: FontWeight.bold,
           ),
         ),
         actions: [
@@ -69,34 +70,26 @@ class _AdminListState extends State<AdminList> {
                           },
                           direction: DismissDirection.endToStart,
                           background: Container(
+                            padding: const EdgeInsets.only(right: 20),
+                            alignment: Alignment.centerRight,
                             decoration: BoxDecoration(
                               color: const Color(0xFFFFE6E6),
                               borderRadius: BorderRadius.circular(15),
                             ),
-                            child: const Padding(
-                              padding: EdgeInsets.only(left: 280),
-                              child: Icon(
-                                Icons.delete,
-                                color: Color.fromARGB(255, 248, 55, 41),
-                              ),
+                            child: const Icon(
+                              Icons.delete,
+                              color: Color.fromARGB(255, 248, 55, 41),
                             ),
                           ),
                           child: Row(
                             children: [
-                              Container(
-                                width: 78,
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 255, 255, 255),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Container(
-                                  decoration: const BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10))),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: SizedBox(
                                   height: 85,
-                                  width: 60,
+                                  width: MediaQuery.of(context).size.width * .3,
                                   child: Image(
+                                    fit: BoxFit.cover,
                                     // ignore: unnecessary_null_comparison
                                     image: data.image1 == null
                                         ? const AssetImage(
@@ -107,12 +100,15 @@ class _AdminListState extends State<AdminList> {
                                 ),
                               ),
                               const SizedBox(width: 20),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8),
+                              ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                  maxHeight: 100,
+                                ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    const SizedBox(height: 5),
                                     Text(
                                       data.title,
                                       style: const TextStyle(
@@ -122,7 +118,6 @@ class _AdminListState extends State<AdminList> {
                                           fontWeight: FontWeight.w500),
                                       maxLines: 2,
                                     ),
-                                    const SizedBox(height: 5),
                                     Text(
                                       'Size ${index + 1}0',
                                       style: const TextStyle(
@@ -131,6 +126,7 @@ class _AdminListState extends State<AdminList> {
                                       ),
                                     ),
                                     Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           '\$${data.price}',
@@ -139,24 +135,19 @@ class _AdminListState extends State<AdminList> {
                                               fontSize: 18,
                                               color: Colors.red),
                                         ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 190),
-                                          child: IconButton(
-                                              onPressed: () {
-                                                Navigator.of(context)
-                                                    .push(MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ProductEdit(index),
-                                                ));
-                                              },
-                                              icon: const Icon(
-                                                Icons
-                                                    .mode_edit_outline_outlined,
-                                                color: Colors.grey,
-                                                size: 25,
-                                              )),
-                                        )
+                                        IconButton(
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .push(MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ProductEdit(index),
+                                              ));
+                                            },
+                                            icon: const Icon(
+                                              Icons.mode_edit_outline_outlined,
+                                              color: Colors.grey,
+                                              size: 22,
+                                            ))
                                       ],
                                     )
                                   ],

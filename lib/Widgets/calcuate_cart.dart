@@ -17,7 +17,6 @@ class CalculateCart extends StatelessWidget {
           // ignore: prefer_is_empty
           visible: cartList.length > 0 ? true : false,
           child: Container(
-            height: 100,
             padding: const EdgeInsets.all(15),
             width: double.infinity,
             child: Column(

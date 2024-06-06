@@ -36,21 +36,22 @@ class SearchListWidget extends StatelessWidget {
                           color: const Color.fromARGB(255, 255, 255, 255),
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(width: 1, color: Colors.grey),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10))),
-                          height: 85,
-                          width: 60,
-                          child: Image(
-                            fit: BoxFit.fitWidth,
-                            // ignore: unnecessary_null_comparison
-                            image: data.image1 == null
-                                ? const AssetImage(
-                                        'asset/download(add image).png')
-                                    as ImageProvider<Object>
-                                : MemoryImage(imageBytes),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: SizedBox(
+                            
+                            height: 85,
+                            width: 60,
+                            child: Image(
+                              fit: BoxFit.cover,
+                              // ignore: unnecessary_null_comparison
+                              image: data.image1 == null
+                                  ? const AssetImage(
+                                          'asset/download(add image).png')
+                                      as ImageProvider<Object>
+                                  : MemoryImage(imageBytes),
+                                  
+                            ),
                           ),
                         ),
                       ),

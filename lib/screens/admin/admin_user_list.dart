@@ -38,9 +38,7 @@ class _AdminUserListScreenState extends State<AdminUserListScreen> {
                 final imageBytes = base64Image != null
                     ? base64.decode(base64Image)
                     : Uint8List.fromList([]);
-
                 return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(0.0),
@@ -55,18 +53,16 @@ class _AdminUserListScreenState extends State<AdminUserListScreen> {
                               backgroundImage: MemoryImage(imageBytes),
                             ),
                     ),
+                    const SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          width: 150,
-                          child: Text(
-                            data.name ?? "sahad",
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        Text(
+                          data.name ?? "sahad",
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
@@ -78,58 +74,51 @@ class _AdminUserListScreenState extends State<AdminUserListScreen> {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 120),
-                      child: IconButton(
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).clearSnackBars();
-                          final id = data.id;
-
-                          if (isActive) {
-                            // true
-                            setState(() {
-                              data.active = false;
-                            });
-
-                            final user = UserModel(
-                                name: data.name,
-                                phoneNumber: data.phoneNumber,
-                                email: data.email,
-                                password: data.password,
-                                active: false);
-                            userr.updateUser(id ?? 0, user);
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text('User deactiveted'),
-                              backgroundColor: Colors.red,
-                            ));
-                          } else {
-                            // false
-
-                            setState(() {
-                              data.active = true;
-                            });
-                            final user = UserModel(
-                                name: data.name,
-                                phoneNumber: data.phoneNumber,
-                                email: data.email,
-                                password: data.password,
-                                active: true);
-                            userr.updateUser(id!, user);
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text('User Activeted'),
-                              backgroundColor: Colors.green,
-                            ));
-                          }
-                        },
-                        icon: Icon(
-                          isActive
-                              ? Icons.person
-                              : Icons.person_add_disabled_outlined,
-                          size: 30,
-                          color: Colors.grey,
-                        ),
+                    const Spacer(),
+                    IconButton(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).clearSnackBars();
+                        final id = data.id;
+                        if (isActive) {
+                          setState(() {
+                            data.active = false;
+                          });
+                          final user = UserModel(
+                              name: data.name,
+                              phoneNumber: data.phoneNumber,
+                              email: data.email,
+                              password: data.password,
+                              active: false);
+                          userr.updateUser(id ?? 0, user);
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text('User deactiveted'),
+                            backgroundColor: Colors.red,
+                          ));
+                        } else {
+                          setState(() {
+                            data.active = true;
+                          });
+                          final user = UserModel(
+                              name: data.name,
+                              phoneNumber: data.phoneNumber,
+                              email: data.email,
+                              password: data.password,
+                              active: true);
+                          userr.updateUser(id!, user);
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text('User Activeted'),
+                            backgroundColor: Colors.green,
+                          ));
+                        }
+                      },
+                      icon: Icon(
+                        isActive
+                            ? Icons.person
+                            : Icons.person_add_disabled_outlined,
+                        size: 30,
+                        color: Colors.grey,
                       ),
                     )
                   ],

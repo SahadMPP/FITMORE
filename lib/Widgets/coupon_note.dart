@@ -39,11 +39,9 @@ class CouponNote extends StatelessWidget {
   }
 }
 
-Future<void> addingCoupon(BuildContext context, couponCodeController) async {
+Future<bool> addingCoupon(BuildContext context, couponCodeController) async {
   final couponDB = await Hive.openBox<CouponModel>('coupon_db');
-
   final code = couponCodeController.text;
-
   // ignore: unnecessary_null_comparison
   if (couponDB != null) {
     for (var i = 0; i < couponDB.length; i++) {
@@ -56,10 +54,12 @@ Future<void> addingCoupon(BuildContext context, couponCodeController) async {
           margin: EdgeInsets.all(15),
           content: Text('Code already added'),
         ));
-        return;
+        return false;
       }
     }
   }
   final coupon = CouponModel(code: code);
   await couponn.addCoupon(coupon);
+  return true;
+
 }

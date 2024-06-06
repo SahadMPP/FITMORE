@@ -15,9 +15,9 @@ class CatogeryCard extends StatelessWidget {
     return GridView.builder(
       padding: const EdgeInsets.all(15),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+        crossAxisCount: 1,
         childAspectRatio: 3 / 2,
-        crossAxisSpacing: 10,
+        crossAxisSpacing: 5,
         mainAxisExtent: 150,
       ),
       itemCount: categoryProducts.length,

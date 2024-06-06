@@ -5,6 +5,7 @@ import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
 import 'package:e_commerce/user_functions/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:lottie/lottie.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
@@ -25,16 +26,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         builder: (BuildContext context, List<FavoriteModel> favoriteList,
             Widget? child) {
           if (favoriteList.isEmpty) {
-            return const Center(
-              child: SizedBox(
-                height: 350,
-                width: 400,
-                child: Image(
-                  fit: BoxFit.fill,
-                  image: AssetImage('asset/download favoriteEmpty.png'),
-                ),
-              ),
-            );
+            return  Center(child: Lottie.asset("asset/Animation - 1717653689444.json",height: 250));
           }
           return ListView.builder(
             itemCount: favoriteList.length,

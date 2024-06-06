@@ -8,7 +8,7 @@ class SponserBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 280,
+      height: 250,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: const [

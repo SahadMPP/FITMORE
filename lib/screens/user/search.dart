@@ -40,7 +40,7 @@ class _SearchScreenState extends State<SearchScreen> {
           child: TextField(
             onChanged: (value) => runFilter(value),
             decoration: const InputDecoration(
-              labelText: 'search ',
+              labelText: 'search',
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(15))),
               filled: true,

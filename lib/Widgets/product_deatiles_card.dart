@@ -32,7 +32,11 @@ class ProductDetiCard extends StatelessWidget {
                 const SizedBox(height: 15),
                 Text(
                   data.title,
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,7 +57,7 @@ class ProductDetiCard extends StatelessWidget {
                         builder: (context, box, child) {
                           final isFavorite = box.get(widget.index) != null;
                           return Container(
-                            width: 70,
+                            width: 50,
                             height: 50,
                             decoration: BoxDecoration(
                               color: const Color.fromARGB(255, 233, 232, 232),

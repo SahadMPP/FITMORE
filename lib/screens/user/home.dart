@@ -1,3 +1,4 @@
+
 import 'package:e_commerce/Widgets/product_card.dart';
 import 'package:e_commerce/Widgets/product_card_second.dart';
 import 'package:e_commerce/Widgets/scrolling_image.dart';
@@ -44,6 +45,7 @@ class _HomeState extends State<Home> {
           ],
         ),
         body: SingleChildScrollView(
+          padding: const EdgeInsets.all(8),
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
@@ -84,8 +86,9 @@ class _HomeState extends State<Home> {
                             imageListHome.length,
                             (index) => buildDots(
                                 index: index, currentPage: currentPage))),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 310),
+                    const SizedBox(height: 15),
+                    Align(
+                      alignment: Alignment.centerLeft,
                       child: Text(
                         'Brand',
                         style: Theme.of(context).textTheme.titleLarge,
@@ -109,66 +112,59 @@ class _HomeState extends State<Home> {
                 ),
               ),
               const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Populor Product',
-                      style: Theme.of(context).textTheme.titleLarge,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Populor Product',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const SearchScreen(),
+                      ));
+                    },
+                    child: const Text(
+                      'View All >',
+                      style: TextStyle(color: Colors.blue,fontWeight:FontWeight.bold,fontSize: 14 ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const SearchScreen(),
-                        ));
-                      },
-                      child: Text(
-                        'View All >',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               const ProductList(),
               const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Recommended Items',
-                      style: Theme.of(context).textTheme.titleLarge,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Recommended Items',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const SearchScreen(),
+                      ));
+                    },
+                    child: const Text(
+                      'View All >',
+                      style: TextStyle(color: Colors.blue,fontWeight:FontWeight.bold,fontSize: 14 ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const SearchScreen(),
-                        ));
-                      },
-                      child: Text(
-                        'View All >',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               const ProductSecondCard(),
               const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.only(left: 25),
+              Align(
+                alignment: Alignment.centerLeft,
                 child: Text(
-                  'Sponsored',
+                  'Sponserd',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
               const SizedBox(height: 20),
               const SponserBanner(),
-              const SizedBox(height: 50),
             ],
           ),
         ));

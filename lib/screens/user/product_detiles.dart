@@ -8,6 +8,7 @@ import 'package:e_commerce/data_base/models/product/db_product_model.dart';
 import 'package:e_commerce/screens/user/cart_screen.dart';
 import 'package:e_commerce/screens/user/payment/payment_address.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/adapters.dart';
 
 // ignore: must_be_immutable
@@ -64,12 +65,12 @@ class _ProductDetilesState extends State<ProductDetiles> {
           )
         ],
       ),
-      body: ListView(
-        children: [
-          const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.only(left: 90, right: 90),
-            child: ValueListenableBuilder(
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          children: [
+            const SizedBox(height: 20),
+            ValueListenableBuilder(
               valueListenable: productListNotifier,
               builder: (BuildContext context, List<ProductModel> productList,
                   Widget? child) {
@@ -88,93 +89,90 @@ class _ProductDetilesState extends State<ProductDetiles> {
                 ];
                 return Column(
                   children: [
-                    AspectRatio(
-                      aspectRatio: 1,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 202, 200, 200),
-                            borderRadius: BorderRadius.circular(5)),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: SizedBox(
+                        height: 200,
+                        width: MediaQuery.of(context).size.width *.6,
                         child: Image(
                           image: MemoryImage(demoImage[selectedImage]),
                           fit: BoxFit.fill,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: double.infinity,
-                      child: Row(
-                        children: [
-                          ...List.generate(
-                            4,
-                            (index1) => imageSmallBox(index1, demoImage),
-                          ),
-                        ],
-                      ),
+                    const SizedBox(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ...List.generate(
+                          4,
+                          (index1) => imageSmallBox(index1, demoImage),
+                        ),
+                      ],
                     ),
                   ],
                 );
               },
             ),
-          ),
-          const SizedBox(height: 30),
-          ProductDetiCard(widget: widget),
-          const SizedBox(height: 20),
-          SizedBox(
-            width: double.infinity,
-            height: 56,
-            child: ValueListenableBuilder(
-              valueListenable: Hive.box<CartModel>('cart_db').listenable(),
-              builder: (context, box, child) {
-                //  some logical error
-                final isInCart = box.get(widget.index) != null;
-                return Button(
-                  text: isInCart == true ? 'Goto Cart' : 'AddTo Cart',
-                  onPressedCallback: () {
-                    ScaffoldMessenger.of(context).clearSnackBars();
-                    // addToCart();
-                    if (isInCart) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const CartScreen(),
-                      ));
-                    } else {
-                      final title = widget.title;
-                      final price = widget.price;
-                      final image = widget.image;
-
-                      final cart = CartModel(
-                        id: widget.index,
-                        title: title,
-                        price: price,
-                        image: image,
-                        quantity: 1,
-                        newPrice: price,
-                      );
-
-                      box.put(widget.index, cart);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Added to Cart'),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                    }
-                  },
-                );
-              },
+            const SizedBox(height: 30),
+            ProductDetiCard(widget: widget),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              height: 56,
+              child: ValueListenableBuilder(
+                valueListenable: Hive.box<CartModel>('cart_db').listenable(),
+                builder: (context, box, child) {
+                  //  some logical error
+                  final isInCart = box.get(widget.index) != null;
+                  return Button(
+                    text: isInCart == true ? 'Goto Cart' : 'AddTo Cart',
+                    onPressedCallback: () {
+                      ScaffoldMessenger.of(context).clearSnackBars();
+                      // addToCart();
+                      if (isInCart) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const CartScreen(),
+                        ));
+                      } else {
+                        final title = widget.title;
+                        final price = widget.price;
+                        final image = widget.image;
+        
+                        final cart = CartModel(
+                          id: widget.index,
+                          title: title,
+                          price: price,
+                          image: image,
+                          quantity: 1,
+                          newPrice: price,
+                        );
+        
+                        box.put(widget.index, cart);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Added to Cart'),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      }
+                    },
+                  );
+                },
+              ),
             ),
-          ),
-          const SizedBox(height: 10),
-          Button(
-              text: "Buy now",
-              onPressedCallback: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) =>
-                      PaymentAddress(productIndex: widget.index),
-                ));
-              }),
-          const SizedBox(height: 20),
-        ],
+            const SizedBox(height: 10),
+            Button(
+                text: "Buy now",
+                onPressedCallback: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        PaymentAddress(productIndex: widget.index),
+                  ));
+                }),
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }

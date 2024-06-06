@@ -21,7 +21,7 @@ class DashbordCard extends StatelessWidget {
       valueListenable: listNotifier,
       builder: (BuildContext context, value, child) {
         return Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(8.0),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(15)),
@@ -34,8 +34,8 @@ class DashbordCard extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  height: 130,
-                  width: 20,
+                  height: 100,
+                  width: 30,
                   decoration: BoxDecoration(
                       color: color,
                       borderRadius: const BorderRadius.only(
@@ -45,8 +45,7 @@ class DashbordCard extends StatelessWidget {
                 ),
                 Container(
                   padding: const EdgeInsets.all(20),
-                  height: 130,
-                  width: 360,
+                  height: 100,
                   decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -62,9 +61,7 @@ class DashbordCard extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      const SizedBox(
-                        height: 25,
-                      ),
+                      const Spacer(),
                       Text(
                         '${value.length}',
                         style: TextStyle(

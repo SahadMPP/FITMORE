@@ -21,15 +21,14 @@ class FavoriteCard extends StatelessWidget {
           width: 88,
           child: AspectRatio(
             aspectRatio: 0.88,
-            child: Container(
-              width: 88,
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Image(
-                fit: BoxFit.fill,
-                image: MemoryImage(imagebytes),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: SizedBox(
+                width: 88,
+                child: Image(
+                  fit: BoxFit.fill,
+                  image: MemoryImage(imagebytes),
+                ),
               ),
             ),
           ),
@@ -37,8 +36,8 @@ class FavoriteCard extends StatelessWidget {
         const SizedBox(width: 20),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const SizedBox(height: 15),
             Text(
               data.title,
               style: const TextStyle(
@@ -47,7 +46,6 @@ class FavoriteCard extends StatelessWidget {
               ),
               maxLines: 2,
             ),
-            const SizedBox(height: 5),
             Text(
               'Size 1$index',
               style: const TextStyle(
@@ -55,7 +53,6 @@ class FavoriteCard extends StatelessWidget {
                 fontSize: 16,
               ),
             ),
-            const SizedBox(height: 20),
             Text(
               '\$${data.price}',
               style: const TextStyle(

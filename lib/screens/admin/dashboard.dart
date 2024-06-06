@@ -8,6 +8,7 @@ import 'package:e_commerce/data_base/models/order_history/order_history_model.da
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
 import 'package:e_commerce/data_base/models/user/db_model.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -73,8 +74,8 @@ class DashboardScreen extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            const SizedBox(height: 10),
             const H1headline(text: 'Welcome Admin'),
+            LottieBuilder.asset("asset/Animation - 1710834997320 (2).json",height: 200,),
             const SizedBox(height: 20),
             DashbordCard(
               color: Colors.blue,
@@ -108,7 +109,7 @@ class DashboardScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     Container(
-                      height: 130,
+                      height: 100,
                       width: 20,
                       decoration: const BoxDecoration(
                           color: Colors.red,
@@ -119,8 +120,7 @@ class DashboardScreen extends StatelessWidget {
                     ),
                     Container(
                       padding: const EdgeInsets.all(20),
-                      height: 130,
-                      width: 360,
+                      height: 100,
                       decoration: const BoxDecoration(),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -136,9 +136,7 @@ class DashboardScreen extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          const SizedBox(
-                            height: 25,
-                          ),
+                         const Spacer(),
                           FutureBuilder<String>(
                             future: totelRevenue(),
                             builder: (context, snapshot) {

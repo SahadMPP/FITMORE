@@ -32,8 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const SizedBox(height: 35),
           Stack(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 110, top: 10),
+              Center(
                 child: SizedBox(
                   height: 120,
                   width: 200,
@@ -47,8 +46,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 230, top: 100),
+              Positioned(
+                left: 200,
+                top: 70,
                 child: CircleAvatar(
                   radius: 25,
                   backgroundColor: Colors.white,

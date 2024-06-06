@@ -12,9 +12,9 @@ class HeadLine extends StatelessWidget {
     return Text(
       text,
       style: const TextStyle(
-        color: Color.fromARGB(255, 123, 123, 123),
+        color: Colors.black,
         fontSize: 22,
-        fontWeight: FontWeight.w300,
+        fontWeight: FontWeight.bold,
       ),
     );
   }

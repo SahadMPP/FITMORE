@@ -2,6 +2,7 @@ import 'package:e_commerce/Widgets/coupon_note.dart';
 import 'package:e_commerce/data_base/function/coupon_function.dart';
 import 'package:e_commerce/user_functions/profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class CouponScreen extends StatefulWidget {
   const CouponScreen({super.key});
@@ -18,53 +19,44 @@ class _CouponScreenState extends State<CouponScreen> {
     couponn.getAllCoupon();
     return Scaffold(
       appBar: mainTitle('Coupon List'),
-      body: Column(
-        children: [
-          const Expanded(
-            flex: 5,
-            child: CouponNote(),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 20, left: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: 300,
-                    child: Form(
-                      key: formKey,
-                      child: TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Field is Empty';
-                          } else {
-                            return null;
-                          }
-                        },
-                        controller: _couponCodeController,
-                        decoration: const InputDecoration(
-                            border: UnderlineInputBorder()),
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        addingCoupon(context, _couponCodeController);
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Form(
+              key: formKey,
+              child: TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Field is Empty';
+                  } else {
+                    return null;
+                  }
+                },
+                controller: _couponCodeController,
+                decoration: InputDecoration(
+                    suffixIcon:
+                        IconButton(onPressed: ()async {
+                             if (formKey.currentState!.validate()) {
+                       bool value = await addingCoupon(context, _couponCodeController);
+                       if (value) {
+                         setState(() {
+                           _couponCodeController.text = '';
+                         });
+                       }
                       }
-                    },
-                    icon: const Icon(
-                      Icons.add,
-                      color: Colors.black,
-                      size: 30,
-                    ),
-                  ),
-                ],
+                        }, icon: const Icon(Icons.add,size: 30,)),
+                    hintText: "Type...",
+                    border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)))),
               ),
             ),
-          )
-        ],
+            const SizedBox(height: 30),
+            const Expanded(child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: CouponNote(),
+            )),
+          ],
+        ),
       ),
     );
   }
