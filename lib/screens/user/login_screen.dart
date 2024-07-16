@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const TextInResgistration(text: 'Dont have account?'),
+                const TextInResgistration(text:'Dont have account?'),
                 const SizedBox(width: 5),
                 GestureDetector(
                   onTap: () {

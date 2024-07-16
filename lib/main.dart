@@ -1,3 +1,5 @@
+import 'package:e_commerce/application/features/deatile/ui/deatiles_ui.dart';
+import 'package:e_commerce/application/features/home/ui/home_ui.dart';
 import 'package:e_commerce/data_base/models/address/db_address_model.dart';
 import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
 import 'package:e_commerce/data_base/models/coupon/coupon_model.dart';
@@ -5,7 +7,7 @@ import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
 import 'package:e_commerce/data_base/models/order_history/order_history_model.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
 import 'package:e_commerce/data_base/models/user/db_model.dart';
-import 'package:e_commerce/screens/user/splash_scree.dart';
+// import 'package:e_commerce/screens/user/splash_scree.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -56,7 +58,7 @@ class _MyAppState extends State<MyApp> {
       title: "MenCart",
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
-      home: SplashScreen(),
+      home: DeatilesUi(),
     );
   }
 }
