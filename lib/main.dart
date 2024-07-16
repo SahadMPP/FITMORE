@@ -1,4 +1,4 @@
-import 'package:e_commerce/application/features/deatile/ui/deatiles_ui.dart';
+import 'package:e_commerce/application/features/cart/ui/cart_ui.dart';
 import 'package:e_commerce/data_base/models/address/db_address_model.dart';
 import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
 import 'package:e_commerce/data_base/models/coupon/coupon_model.dart';
@@ -57,7 +57,7 @@ class _MyAppState extends State<MyApp> {
       title: "MenCart",
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
-      home: DeatilesUi(),
+      home: CartUi(),
     );
   }
 }
