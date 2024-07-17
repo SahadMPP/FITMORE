@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:e_commerce/Widgets/profile_card.dart';
+import 'package:e_commerce/application/core/widgets/appbar.dart';
+import 'package:e_commerce/application/features/profile/getX/profile_get.dart';
 import 'package:e_commerce/data_base/function/user_functions.dart';
 import 'package:e_commerce/data_base/models/user/db_model.dart';
-import 'package:e_commerce/user_functions/profile_screen.dart';
 import 'package:e_commerce/screens/admin/admin_login.dart';
 import 'package:e_commerce/screens/user/address_screen.dart';
 import 'package:e_commerce/screens/user/edit_profile.dart';
@@ -11,6 +12,7 @@ import 'package:e_commerce/screens/user/myorder_screen.dart';
 import 'package:e_commerce/screens/user/terms_/about_us.dart';
 import 'package:e_commerce/screens/user/terms_/terms.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -21,9 +23,12 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
   File? selectedImage;
   @override
   Widget build(BuildContext context) {
+
+    final profileGet = Get.put(ProfileGet());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: mainTitle('Profile'),
@@ -141,7 +146,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         TextButton(
                           child: const Text('Yes'),
                           onPressed: () {
-                            signOut(context);
+                           profileGet.signOut(context);
                           },
                         ),
                         TextButton(

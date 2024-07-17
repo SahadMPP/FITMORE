@@ -1,11 +1,12 @@
 import 'dart:typed_data';
 
+import 'package:e_commerce/application/features/payment/getx/payment_get.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
-import 'package:e_commerce/user_functions/payment_function.dart';
 import 'package:e_commerce/screens/user/payment/patment_scr_two.dart';
 import 'package:e_commerce/screens/user/payment/payment_scr.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PaymConAndPrice extends StatelessWidget {
   const PaymConAndPrice({
@@ -49,7 +50,7 @@ class PaymConAndPrice extends StatelessWidget {
             width: 150,
             child: ElevatedButton(
               style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(Colors.orange),
+                backgroundColor: WidgetStatePropertyAll(Colors.orange),
               ),
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -90,6 +91,8 @@ class PaymCalculateCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final paymentGet = Get.put(PaymentGet());
+
     return ValueListenableBuilder(
       valueListenable: productListNotifier,
       builder: (BuildContext context, List<ProductModel> productList,
@@ -195,7 +198,7 @@ class PaymCalculateCard extends StatelessWidget {
               height: 40,
               width: double.infinity,
               child: Text(
-                ' You will save \$${discoundCalculator(newPrice)} on this orider',
+                ' You will save \$${paymentGet.discoundCalculatorr(newPrice)} on this orider',
                 style: const TextStyle(
                   color: Color.fromARGB(255, 49, 114, 51),
                   fontSize: 16,

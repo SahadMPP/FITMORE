@@ -1,8 +1,10 @@
 import 'package:e_commerce/Widgets/bottom_navigator.dart';
 import 'package:e_commerce/Widgets/mainbutton.dart';
 import 'package:e_commerce/Widgets/splash_content.dart';
-import 'package:e_commerce/user_functions/second_sp_screen.dart';
+import 'package:e_commerce/application/core/const/const_values.dart';
+import 'package:e_commerce/application/features/auth/getx/auth_get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SecondSp extends StatefulWidget {
   const SecondSp({super.key});
@@ -16,6 +18,7 @@ class _SecondSpState extends State<SecondSp> {
 
   @override
   Widget build(BuildContext context) {
+    final authGet = Get.put(AuthGet());
     return Scaffold(
       body: SizedBox(
         width: double.infinity,
@@ -50,7 +53,7 @@ class _SecondSpState extends State<SecondSp> {
                         children: List.generate(
                           splashData.length,
                           (index) =>
-                              buildDot(index: index, crrentpage: crrentpage),
+                             authGet.buildDot(index: index, crrentpage: crrentpage),
                         ),
                       ),
                     ],

@@ -1,11 +1,12 @@
+import 'package:e_commerce/application/features/payment/getx/payment_get.dart';
 import 'package:e_commerce/data_base/function/cart_function.dart';
 import 'package:e_commerce/data_base/function/order_history.dart';
 import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
 import 'package:e_commerce/data_base/models/order_history/order_history_model.dart';
-import 'package:e_commerce/user_functions/payment_last_screen_func.dart';
 import 'package:e_commerce/screens/user/payment/cart_payment.dart';
 import 'package:e_commerce/screens/user/payment/payment_last_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 
 class CartPaymBottom extends StatelessWidget {
@@ -22,6 +23,7 @@ class CartPaymBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final paymentGet  = Get.put(PaymentGet());
     return Container(
       padding: const EdgeInsets.all(10),
       width: double.infinity,
@@ -31,7 +33,7 @@ class CartPaymBottom extends StatelessWidget {
         children: [
           allow == true
               ? Text(
-                  '\$${afterdicount(widget.totelPrice, allow!)}',
+                  '\$${paymentGet.afterdicount(widget.totelPrice, allow!)}',
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 20,
@@ -54,7 +56,7 @@ class CartPaymBottom extends StatelessWidget {
                   Widget? child) {
                 return ElevatedButton(
                   style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(Colors.orange),
+                    backgroundColor: WidgetStatePropertyAll(Colors.orange),
                   ),
                   onPressed: () async {
                     if (groupValue == 'Now3') {

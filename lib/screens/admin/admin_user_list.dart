@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:e_commerce/application/core/widgets/appbar.dart';
 import 'package:e_commerce/data_base/function/user_functions.dart';
 import 'package:e_commerce/data_base/models/user/db_model.dart';
-import 'package:e_commerce/user_functions/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class AdminUserListScreen extends StatefulWidget {

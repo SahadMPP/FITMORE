@@ -2,7 +2,7 @@ import 'package:e_commerce/Widgets/h1_headline.dart';
 import 'package:e_commerce/Widgets/mainbutton.dart';
 import 'package:e_commerce/Widgets/text_field_reg.dart';
 import 'package:e_commerce/admin_side_functions/admin_login_fun.dart';
-import 'package:e_commerce/user_functions/profile_screen.dart';
+import 'package:e_commerce/application/core/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 
 class AdminLogin extends StatefulWidget {

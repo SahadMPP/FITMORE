@@ -12,8 +12,8 @@ class CartUi extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-      backgroundColor: Colors.white,
-surfaceTintColor: Colors.white,
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
         centerTitle: true,
         leading: Container(
           margin: const EdgeInsets.all(10),
@@ -47,21 +47,24 @@ surfaceTintColor: Colors.white,
           )
         ],
       ),
-      body:  Padding(
+      body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             Expanded(
-              child: ListView.builder(itemCount: 10,itemBuilder: (context, index) {
-                return const CartItem(
-                imageUrl:
-                    'https://fastly.picsum.photos/id/9/250/250.jpg?hmac=tqDH5wEWHDN76mBIWEPzg1in6egMl49qZeguSaH9_VI', // Replace with actual image URL
-                name: 'Xbox series X',
-                price: 570.00,
-                quantity: 1,
-                subtitle: '1 TB',
-              );
-              },),
+              child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return const CartItem(
+                    imageUrl:
+                        'https://fastly.picsum.photos/id/9/250/250.jpg?hmac=tqDH5wEWHDN76mBIWEPzg1in6egMl49qZeguSaH9_VI', // Replace with actual image URL
+                    name: 'Xbox series X',
+                    price: 570.00,
+                    quantity: 1,
+                    subtitle: '1 TB',
+                  );
+                },
+              ),
             ),
             const SizedBox(height: 16.0),
             const PriceSummary(
@@ -70,7 +73,9 @@ surfaceTintColor: Colors.white,
               discount: 40,
             ),
             const SizedBox(height: 10),
-            Divider(color: Colors.grey[300],),
+            Divider(
+              color: Colors.grey[300],
+            ),
             const CheckoutButton(total: 480.00),
           ],
         ),
@@ -78,8 +83,3 @@ surfaceTintColor: Colors.white,
     );
   }
 }
-
-
-
-
-

@@ -1,4 +1,4 @@
-import 'package:e_commerce/user_functions/spalsh_scree.dart';
+import 'package:e_commerce/application/features/auth/getx/auth_get.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -11,7 +11,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    checkUserLogin(context);
+    AuthGet().checkUserLogin(context);
     super.initState();
   }
 

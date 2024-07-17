@@ -1,6 +1,7 @@
+import 'package:e_commerce/application/features/profile/getX/profile_get.dart';
 import 'package:e_commerce/data_base/models/user/db_model.dart';
-import 'package:e_commerce/user_functions/edit_profile_func.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ChangePasswordWidget extends StatelessWidget {
   const ChangePasswordWidget({
@@ -26,6 +27,7 @@ class ChangePasswordWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final profileGet = Get.put(ProfileGet());
     return Padding(
       padding: const EdgeInsets.only(right: 50),
       child: GestureDetector(
@@ -100,7 +102,7 @@ class ChangePasswordWidget extends StatelessWidget {
                 TextButton(
                     onPressed: () {
                       if (foemKey.currentState!.validate()) {
-                        changingPassword(
+                       profileGet.changingPassword(
                             oldPasswordEditcontroller:
                                 _oldPasswordEditcontroller,
                             newPasswordEditcontroller:

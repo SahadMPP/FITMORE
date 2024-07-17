@@ -4,9 +4,14 @@ import 'package:e_commerce/data_base/models/order_history/order_history_model.da
 import 'package:e_commerce/screens/user/notification_screen.dart';
 import 'package:e_commerce/screens/user/payment/payment_last_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:hive_flutter/adapters.dart';
 
-addToOrderHistory(
+class PaymentGet extends GetxController{
+
+
+
+  addToOrderHistory(
     {required productCount,
     required context,
     required imagee,
@@ -89,25 +94,10 @@ afterdicount(totelPrice, bool allowV) {
   }
 }
 
-AppBar paymentTitle(BuildContext context) {
-  return AppBar(
-    backgroundColor: Colors.white,
-    elevation: .2,
-    leading: IconButton(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        icon: const Icon(
-          Icons.chevron_left,
-          size: 30,
-          color: Colors.grey,
-        )),
-    title: const Text(
-      'Payment',
-      style: TextStyle(
-        color: Colors.black,
-        fontWeight: FontWeight.w400,
-      ),
-    ),
-  );
+ discoundCalculatorr(totelPrice) {
+    int totel = totelPrice ?? 0;
+    dynamic discountedAmount = (5 / 100) * totel;
+    return discountedAmount;
+  }
+
 }

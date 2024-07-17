@@ -1,8 +1,9 @@
+import 'package:e_commerce/application/features/payment/getx/payment_get.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
-import 'package:e_commerce/user_functions/payment_last_screen_func.dart';
 import 'package:e_commerce/screens/user/payment/patment_scr_two.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PaymContiAndPriceLastScr extends StatelessWidget {
   const PaymContiAndPriceLastScr({
@@ -19,6 +20,8 @@ class PaymContiAndPriceLastScr extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final paymentGet  = Get.put(PaymentGet());
+    
     return Container(
       padding: const EdgeInsets.all(10),
       width: double.infinity,
@@ -28,7 +31,7 @@ class PaymContiAndPriceLastScr extends StatelessWidget {
         children: [
           allow == true
               ? Text(
-                  '\$${afterdicount(widget.price, allow!)}',
+                  '\$${paymentGet.afterdicount(widget.price, allow!)}',
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 20,
@@ -52,11 +55,11 @@ class PaymContiAndPriceLastScr extends StatelessWidget {
                 final data = productList[widget.productIndex];
                 return ElevatedButton(
                   style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(Colors.orange),
+                    backgroundColor: WidgetStatePropertyAll(Colors.orange),
                   ),
                   onPressed: () {
                     if (groupValue == 'Now3') {
-                      addToOrderHistory(
+                     paymentGet. addToOrderHistory(
                           productCount: data.productCount,
                           context: context,
                           imagee: widget.image,

@@ -1,6 +1,7 @@
-import 'package:e_commerce/user_functions/payment_last_screen_func.dart';
+import 'package:e_commerce/application/features/payment/getx/payment_get.dart';
 import 'package:e_commerce/screens/user/payment/cart_payment.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CartPayDelCard extends StatelessWidget {
   const CartPayDelCard({
@@ -14,6 +15,8 @@ class CartPayDelCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final paymentGet  = Get.put(PaymentGet());
+
     return Column(
       children: [
         Container(
@@ -66,7 +69,7 @@ class CartPayDelCard extends StatelessWidget {
                   ),
                   allow == true
                       ? Text(
-                          '\$${discoundCalculator(widget.totelPrice, allow!)}',
+                          '\$${paymentGet.discoundCalculator(widget.totelPrice, allow!)}',
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16,
@@ -125,7 +128,7 @@ class CartPayDelCard extends StatelessWidget {
             ),
             allow == true
                 ? Text(
-                    '\$${afterdicount(widget.totelPrice, allow!)}',
+                    '\$${paymentGet.afterdicount(widget.totelPrice, allow!)}',
                     style: const TextStyle(
                       color: Colors.black,
                       fontSize: 16,

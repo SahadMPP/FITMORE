@@ -2,10 +2,11 @@ import 'package:e_commerce/Widgets/change_password.dart';
 import 'package:e_commerce/Widgets/h1_headline.dart';
 import 'package:e_commerce/Widgets/mainbutton.dart';
 import 'package:e_commerce/Widgets/text_field_reg.dart';
+import 'package:e_commerce/application/features/profile/getX/profile_get.dart';
 import 'package:e_commerce/data_base/function/user_functions.dart';
 import 'package:e_commerce/data_base/models/user/db_model.dart';
-import 'package:e_commerce/user_functions/edit_profile_func.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -57,6 +58,8 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
+
+    final profileGet = Get.put(ProfileGet());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -112,7 +115,7 @@ class _EditProfileState extends State<EditProfile> {
           Button(
               text: 'Update',
               onPressedCallback: () {
-                updateUserdetailsOnAclike(
+               profileGet.updateUserdetailsOnAclike(
                     nameEditcontroller: _nameEditcontroller,
                     phonenumberEditcontroller: _phonenumberEditcontroller,
                     emailEditconstroller: _emailEditconstroller,

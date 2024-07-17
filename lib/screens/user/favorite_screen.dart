@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:e_commerce/Widgets/favorite_card.dart';
+import 'package:e_commerce/application/core/widgets/appbar.dart';
 import 'package:e_commerce/data_base/function/favorite_function.dart';
 import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
-import 'package:e_commerce/user_functions/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:lottie/lottie.dart';

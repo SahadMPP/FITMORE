@@ -1,8 +1,24 @@
 import 'package:e_commerce/data_base/function/user_functions.dart';
 import 'package:e_commerce/data_base/models/user/db_model.dart';
+import 'package:e_commerce/screens/user/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-updateUserdetailsOnAclike(
+class ProfileGet extends GetxController {
+  signOut(BuildContext ctx) async {
+    final shareprefe = await SharedPreferences.getInstance();
+    await shareprefe.clear();
+
+    // ignore: use_build_context_synchronously
+    Navigator.of(ctx).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (ctx) => const LoginScreen()),
+        (route) => false);
+  }
+
+
+
+  updateUserdetailsOnAclike(
     {required nameEditcontroller,
     required phonenumberEditcontroller,
     required emailEditconstroller,
@@ -58,4 +74,6 @@ changingPassword(
       content: Text('Password changed'),
     ));
   }
+}
+
 }

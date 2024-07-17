@@ -2,8 +2,10 @@ import 'package:e_commerce/Widgets/paym_last_product_del.dart';
 import 'package:e_commerce/Widgets/payment_bottom_last.dart';
 import 'package:e_commerce/Widgets/payment_secon_top_banner.dart';
 import 'package:e_commerce/Widgets/visa_card.dart';
-import 'package:e_commerce/user_functions/payment_last_screen_func.dart';
+import 'package:e_commerce/application/features/payment/getx/payment_get.dart';
+import 'package:e_commerce/application/features/payment/widgets/payment_appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PaymentScreenTwo extends StatefulWidget {
   final int price;
@@ -31,6 +33,8 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
 
   @override
   Widget build(BuildContext context) {
+    final paymentGet  = Get.put(PaymentGet());
+
     return Scaffold(
       appBar: paymentTitle(context),
       body: ListView(
@@ -125,7 +129,7 @@ class _PaymentScreenTwoState extends State<PaymentScreenTwo> {
                         TextButton(
                             onPressed: () {
                               setState(() {
-                                checkingCoupon(
+                               paymentGet.checkingCoupon(
                                     totelPrice: widget.price,
                                     couponController: _couponController,
                                     allow: allow,

@@ -8,6 +8,7 @@ import 'package:e_commerce/data_base/models/product/db_product_model.dart';
 import 'package:e_commerce/data_base/models/user/db_model.dart';
 // import 'package:e_commerce/screens/user/splash_scree.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 
 // ignore: constant_identifier_names
@@ -53,7 +54,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return const GetMaterialApp(
       title: "MenCart",
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
@@ -61,3 +62,5 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
+

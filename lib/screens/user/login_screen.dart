@@ -1,11 +1,12 @@
 import 'package:e_commerce/Widgets/h1_headline.dart';
 import 'package:e_commerce/Widgets/mainbutton.dart';
 import 'package:e_commerce/Widgets/text_field_reg.dart';
+import 'package:e_commerce/application/core/widgets/appbar.dart';
+import 'package:e_commerce/application/features/auth/getx/auth_get.dart';
 import 'package:e_commerce/data_base/function/user_functions.dart';
-import 'package:e_commerce/user_functions/login_screen_fun.dart';
-import 'package:e_commerce/user_functions/profile_screen.dart';
 import 'package:e_commerce/screens/user/registrationscreen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -21,9 +22,12 @@ class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
+  final authGet = Get.put(AuthGet());
+
   @override
   Widget build(BuildContext context) {
     userr.getAlluser();
+    
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.white,
@@ -65,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
               text: 'Continue',
               onPressedCallback: () {
                 if (formKey.currentState!.validate()) {
-                  login(
+                 authGet.login(
                       _emailController.text, _passwordControlle.text, context);
                 }
               },

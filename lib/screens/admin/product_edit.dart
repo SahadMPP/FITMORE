@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:e_commerce/Widgets/mainbutton.dart';
 import 'package:e_commerce/Widgets/text_field_reg.dart';
 import 'package:e_commerce/admin_side_functions/product_edit_fun.dart';
+import 'package:e_commerce/application/core/widgets/appbar.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
-import 'package:e_commerce/user_functions/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 

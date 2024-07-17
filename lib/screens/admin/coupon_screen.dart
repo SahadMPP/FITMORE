@@ -1,8 +1,7 @@
 import 'package:e_commerce/Widgets/coupon_note.dart';
+import 'package:e_commerce/application/core/widgets/appbar.dart';
 import 'package:e_commerce/data_base/function/coupon_function.dart';
-import 'package:e_commerce/user_functions/profile_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class CouponScreen extends StatefulWidget {
   const CouponScreen({super.key});

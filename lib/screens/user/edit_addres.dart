@@ -1,10 +1,11 @@
 import 'package:e_commerce/Widgets/h1_headline.dart';
 import 'package:e_commerce/Widgets/mainbutton.dart';
 import 'package:e_commerce/Widgets/text_field_reg.dart';
+import 'package:e_commerce/application/features/address/getx/address_get.dart';
 import 'package:e_commerce/data_base/function/address_function.dart';
 import 'package:e_commerce/data_base/models/address/db_address_model.dart';
-import 'package:e_commerce/user_functions/edit_address_func.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class EditAddressScreen extends StatefulWidget {
   final int index;
@@ -51,6 +52,8 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    final addressGet = Get.put(AddressGet());
     GlobalKey<FormState> formkey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: Colors.white,
@@ -120,7 +123,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
               text: 'Update Address',
               onPressedCallback: () {
                 if (formkey.currentState!.validate()) {
-                  updateAddressOnButtonClick(
+                 addressGet.updateAddressOnButtonClick(
                       nameEditcontroller: _nameEditcontroller,
                       phonenumberEditcontroller: _phonenumberEditcontroller,
                       cityEditcontroller: _cityEditcontroller,

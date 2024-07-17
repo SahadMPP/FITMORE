@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'package:e_commerce/Widgets/calcuate_cart.dart';
 import 'package:e_commerce/Widgets/mainbutton.dart';
+import 'package:e_commerce/application/core/widgets/appbar.dart';
+import 'package:e_commerce/application/features/cart/getX/cart_getx.dart';
 import 'package:e_commerce/data_base/function/cart_function.dart';
 import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
-import 'package:e_commerce/user_functions/cart_functions.dart';
-import 'package:e_commerce/user_functions/profile_screen.dart';
 import 'package:e_commerce/screens/user/payment/cart_payment.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:lottie/lottie.dart';
 
@@ -24,6 +24,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     cartt.getAllCart();
+   final cartGet =  Get.put(CartGet());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: mainTitle('My Cart'),
@@ -161,7 +162,7 @@ class _CartScreenState extends State<CartScreen> {
                                                   children: [
                                                     InkWell(
                                                       onTap: () {
-                                                        countLessing(
+                                                      cartGet.countLessing(
                                                           idd: data.id,
                                                           imagee:
                                                               data.image,
@@ -186,7 +187,7 @@ class _CartScreenState extends State<CartScreen> {
                                                     InkWell(
                                                       onTap: () {
                                                         setState(() {
-                                                          countAdding(
+                                                          cartGet.countAdding(
                                                             idd: data.id,
                                                             imagee:
                                                                 data.image,

@@ -2,8 +2,10 @@ import 'package:e_commerce/Widgets/cart_payment_bottom.dart';
 import 'package:e_commerce/Widgets/pay_card_productdel.dart';
 import 'package:e_commerce/Widgets/payment_secon_top_banner.dart';
 import 'package:e_commerce/Widgets/visa_card.dart';
-import 'package:e_commerce/user_functions/payment_last_screen_func.dart';
+import 'package:e_commerce/application/features/payment/getx/payment_get.dart';
+import 'package:e_commerce/application/features/payment/widgets/payment_appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CartPaymentScreen extends StatefulWidget {
   final dynamic totelPrice;
@@ -25,6 +27,8 @@ class _CartPaymentScreenState extends State<CartPaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final paymentGet  = Get.put(PaymentGet());
+
     return Scaffold(
       appBar: paymentTitle(context),
       body: ListView(
@@ -119,7 +123,7 @@ class _CartPaymentScreenState extends State<CartPaymentScreen> {
                         TextButton(
                             onPressed: () {
                               setState(() {
-                                checkingCoupon(
+                               paymentGet.checkingCoupon(
                                     totelPrice: widget.totelPrice,
                                     couponController: _couponController,
                                     allow: allow,

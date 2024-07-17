@@ -1,9 +1,10 @@
 import 'package:e_commerce/Widgets/mainbutton.dart';
 import 'package:e_commerce/Widgets/text_field_reg.dart';
-import 'package:e_commerce/user_functions/registration_screen.dart';
+import 'package:e_commerce/application/features/auth/getx/auth_get.dart';
 import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:email_validator/email_validator.dart';
+import 'package:get/get.dart';
 
 class RegScreen extends StatefulWidget {
   const RegScreen({super.key});
@@ -19,8 +20,11 @@ class _RegScreenState extends State<RegScreen> {
   final _passwordControlle = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  final authGet = Get.put(AuthGet());
+
   @override
   Widget build(BuildContext context) {
+
     bool isValid = false;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -119,7 +123,7 @@ class _RegScreenState extends State<RegScreen> {
                   isValid = EmailValidator.validate(_emailController.text);
                   if (isValid) {
                     if (formKey.currentState!.validate()) {
-                      checkingUserAlreadyExiste(context,
+                     authGet.checkingUserAlreadyExiste(context,
                           emailController: _emailController,
                           nameController: _nameController,
                           phonenumberController: _phonenumberController,

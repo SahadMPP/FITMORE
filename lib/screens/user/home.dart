@@ -1,14 +1,15 @@
-
 import 'package:e_commerce/Widgets/product_card.dart';
 import 'package:e_commerce/Widgets/product_card_second.dart';
 import 'package:e_commerce/Widgets/scrolling_image.dart';
 import 'package:e_commerce/Widgets/search_bar_home.dart';
 import 'package:e_commerce/Widgets/sponser_banner.dart';
+import 'package:e_commerce/application/core/const/const_values.dart';
+import 'package:e_commerce/application/features/home/getx/home_get.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
-import 'package:e_commerce/user_functions/home_page_fun.dart';
 import 'package:e_commerce/screens/user/search.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 
 class Home extends StatefulWidget {
@@ -23,6 +24,7 @@ class _HomeState extends State<Home> {
   int currentPage = 0;
   @override
   Widget build(BuildContext context) {
+    final homeGet = Get.put(HomeGet());
     productt.getAllProduct();
     return Scaffold(
         backgroundColor: Colors.white,
@@ -84,7 +86,7 @@ class _HomeState extends State<Home> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(
                             imageListHome.length,
-                            (index) => buildDots(
+                            (index) => homeGet.buildDots(
                                 index: index, currentPage: currentPage))),
                     const SizedBox(height: 15),
                     Align(
@@ -98,13 +100,14 @@ class _HomeState extends State<Home> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        brandicons(
+                        homeGet.brandicons(
                             'asset/download(Nike).png', 'Nike', 0, context),
-                        brandicons(
+                        homeGet.brandicons(
                             'asset/images(adiddas).png', 'Adidas', 1, context),
-                        brandicons(
+                        homeGet.brandicons(
                             'asset/images(puma).png', 'Puma', 2, context),
-                        brandicons('asset/download(ds).png', 'Dc', 3, context)
+                        homeGet.brandicons(
+                            'asset/download(ds).png', 'Dc', 3, context)
                       ],
                     ),
                     const SizedBox(height: 10),
@@ -127,7 +130,10 @@ class _HomeState extends State<Home> {
                     },
                     child: const Text(
                       'View All >',
-                      style: TextStyle(color: Colors.blue,fontWeight:FontWeight.bold,fontSize: 14 ),
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
                     ),
                   ),
                 ],
@@ -149,7 +155,10 @@ class _HomeState extends State<Home> {
                     },
                     child: const Text(
                       'View All >',
-                      style: TextStyle(color: Colors.blue,fontWeight:FontWeight.bold,fontSize: 14 ),
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
                     ),
                   ),
                 ],
