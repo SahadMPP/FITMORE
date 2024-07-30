@@ -1,8 +1,11 @@
+import 'package:e_commerce/application/features/home/getx/home_get.dart';
 import 'package:e_commerce/application/features/home/widgets/category_section.dart';
 import 'package:e_commerce/application/features/home/widgets/clearance_bar.dart';
 import 'package:e_commerce/application/features/home/widgets/home_gride.dart';
 import 'package:e_commerce/application/features/home/widgets/search_bar.dart';
+import 'package:e_commerce/screens/user/search.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeUi extends StatelessWidget {
@@ -10,6 +13,8 @@ class HomeUi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final homeGet = Get.put(HomeGet());
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -58,18 +63,38 @@ class HomeUi extends StatelessWidget {
           )
         ],
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(16.0),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CusSearchBar(),
-            SizedBox(height: 16),
-            ClearanceBanner(),
-            SizedBox(height: 16),
-            CategoriesSection(),
-            SizedBox(height: 16),
-            ProductsGrid(),
+            GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const SearchScreen(),
+                  ));
+                },
+                child: const CusSearchBar()),
+            const SizedBox(height: 16),
+            const ClearanceBanner(),
+            const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        homeGet.brandicons(
+                            'asset/download(Nike).png', 'Nike', 0, context),
+                        homeGet.brandicons(
+                            'asset/images(adiddas).png', 'Adidas', 1, context),
+                        homeGet.brandicons(
+                            'asset/images(puma).png', 'Puma', 2, context),
+                        homeGet.brandicons(
+                            'asset/download(ds).png', 'Dc', 3, context)
+                      ],
+                    ),
+            const SizedBox(height: 16),
+            const CategoriesSection(),
+            const SizedBox(height: 16),
+            const ProductsGrid(),
           ],
         ),
       ),

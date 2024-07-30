@@ -16,6 +16,8 @@ class ClearanceBanner extends StatelessWidget {
       ),
       child: Row(
         children: [
+
+
           ConstrainedBox(
             constraints: BoxConstraints(
               maxWidth: MediaQuery.of(context).size.width * .4,

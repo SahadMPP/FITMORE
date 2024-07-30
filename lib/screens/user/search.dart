@@ -42,10 +42,11 @@ class _SearchScreenState extends State<SearchScreen> {
             decoration: const InputDecoration(
               labelText: 'search',
               border: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey),
                   borderRadius: BorderRadius.all(Radius.circular(15))),
-              filled: true,
-              fillColor: Color.fromARGB(255, 255, 255, 255),
-              prefixIcon: Icon(Icons.search),
+              // filled: true,
+              // fillColor: Color.fromARGB(255, 255, 255, 255),
+              prefixIcon: Icon(Icons.search,color: Colors.grey,),
               hintStyle: TextStyle(color: Colors.grey),
               contentPadding: EdgeInsets.all(5),
             ),

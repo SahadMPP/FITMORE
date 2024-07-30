@@ -9,6 +9,7 @@ class CusSearchBar extends StatelessWidget {
     return SizedBox(
       height: 40,
       child: TextField(
+        enabled: false,
         decoration: InputDecoration(
           hintText: 'Search',
           hintStyle: GoogleFonts.roboto(color: Colors.grey[500], fontSize: 12),

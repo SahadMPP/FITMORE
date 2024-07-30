@@ -1,6 +1,6 @@
+import 'package:e_commerce/application/features/home/ui/home_ui.dart';
 import 'package:e_commerce/screens/user/cart_screen.dart';
 import 'package:e_commerce/screens/user/favorite_screen.dart';
-import 'package:e_commerce/screens/user/home.dart';
 import 'package:e_commerce/screens/user/notification_screen.dart';
 import 'package:e_commerce/screens/user/profile_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ class BottomNavigator extends StatefulWidget {
 class _BottomNavigator extends State<BottomNavigator> {
   int selectedindex = 0;
   final List<Widget> pages = [
-    const Home(),
+    const HomeUi(),
     const FavoriteScreen(),
     const NotificationScreen(),
     const CartScreen(),

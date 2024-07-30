@@ -1,3 +1,4 @@
+import 'package:e_commerce/screens/user/search.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -7,7 +8,7 @@ class CategoriesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    List<String> list = ['All','SmartPhone','Headphone','Laptop'];
+    List<String> list = ['All','Nike','Puma','Nike','Puma'];
     return Column(
       children: [
         Row(
@@ -21,17 +22,24 @@ class CategoriesSection extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            Text(
-              "See all",
-              style: GoogleFonts.roboto(
-                fontSize: 13,
-                color: const Color.fromARGB(255, 34, 233, 40),
-                fontWeight: FontWeight.w400,
+            GestureDetector(
+              onTap: (){
+                 Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const SearchScreen(),
+                      ));
+              },
+              child: Text(
+                "See All",
+                style: GoogleFonts.roboto(
+                  fontSize: 13,
+                  color: const Color.fromARGB(255, 34, 233, 40),
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ),
           ],
         ),
-        const SizedBox(height: 5),
+        const SizedBox(height: 10),
         SizedBox(
           height: 38,
           child: ListView.builder(

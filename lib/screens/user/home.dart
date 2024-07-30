@@ -149,9 +149,7 @@ class _HomeState extends State<Home> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SearchScreen(),
-                      ));
+                      
                     },
                     child: const Text(
                       'View All >',
