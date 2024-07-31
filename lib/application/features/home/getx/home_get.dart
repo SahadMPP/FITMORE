@@ -43,6 +43,7 @@ class HomeGet extends GetxController {
             backgroundColor: Colors.black,
             child: Image(
               width: 56,
+              
               image: AssetImage(image),
             ),
           ),

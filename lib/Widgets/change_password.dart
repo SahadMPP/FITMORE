@@ -109,7 +109,7 @@ class ChangePasswordWidget extends StatelessWidget {
                                 _newPasswordEditcontroller,
                             conformPasswordEditconstroller:
                                 _conformPasswordEditconstroller,
-                            dbPasswordcontroller: _dbPasswordcontroller,
+                            dbPasswordcontroller: _dbPasswordcontroller.text,
                             userModel: _userModel,
                             context: context);
                       }

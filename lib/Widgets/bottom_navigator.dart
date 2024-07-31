@@ -1,8 +1,8 @@
 import 'package:e_commerce/application/features/home/ui/home_ui.dart';
+import 'package:e_commerce/application/features/profile/ui/profile_ui.dart';
 import 'package:e_commerce/screens/user/cart_screen.dart';
 import 'package:e_commerce/screens/user/favorite_screen.dart';
 import 'package:e_commerce/screens/user/notification_screen.dart';
-import 'package:e_commerce/screens/user/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigator extends StatefulWidget {
@@ -19,7 +19,7 @@ class _BottomNavigator extends State<BottomNavigator> {
     const FavoriteScreen(),
     const NotificationScreen(),
     const CartScreen(),
-    const ProfileScreen()
+    const ProfileUi()
   ];
   @override
   Widget build(BuildContext context) {
