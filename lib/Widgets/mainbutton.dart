@@ -16,10 +16,10 @@ class Button extends StatelessWidget {
         height: 56,
         child: ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: const MaterialStatePropertyAll(
+            backgroundColor: const WidgetStatePropertyAll(
               Color.fromARGB(255, 255, 145, 0),
             ),
-            shape: MaterialStateProperty.all(
+            shape: WidgetStateProperty.all(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18.0),
               ),

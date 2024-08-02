@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CusMiddle extends StatelessWidget {
+  final String title;
+  final String price;
+  final String discription;
   const CusMiddle({
-    super.key,
+    super.key, required this.title, required this.price, required this.discription,
   });
 
   @override
@@ -13,14 +16,14 @@ class CusMiddle extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          height: MediaQuery.of(context).size.height * .5,
+          // height: double.infinity,
           width: double.infinity,
           color: Colors.yellow[100],
         ),
-        const SizedBox(height: 16,),
-        const Text(
-          'Xbox Series X',
-          style: TextStyle(
+        const SizedBox(height: 16),
+         Text(
+          title,
+          style: const TextStyle(
             fontSize: 24.0,
             fontWeight: FontWeight.bold,
           ),
@@ -36,7 +39,7 @@ class CusMiddle extends StatelessWidget {
         ),
         const SizedBox(height: 16.0),
         Text(
-          'The Microsoft Xbox Series X gaming console is capable of impressing with minimal boot times and mesmerizing visual effects when playing games at up to 120 frames per second.',
+          discription,
           style: GoogleFonts.roboto(
               fontSize: 14.0, color: Colors.black, height: 1.5),
         ),

@@ -31,6 +31,19 @@ class Product extends ChangeNotifier {
     productListNotifier.notifyListeners();
   }
 
+  Future<ProductModel?> getSingleProduct(int id) async {
+    ProductModel? product;
+    final productDB = await Hive.openBox<ProductModel>('product_db');
+
+    try {
+      product = productDB.getAt(id);
+      return product;
+    } catch (e) {
+      debugPrint('filed to get product $e');
+    }
+    return null;
+  }
+
   Future<void> getAllProduct() async {
     final productDB = await Hive.openBox<ProductModel>('product_db');
     productListNotifier.value.clear();

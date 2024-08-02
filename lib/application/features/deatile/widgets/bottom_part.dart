@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CusBottom extends StatelessWidget {
+  final String price;
+  final VoidCallback buttonFun;
   const CusBottom({
-    super.key,
+    super.key, required this.price, required this.buttonFun,
   });
 
   @override
@@ -22,7 +24,7 @@ class CusBottom extends StatelessWidget {
               ),
             ),
             Text(
-              '\$570.00',
+              '\$$price.00',
               style: GoogleFonts.roboto(
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
@@ -36,7 +38,7 @@ class CusBottom extends StatelessWidget {
           child: SizedBox(
             height: 50,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed:  buttonFun,
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),
@@ -45,7 +47,7 @@ class CusBottom extends StatelessWidget {
                     horizontal: 24.0, vertical: 12.0),
               ),
               child: Text(
-                'Add to Cart',
+                'Buy',
                 style: GoogleFonts.roboto(
                   fontSize: 14,
                   color: Colors.white,
