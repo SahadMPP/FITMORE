@@ -1,7 +1,7 @@
+import 'package:e_commerce/application/features/cart/ui/cart_ui.dart';
 import 'package:e_commerce/application/features/home/ui/home_ui.dart';
 import 'package:e_commerce/application/features/profile/ui/profile_ui.dart';
 import 'package:e_commerce/screens/user/cart_screen.dart';
-import 'package:e_commerce/screens/user/favorite_screen.dart';
 import 'package:e_commerce/screens/user/notification_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +16,7 @@ class _BottomNavigator extends State<BottomNavigator> {
   int selectedindex = 0;
   final List<Widget> pages = [
     const HomeUi(),
-    const FavoriteScreen(),
+    const CartUi(),
     const NotificationScreen(),
     const CartScreen(),
     const ProfileUi()

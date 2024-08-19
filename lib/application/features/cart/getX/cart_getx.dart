@@ -98,7 +98,8 @@ class CartGet extends GetxController {
       }
     }
     num discountedAmount = (5 / 100) * totelPrice;
-    return '\$$discountedAmount';
+    discountedAmount.toInt();
+    return '\$${discountedAmount.toInt()}';
   }
 
   Future<String> afterDiscounting() async {

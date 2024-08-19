@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
-import 'package:e_commerce/screens/user/product_detiles.dart';
+import 'package:e_commerce/application/features/deatile/ui/product_detiles.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 
