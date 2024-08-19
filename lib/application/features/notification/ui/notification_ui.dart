@@ -63,25 +63,25 @@ class BuildNotificationBox extends StatelessWidget {
                   leading: CircleAvatar(radius: 20.sp),
                   title: Text(
                     'Your recent transation of 10.50 at here and there I hope you understand',
-                    style: TextStyles.bodyText1,
+                    style: TextStyles.bodyText2.copyWith(color: Colors.black,fontSize: 1.8.sh),
                   ),
-                  subtitle: Text('10m ago', style: TextStyles.bodyText2),
+                  subtitle: Text('10m ago', style: TextStyles.bodyText2.copyWith(fontSize: 1.5.sh)),
                 ),
-                ListTile(
+                 ListTile(
                   leading: CircleAvatar(radius: 20.sp),
                   title: Text(
                     'Your recent transation of 10.50 at here and there I hope you understand',
-                    style: TextStyles.bodyText1,
+                    style: TextStyles.bodyText2.copyWith(color: Colors.black,fontSize: 1.8.sh),
                   ),
-                  subtitle: Text('10m ago', style: TextStyles.bodyText2),
+                  subtitle: Text('10m ago', style: TextStyles.bodyText2.copyWith(fontSize: 1.5.sh)),
                 ),
-                ListTile(
+                 ListTile(
                   leading: CircleAvatar(radius: 20.sp),
                   title: Text(
                     'Your recent transation of 10.50 at here and there I hope you understand',
-                    style: TextStyles.bodyText1,
+                    style: TextStyles.bodyText2.copyWith(color: Colors.black,fontSize: 1.8.sh),
                   ),
-                  subtitle: Text('10m ago', style: TextStyles.bodyText2),
+                  subtitle: Text('10m ago', style: TextStyles.bodyText2.copyWith(fontSize: 1.5.sh)),
                 ),
               ],
             ),

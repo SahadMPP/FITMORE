@@ -9,6 +9,7 @@ import 'package:e_commerce/screens/user/splash_scree.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:sizer/sizer.dart';
 
 // ignore: constant_identifier_names
 const SAVE_KEY_NAME = 'UserLoggidIn';
@@ -53,13 +54,13 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
-      title: "MenCart",
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
-      home: SplashScreen(),
+    return ResponsiveSizer(
+      builder: (p0, p1, p2) => const GetMaterialApp(
+        title: "MenCart",
+        debugShowCheckedModeBanner: false,
+        themeMode: ThemeMode.light,
+        home: SplashScreen(),
+      ),
     );
   }
 }
-
-
