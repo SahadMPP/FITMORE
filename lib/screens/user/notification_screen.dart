@@ -1,8 +1,8 @@
 import 'package:e_commerce/Widgets/nitification_card.dart';
 import 'package:e_commerce/application/core/const/const_values.dart';
+import 'package:e_commerce/application/features/notification/ui/notification_ui.dart';
 import 'package:flutter/material.dart';
 
-int notificationCount = 1;
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});

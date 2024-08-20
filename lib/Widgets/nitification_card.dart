@@ -1,4 +1,4 @@
-import 'package:e_commerce/screens/user/notification_screen.dart';
+import 'package:e_commerce/application/features/notification/ui/notification_ui.dart';
 import 'package:flutter/material.dart';
 
 class NotificationCard extends StatelessWidget {

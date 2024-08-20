@@ -1,7 +1,7 @@
+import 'package:e_commerce/application/features/notification/ui/notification_ui.dart';
 import 'package:e_commerce/data_base/function/order_history.dart';
 import 'package:e_commerce/data_base/models/coupon/coupon_model.dart';
 import 'package:e_commerce/data_base/models/order_history/order_history_model.dart';
-import 'package:e_commerce/screens/user/notification_screen.dart';
 import 'package:e_commerce/screens/user/payment/payment_last_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
