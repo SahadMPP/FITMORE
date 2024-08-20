@@ -19,6 +19,7 @@ class ProfileUi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profileGet = Get.put(ProfileGet());
+    profileGet.initialdata();
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: SafeArea(
@@ -67,7 +68,7 @@ class ProfileUi extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'Richard Doe',
+                  profileGet.userModel.name ?? "Null",
                   style: GoogleFonts.roboto(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -87,18 +88,18 @@ class ProfileUi extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const ProfileDetailRow(
+                       ProfileDetailRow(
                         icon: Icons.email,
                         title: 'Email',
-                        value: 'richarddoe@gmail.com',
+                        value: profileGet.userModel.email ?? "Null",
                       ),
                       Divider(
                         color: Colors.grey[300],
                       ),
-                      const ProfileDetailRow(
+                       ProfileDetailRow(
                         icon: Icons.phone,
                         title: 'Phone Number',
-                        value: '123-456-7890',
+                        value: profileGet.userModel.phoneNumber ?? "Null",
                       ),
                       Divider(
                         color: Colors.grey[300],
@@ -162,7 +163,7 @@ class ProfileUi extends StatelessWidget {
                   title: 'Edit',
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const EditProfile(),
+                      builder: (context) =>  EditProfile(user: profileGet.userModel),
                     ));
                   },
                 ),

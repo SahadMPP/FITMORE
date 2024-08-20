@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EditProfile extends StatefulWidget {
-  const EditProfile({super.key});
+  final UserModel user;
+  const EditProfile({super.key, required this.user});
 
   @override
   State<EditProfile> createState() => _EditProfileState();
@@ -26,7 +27,6 @@ class _EditProfileState extends State<EditProfile> {
   final _newPasswordEditcontroller = TextEditingController();
   final _conformPasswordEditconstroller = TextEditingController();
 
-  late UserModel _userModel;
 
   @override
   void initState() {
@@ -38,11 +38,10 @@ class _EditProfileState extends State<EditProfile> {
     final userlist = userListNotifier.value;
 
     if (userlist.isNotEmpty) {
-      _userModel = userlist[0];
-      _nameEditcontroller.text = _userModel.name!;
-      _phonenumberEditcontroller.text = _userModel.phoneNumber!;
-      _emailEditconstroller.text = _userModel.email!;
-      _dbPasswordcontroller.text = _userModel.password!;
+      _nameEditcontroller.text = widget.user.name!;
+      _phonenumberEditcontroller.text = widget.user.phoneNumber!;
+      _emailEditconstroller.text = widget.user.email!;
+      _dbPasswordcontroller.text = widget.user.password!;
     }
     super.initState();
   }
@@ -110,7 +109,7 @@ class _EditProfileState extends State<EditProfile> {
               newPasswordEditcontroller: _newPasswordEditcontroller,
               conformPasswordEditconstroller: _conformPasswordEditconstroller,
               dbPasswordcontroller: _dbPasswordcontroller,
-              userModel: _userModel),
+              userModel: widget.user),
           const SizedBox(height: 18),
           Button(
               text: 'Update',
@@ -119,7 +118,7 @@ class _EditProfileState extends State<EditProfile> {
                     nameEditcontroller: _nameEditcontroller,
                     phonenumberEditcontroller: _phonenumberEditcontroller,
                     emailEditconstroller: _emailEditconstroller,
-                    userModel: _userModel);
+                    userModel: widget.user);
                 Navigator.of(context).pop();
               }),
         ],

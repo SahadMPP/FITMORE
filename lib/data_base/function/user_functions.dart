@@ -6,6 +6,7 @@ ValueNotifier<List<UserModel>> userListNotifier = ValueNotifier([]);
 UserFunction userr = UserFunction();
 
 class UserFunction extends ChangeNotifier {
+
   void addUser(UserModel value) async {
     final userDB = await Hive.openBox<UserModel>('user_db');
     final id = await userDB.add(value);
@@ -14,6 +15,7 @@ class UserFunction extends ChangeNotifier {
     userDB.put(
         id,
         UserModel(
+             id: id,
             name: user!.name,
             phoneNumber: user.phoneNumber,
             email: user.email,
@@ -28,6 +30,12 @@ class UserFunction extends ChangeNotifier {
     userListNotifier.value.clear();
     userListNotifier.value.addAll(userDB.values);
     userListNotifier.notifyListeners();
+  }
+
+  Future<UserModel> getUserById(id)async{
+    final userDB = await Hive.openBox<UserModel>('user_db');
+    UserModel user = userDB.getAt(id)!;
+    return user;
   }
 
   Future<void> updateUser(int id, UserModel value) async {

@@ -122,6 +122,7 @@ Future<void> login(String email, String password, BuildContext context) async {
   if (user.active == true) {
     final shareprefe = await SharedPreferences.getInstance();
     await shareprefe.setBool(SAVE_KEY_NAME, true);
+    await shareprefe.setString('USER_ID',user.id.toString());
     // ignore: use_build_context_synchronously
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: ((ctx) => const BottomNavigator())),
