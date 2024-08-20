@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ClearanceBanner extends StatelessWidget {
-  const ClearanceBanner({super.key});
+  final String image;
+  const ClearanceBanner({super.key, required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -11,6 +11,7 @@ class ClearanceBanner extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
+        image:  DecorationImage(image: AssetImage(image,),fit: BoxFit.fill),
         color: Colors.green[500],
         borderRadius: BorderRadius.circular(18.0),
       ),
@@ -25,13 +26,13 @@ class ClearanceBanner extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Clearance Sales',
-                  style: GoogleFonts.aBeeZee(
-                    fontSize: 26,
-                    color: Colors.white,
-                  ),
-                ),
+                // Text(
+                //   'Clearance Sales',
+                //   style: GoogleFonts.aBeeZee(
+                //     fontSize: 26,
+                //     color: Colors.white,
+                //   ),
+                // ),
                 const Spacer(),
                 SizedBox(
                   height: 30,

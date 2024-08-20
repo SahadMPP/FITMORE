@@ -8,14 +8,13 @@ class CategoriesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    List<String> list = ['All','Nike','Puma','Nike','Puma'];
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Categories",
+              "All",
               style: GoogleFonts.roboto(
                 fontSize: 18,
                 color: Colors.black,
@@ -39,20 +38,19 @@ class CategoriesSection extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 10),
-        SizedBox(
-          height: 38,
-          child: ListView.builder(
-            itemCount: list.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return  CategoryChip(
-                label:list[index],
-                isSelected: index == 0 ? true : false,
-              );
-            },
-          ),
-        ),
+        // SizedBox(
+        //   height: 38,
+        //   child: ListView.builder(
+        //     itemCount: list.length,
+        //     scrollDirection: Axis.horizontal,
+        //     itemBuilder: (context, index) {
+        //       return  CategoryChip(
+        //         label:list[index],
+        //         isSelected: index == 0 ? true : false,
+        //       );
+        //     },
+        //   ),
+        // ),
       ],
     );
   }

@@ -2,11 +2,14 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:e_commerce/data_base/function/cart_function.dart';
 import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
-import 'package:e_commerce/screens/user/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 
 class CartGet extends GetxController {
+   
+int totelPriceShare = 0;
+
+
   Future<void> countLessing(
       {quantityy, pricee, titlee, imagee, idd, count}) async {
     int id = idd ?? 0;

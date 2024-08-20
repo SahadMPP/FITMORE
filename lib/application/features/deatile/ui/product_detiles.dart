@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:e_commerce/application/features/cart/ui/cart_screen.dart';
 import 'package:e_commerce/application/features/deatile/widgets/bottom_part.dart';
 import 'package:e_commerce/application/features/deatile/widgets/middle_part.dart';
 import 'package:e_commerce/data_base/function/product_db_function.dart';
 import 'package:e_commerce/data_base/models/cart_/cart_model.dart';
 import 'package:e_commerce/data_base/models/favorite/favorite_model.dart';
 import 'package:e_commerce/data_base/models/product/db_product_model.dart';
-import 'package:e_commerce/screens/user/cart_screen.dart';
 import 'package:e_commerce/screens/user/payment/payment_address.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

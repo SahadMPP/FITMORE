@@ -18,7 +18,6 @@ class CartScreen extends StatefulWidget {
   State<CartScreen> createState() => _CartScreenState();
 }
 
-int totelPriceShare = 0;
 
 class _CartScreenState extends State<CartScreen> {
   @override
@@ -224,7 +223,7 @@ class _CartScreenState extends State<CartScreen> {
                       },
                     );
                   },
-                );
+                ); 
               },
             ),
           ),
@@ -243,7 +242,7 @@ class _CartScreenState extends State<CartScreen> {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => CartPaymentScreen(
                           index: 0,
-                          totelPrice: totelPriceShare,
+                          totelPrice: cartGet.totelPriceShare,
                         ),
                       ));
                     }),
